@@ -87,7 +87,7 @@ const Store = new Vuex.Store({
         'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
       }
       }).then(function (response) {
-       resolve(response);
+       resolve(response.data);
       }).catch(function (error){
        resolve(error);
       }); 
