@@ -1,22 +1,27 @@
 /* Vue */
 import Vue from 'vue'
 import router from './router'
-import store from './store'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
+
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 Vue.config.productionTip = false
 
+import store from './store'
 
 /* App component */
 import App from './components/App.vue'
 
-/* App sass */
+/* App css */
 import './assets/style/app.css'
 
 /* Auth plugin */
 import Auth from './auth'
 Vue.use(Auth)
+
 
 /* eslint-disable no-new */
 new Vue({
