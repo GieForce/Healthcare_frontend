@@ -1,0 +1,419 @@
+@media (min-width:960px) {
+    .footer{
+        background-image: url("../../assets/Footer.png");
+        width: 100%;
+        padding:0;
+        margin: 0;
+    }
+    .footerLinks {
+        text-align:  left;
+    }
+}
+/*//nothing with screen size bigger than 960px*/
+
+@media (max-width:960px) {
+    .footer{
+        background-color: #062c33;
+        width: 100%;
+        padding:0;
+        margin: 0;
+        text-align: center;
+    }
+    .footerLinks {
+        text-align:  center;
+    }
+}
+/*//nothing with screen size smaller than 960px*/
+
+
+.bordernavbar{
+    border-bottom: 6px solid transparent;
+    -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 6;
+    -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 6;
+    -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 6;
+    border-image: linear-gradient(to right, #33ffff , #00cccc) 6;
+    /*background: linear-gradient(to right, #4ec7dc , #21a8a3);*/
+    /*-webkit-border-image: -webkit-gradient(linear, left top, left bottom, from(#4ec7dc), to(#21a8a3));*/
+}
+.buttonnav {
+    display: inline-block;
+    background-color: #00cccc;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.buttonnav span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.buttonnav span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.buttonnav:hover span {
+    padding-right: 25px;
+}
+
+.buttonnav:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.linkani {
+    margin-right: 1%;
+}
+
+.linkani:hover
+{
+    border-bottom: 3px solid transparent;
+    -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 3;
+    -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 3;
+    -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 3;
+    border-image: linear-gradient(to right, #33ffff , #00cccc) 3;
+    height: 100%;
+    transition: all 0.3s;
+    color: #000;
+}
+
+.footerLinks ul {
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+.footerLinks li {
+    color: #FFF;
+}
+.footerLinks a {
+    text-decoration: none;
+    color: #FFF;
+}
+.footerLinks a:hover {
+    color: #4ec7dc;
+    transition: all 0.1s;
+}
+.float-left{
+    float: left;
+}
+
+.btn-primary2 {
+    color: #fff;
+    background-color: #00cccc;
+    border-color: #00cccc;
+}
+
+.btn-primary2:hover {
+    color: #fff;
+    background-color: #00cccc;
+    border-color: #00cccc;
+}
+
+.line-break{
+    border-bottom: 2px solid rgba(71,71,71,0.3);
+    padding-bottom: 15px;
+}
+
+.medewerkerprofile{
+    border-top: 2px solid rgba(71,71,71,0.3);
+    border-right: 2px solid rgba(71,71,71,0.3);
+    border-left: 2px solid rgba(71,71,71,0.3);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 10px;
+}
+
+object{
+    pointer-events: none;
+}
+
+.logosvg{
+    display: inline-block;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #00cccc;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 10px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button:hover span {
+    padding-right: 25px;
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.field{
+    --uiFieldPaddingTop: var(--fieldPaddingTop, 0px);
+    --uiFieldPaddingRight: var(--fieldPaddingRight, 0px);
+    --uiFieldPaddingBottom: var(--fieldPaddingBottom, 0px);
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 0px);
+
+    --uiFieldBorderColor: var(--fieldBorderColor, transpatent);
+    --uiFieldBorderTop: var(--fieldBorderTop, 0px);
+    --uiFieldBorderRight: var(--fieldBorderRight, 0px);
+    --uiFieldBorderBottom: var(--fieldBorderBottom, 0px);
+    --uiFieldBorderLeft: var(--fieldBorderLeft, 0px);
+
+    --uiFieldBgColor: var(--fieldBgColor, transpatent);
+    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+    --uiFieldAnimationDuration: var(--fieldAnimationDuration, .3s);
+    --uiFieldFonstSize: var(--fieldFontSize, 16px);
+
+    position: relative;
+    display: block;
+}
+
+.field__label-wrap{
+    height: 100%;
+    display: block;
+}
+
+.field__label{
+    position: absolute;
+    top: calc(0px + var(--uiFieldPaddingTop) + var(--uiFieldBorderTop));
+    left: calc(0px + var(--uiFieldPaddingLeft) + var(--uiFieldBorderLeft));
+
+    pointer-events: none;
+    font-size: .8em;
+
+    transition: top var(--uiFieldAnimationDuration) cubic-bezier(0.9,-0.15, 0.1, 1.15), opacity var(--uiFieldAnimationDuration) ease-out;
+    will-change: top, opacity;
+}
+
+.field__input::-webkit-input-placeholder{
+    color: var(--uiFieldPlaceholderColor);
+    opacity: 0;
+}
+
+.field__input::-moz-placeholder{
+    color: var(--uiFieldPlaceholderColor);
+    opacity: 0;
+}
+
+.field__input:focus{
+    outline: none;
+}
+
+.field__input:focus::-webkit-input-placeholder{
+    transition: opacity var(--uiFieldAnimationDuration) ease-out var(--uiFieldAnimationDuration);
+    opacity: 1;
+}
+
+.field__input:focus::-moz-placeholder{
+    transition: opacity var(--uiFieldAnimationDuration) ease-out var(--uiFieldAnimationDuration);
+    opacity: 1;
+}
+
+.field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label{
+    opacity: 0;
+    top: calc(0px + var(--uiFieldPaddingTop) + var(--uiFieldBorderTop));
+}
+
+.field__input:focus ~ .field__label-wrap .field__label{
+    opacity: 1;
+    top: calc(-1 * calc(var(--uiFieldPaddingTop) + var(--uiFieldBorderTop) + 15px));
+}
+
+.field__input{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--uiFieldBgColor);
+
+    /* for iOS */
+    appearance: none;
+    border-radius: 0;
+
+    border-style: solid;
+    border-color: var(--uiFieldBorderColor);
+
+    border-top-width: var(--uiFieldBorderTop);
+    border-right-width: var(--uiFieldBorderRight);
+    border-bottom-width: var(--uiFieldBorderBottom);
+    border-left-width: var(--uiFieldBorderLeft);
+
+    padding-top: var(--uiFieldPaddingTop);
+    padding-right: var(--uiFieldPaddingRight);
+    padding-bottom: var(--uiFieldPaddingBottom);
+    padding-left: var(--uiFieldPaddingLeft);
+
+    font-family: inherit;
+    font-size: 80%;
+    color: inherit;
+}
+
+.field_type2{
+    --uiFieldBorderBottom: var(--fieldBorderBottom, 2px);
+    --uiFieldPaddingTop: var(--fieldPaddingTop, 5px);
+    --uiFieldPaddingRight: var(--fieldPaddingRight, 15px);
+    --uiFieldPaddingBottom: var(--fieldPaddingBottom, 10px);
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 15px);
+}
+
+.field_type2 .field__label-wrap:after{
+    content: "";
+    width: 0;
+    height: var(--uiFieldBorderBottom);
+    background-color: var(--fieldBorderColorActive);
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    will-change: width;
+    transition: width var(--uiFieldAnimationDuration) ease-out;
+}
+
+.field_type2 .field__input:focus ~ .field__label-wrap:after{
+    width: 100%;
+}
+
+.field_type3{
+    --uiFieldBorderBottom: var(--fieldBorderBottom, 2px);
+    --uiFieldPaddingTop: var(--fieldPaddingTop, 5px);
+    --uiFieldPaddingRight: var(--fieldPaddingRight, 15px);
+    --uiFieldPaddingBottom: var(--fieldPaddingBottom, 10px);
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 15px);
+}
+
+.field_type3 .field__label-wrap:before, .field_type3 .field__label-wrap:after{
+    content: "";
+    width: 0;
+    height: var(--uiFieldBorderBottom);
+    background-color: var(--fieldBorderColorActive);
+
+    position: absolute;
+    bottom: 0;
+
+    will-change: width;
+    transition: width var(--uiFieldAnimationDuration) ease-out;
+}
+
+.field_type3 .field__label-wrap:before{
+    left: 50%;
+}
+
+.field_type3 .field__label-wrap:after{
+    right: 50%;
+}
+
+.field_type3 .field__input:focus ~ .field__label-wrap:before,
+.field_type3 .field__input:focus ~ .field__label-wrap:after{
+    width: 50%;
+}
+
+.logotext1{
+    font-family: 'Monda', sans-serif;
+    text-align: center;
+    color: #34B3C1;
+}
+
+.logotext2{
+    text-indent: 50px;
+    font-family: 'Monda', sans-serif;
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+    color: #B5B5B5;
+}
+
+.bordertop{
+    border-top: 5px;
+    border-right: 5px;
+    border-left: 5px;
+    color: #000000;
+}
+
+.bordermiddle{
+    border-right: 5px;
+    border-left: 5px;
+    color: #000000;
+}
+
+.borderbottom{
+    border-right: 5px;
+    border-left: 5px;
+    border-bottom: 5px;
+    color: #000000;
+}
+
+.form-inner{
+    padding: 40px 30px;
+    background: #fff;
+    -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.login-page{
+    width: 100%;
+    background: #f5f5f5;
+    min-height: auto;
+    padding-bottom: 0;
+    height: 100%;
+}
+
+html{
+    background: #f5f5f5;
+}
+
+.bordercontainerlogin{
+    border-top: 10px solid transparent;
+    -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+}
+
+object{
+    pointer-events: none;
+}
+
+.logosvg{
+    display: inline-block;
+}
+
+.loginform{
+    margin-top: 10%;
+}
+
+
