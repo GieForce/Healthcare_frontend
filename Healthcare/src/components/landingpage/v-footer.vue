@@ -17,10 +17,10 @@
                     <br>
                     <div class="footerLinks">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="medewerkers.html">Medewerkers</a></li>
-                            <li><a href="contactgegevens.html">Contact</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a>Home</a></li>
+                            <li><a>Medewerkers</a></li>
+                            <li><a>Contact</a></li>
+                            <li><a>Contact</a></li>
                         </ul></div>
                 </div>
                 <div class="col-md-3">
