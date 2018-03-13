@@ -44,7 +44,7 @@
                 <div class="col" style="padding-top: .35rem">
                   <div class="form-check mb-2 mr-sm-2 mb-sm-0, text-center">
                     <label class="form-check-label">
-                      <input class="form-check-input" name="remember"type="checkbox">
+                      <input class="form-check-input" name="remember" type="checkbox">
                       <span style="padding-bottom: .15rem">Remember me</span>
                     </label>
                   </div>
@@ -66,7 +66,6 @@
           </div>
           </div>
   </div>
-</div>
 </template>
 
 <script>
