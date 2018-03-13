@@ -397,11 +397,19 @@ html{
 }
 
 .bordercontainerlogin{
+<<<<<<< HEAD
     border-top: 10px solid transparent;
     -webkit-border-image: linear-gradient(to right, #33ffff , #34B3C1) 10;
     -moz-border-image: linear-gradient(to right, #33ffff , #34B3C1) 10;
     -o-border-image: linear-gradient(to right, #33ffff , #34B3C1) 10;
     border-image: linear-gradient(to right, #33ffff , #34B3C1) 10;
+=======
+    border-top: 30px solid transparent;
+    -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+>>>>>>> Login
 }
 
 object{
@@ -414,4 +422,3 @@ object{
 
 .loginform{
     margin-top: 10%;
-}

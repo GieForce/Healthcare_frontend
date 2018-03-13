@@ -16,6 +16,7 @@
   "dependencies": {
     "@google/maps": "^0.4.5",
     "axios": "^0.18.0",
+    "standard": "^10.0.3",
     "bootstrap-vue": "^2.0.0-rc.2",
     "google-maps": "^3.2.1",
     "update": "^0.7.4",
