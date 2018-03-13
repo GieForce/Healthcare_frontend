@@ -24,6 +24,16 @@ import App from './components/App.vue'
 import Auth from './auth'
 Vue.use(Auth)
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyCVr8MxDiZLgjHJiIy6uVmhx_aE74J4x0c',
+    libraries: 'places', // This is required if you use the Autocomplete plugin
+    // OR: libraries: 'places,drawing'
+    // OR: libraries: 'places,drawing,visualization'
+    // (as you require)
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

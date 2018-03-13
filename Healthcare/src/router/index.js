@@ -23,6 +23,20 @@ const router = new Router({
         require(['@/components/login/Login.vue'], resolve)
       }
     },
+    {
+      path: '/contactgegevens',
+      name: 'contactgegevens',
+      component: function (resolve) {
+        require(['@/components/landingpage/contactgegevens.vue'], resolve)
+      }
+    },
+    {
+      path: '/medewerkers',
+      name: 'medewerkers',
+      component: function (resolve) {
+        require(['@/components/landingpage/medewerkers.vue'], resolve)
+      }
+    },
 
   ]
 })
