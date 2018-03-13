@@ -2,8 +2,10 @@
 import Vue from 'vue'
 import router from './router'
 import VueResource from 'vue-resource'
-
 Vue.use(VueResource)
+
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
@@ -12,11 +14,11 @@ Vue.config.productionTip = false
 
 import store from './store'
 
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 /* App component */
 import App from './components/App.vue'
-
-/* App css */
-import './assets/style/app.css'
 
 /* Auth plugin */
 import Auth from './auth'
@@ -35,3 +37,4 @@ new Vue({
   store,
   render: h => h(App)
 })
+
