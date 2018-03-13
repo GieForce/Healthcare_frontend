@@ -6,9 +6,12 @@
   <div class="login-page text-center id=logincheck">
     <div class="container text-center loginform">
         <div class="row">
+
             <div class="col"></div>
             <div class="col-xl-5">
               <div class="form-inner bordercontainerlogin">
+                <div v-if="isLoading" > <loader> </loader> </div>
+                <div v-if="!isLoading">
                 <a href="index.html" class="logosvg">
                   <div class="text-center">
                     <img src="../../assets/logoZonnevelt-02.svg" alt="lock" width="250px">
@@ -51,22 +54,24 @@
                 <div class="col">
                   <div style="text-align:center">
                     <button class="button" style="vertical-align:middle" v-on:click="login({ email, password })"><span>Inloggen </span></button>
-                    {{ message }}
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
             <div class="col"></div>
 
           </div>
-    </div>
+          </div>
+          </div>
   </div>
 </div>
 </template>
 
 <script>
 
+  import Loader from '../loader.vue'
   import axios from 'axios'
 
   export default{
@@ -78,7 +83,7 @@
       }
     },
     computed: {
-      message () {
+      isLoading () {
           return this.$store.getters.isPending;
       }
     },
@@ -86,17 +91,22 @@
       login() {
         this.$store.dispatch("login", {
           email: this.email,
-          password: this.password
+          password: this.password,
         }).then(() => {
           this.$store.dispatch("getRequest", "patients").then(response => {
             console.log(response)
           })
         });
       }
+    },
+    components: {
+      'loader': Loader
     }
   }
+
+
 </script>
 <style>
-@import"../../assets/style/style.css";
+@import"../../assets/style/landing.css";
 @import"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css";
 </style>

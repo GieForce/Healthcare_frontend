@@ -397,7 +397,7 @@ html{
 }
 
 .bordercontainerlogin{
-    border-top: 10px solid transparent;
+    border-top: 30px solid transparent;
     -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
     -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
     -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
