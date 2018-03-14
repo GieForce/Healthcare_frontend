@@ -37,6 +37,13 @@ const router = new Router({
         require(['@/components/landingpage/medewerkers.vue'], resolve)
       }
     },
+    {
+      path: '/dossier',
+      name: 'dossier',
+      component: function (resolve) {
+        require(['@/components/dashboard/dossier.vue'], resolve)
+      }
+    },
 
   ]
 })
