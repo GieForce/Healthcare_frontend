@@ -24,6 +24,13 @@ const router = new Router({
       }
     },
     {
+      path: '/register',
+      name: 'register',
+      component: function (resolve) {
+        require(['@/components/login/Register.vue'], resolve)
+      }
+    },
+    {
       path: '/contactgegevens',
       name: 'contactgegevens',
       component: function (resolve) {
