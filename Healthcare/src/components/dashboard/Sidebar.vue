@@ -34,7 +34,7 @@
         name:'navbar',
         data(){
           return{
-            userType: this.$store.getters.user.userType
+            userType: this.$store.getters.user
           }
         }
       }
