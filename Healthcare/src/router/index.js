@@ -37,15 +37,22 @@ const router = new Router({
         require(['@/components/landingpage/medewerkers.vue'], resolve)
       }
     },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: function (resolve) {
+        require(['@/components/dashboard/Index.vue'], resolve)
+      },
+      beforeEnter: guardRoute
+    },
 
   ]
 })
 
 function guardRoute (to, from, next) {
-  // work-around to get to the Vuex store (as of Vue 2.0)
-  const auth = router.app.$options.store.state.auth
+  const auth = router.app.$options.store
 
-  if (!auth.isLoggedIn) {
+  if (!auth.getters.isLoggedIn  && auth.getters.user.type != null) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }

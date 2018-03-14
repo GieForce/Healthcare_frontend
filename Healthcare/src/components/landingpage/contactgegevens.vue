@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col">
-            <img src="../../assets/contactPraktijk.jpg" class="img-fluid rounded"/>
+            <img src="../../assets/img/contactPraktijk.jpg" class="img-fluid rounded"/>
         </div>
         <div class="col-md-1"></div>
         <div class="col">

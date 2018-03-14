@@ -3,7 +3,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="../../assets/logoZonnevelt-02.svg" alt="" width="80%">
+                    <img src="../../assets/img/logoZonnevelt-02.svg" alt="" width="80%">
                     <h6 style="color: #FFF; margin-top:30px;">Spoednummer:</h6>
                     <h3 style="color: #4ec7dc;">0987-654321</h3>
                 </div>
