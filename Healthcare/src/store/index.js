@@ -90,7 +90,28 @@ const Store = new Vuex.Store({
        resolve(response.data);
       }).catch(function (error){
        resolve(error);
-      }); 
+      });
+     }, 1000);
+    });
+   },
+   putRequest({ commit }, url, wachtwoord) {
+    commit(PENDING);
+    return new Promise(resolve => {
+    setTimeout(() => {
+     axios({
+      method: 'put',
+      url: 'https://zonnevelt.nl/' + url,
+      headers: {
+        
+      },
+      data: {
+          password: wachtwoord,
+        }
+      }).then(function (response) {
+       resolve(response.data);
+      }).catch(function (error){
+       resolve(error);
+      });
      }, 1000);
     });
    },

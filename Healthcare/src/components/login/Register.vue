@@ -77,6 +77,7 @@
         errors: [],
         wachtwoord: null,
         wachtwoordCheck: null,
+        token: this.$route.query,
       }
     },
     methods: {
@@ -90,6 +91,12 @@
       }
       if(!this.errors.length) return true;
       e.preventDefault();
+    },
+    register() {
+      this.$http.Put(this.token)
+      this.$store.dispatch("putRequest",patients ,this.wachtwoord).then(() => {
+      console.log(response);
+      });
     }
     },
     components: {

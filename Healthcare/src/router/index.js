@@ -44,6 +44,36 @@ const router = new Router({
         require(['@/components/landingpage/medewerkers.vue'], resolve)
       }
     },
+    { path: '/patients',
+      name: 'beheer',
+      component: function (resolve) {
+      require(['@/components/Patiëntbeheer/Beheer.vue'], resolve)
+      }
+    },
+    { path: '/patient/:patient_id',
+      name: 'patient',
+      component: function (resolve) {
+        require(['@/components/Patiëntbeheer/Patient.vue'], resolve)
+      }
+    },
+    { path: '/add-patient',
+      name: 'patient-add',
+      component: function (resolve) {
+        require(['@/components/Patiëntbeheer/addPatient.vue'], resolve)
+      }
+    },
+    { path: '/product/:product_id/edit',
+      name: 'patient-edit',
+      component: function (resolve) {
+        require(['@/components/Patiëntbeheer/patientEdit.vue'], resolve)
+      }
+    },
+    { path: '/patient/:patient_id/delete',
+      name: 'patient-delete',
+      component: function (resolve) {
+        require(['@/components/Patiëntbeheer/patientDelete.vue'], resolve)
+      }
+    },
 
   ]
 })
