@@ -14,7 +14,7 @@
                 <div v-if="!isLoading">
                 <a href="index.html" class="logosvg">
                   <div class="text-center">
-                    <img src="../../assets/logoZonnevelt-02.svg" alt="lock" width="250px">
+                    <img src="../../assets/img/logoZonnevelt-02.svg" alt="lock" width="250px">
                   </div>
                 </a>
                 <hr width="100%">
@@ -30,7 +30,7 @@
                   </div>
               </div>
               <div class="row py-3">
-                <img src="../../assets/lock2.0.jpg" alt="lock" width="25" height="25">
+                <img src="../../assets/img/lock2.0.jpg" alt="lock" width="25" height="25">
                   <div class="col">
                     <label class="field field_type2">
                       <input type="password" class="field__input" id="password" v-model="password" placeholder="wachtwoord">
@@ -92,9 +92,7 @@
           email: this.email,
           password: this.password,
         }).then(() => {
-          this.$store.dispatch("getRequest", "patients").then(response => {
-            console.log(response)
-          })
+          this.$router.push('dashboard')
         });
       }
     },

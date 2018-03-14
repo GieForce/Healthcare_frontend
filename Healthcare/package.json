@@ -16,15 +16,16 @@
   "dependencies": {
     "@google/maps": "^0.4.5",
     "axios": "^0.18.0",
-    "standard": "^10.0.3",
     "bootstrap-vue": "^2.0.0-rc.2",
     "google-maps": "^3.2.1",
+    "standard": "^10.0.3",
     "update": "^0.7.4",
     "vue": "^2.5.2",
     "vue-resource": "^1.4.0",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.8.11",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -8,7 +8,7 @@
 
     <b-navbar class="navbar navbar-expand-lg sticky-top navbar-light bg-light bordernavbar" toggleable="md" variant="info">
         <b-navbar-brand class="logosvg">
-            <img v-on:click="setHome" style="cursor:pointer" src="../../assets/logoZonnevelt-02.svg" alt="" height="55px">
+            <img v-on:click="setHome" style="cursor:pointer" src="../../assets/img/logoZonnevelt-02.svg" alt="" height="55px">
         </b-navbar-brand>
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>     
         <b-collapse is-nav id="nav_collapse">

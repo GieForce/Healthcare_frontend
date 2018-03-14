@@ -32,6 +32,17 @@ const router = new Router({
       },
       beforeEnter: guardRoute
     }
+        require(['@/components/landingpage/medewerkers.vue'], resolve)
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: function (resolve) {
+        require(['@/components/dashboard/Index.vue'], resolve)
+      },
+      beforeEnter: guardRoute
+    },
 
   ]
 })
@@ -43,6 +54,9 @@ function guardRoute (to, from, next) {
   console.log(auth.getters.isLoggedIn)
   if (!auth.getters.isLoggedIn) {
     console.log('not logged in')
+  const auth = router.app.$options.store
+
+  if (!auth.getters.isLoggedIn  && auth.getters.user.type != null) {
     next({
       path: '/login',
       query: { redirect: to.path }

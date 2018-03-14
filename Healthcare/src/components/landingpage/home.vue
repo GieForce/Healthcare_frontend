@@ -15,15 +15,15 @@
       >
 
         <!-- Text slides with image -->
-        <b-carousel-slide :img-src="require('../../assets/ousa-chea-552189-unsplash.jpeg')">
+        <b-carousel-slide :img-src="require('../../assets/img/ousa-chea-552189-unsplash.jpeg')">
         </b-carousel-slide>
 
         <!-- Slides with custom text -->
-        <b-carousel-slide :img-src="require('../../assets/dan-gold-220226-unsplash.jpeg')">
+        <b-carousel-slide :img-src="require('../../assets/img/dan-gold-220226-unsplash.jpeg')">
         </b-carousel-slide>
 
         <!-- Slides with image only -->
-        <b-carousel-slide :img-src="require('../../assets/jesse-orrico-60373-unsplash.jpeg')">
+        <b-carousel-slide :img-src="require('../../assets/img/jesse-orrico-60373-unsplash.jpeg')">
         </b-carousel-slide>
       </b-carousel>
     </div>
