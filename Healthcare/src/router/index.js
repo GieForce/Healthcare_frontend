@@ -24,31 +24,28 @@ const router = new Router({
       }
     },
     {
-      path: '/contactgegevens',
-      name: 'contactgegevens',
+
+      path: '/admin',
+      name: 'admin',
       component: function (resolve) {
-        require(['@/components/landingpage/contactgegevens.vue'], resolve)
-      }
-    },
-    {
-      path: '/medewerkers',
-      name: 'medewerkers',
-      component: function (resolve) {
-        require(['@/components/landingpage/medewerkers.vue'], resolve)
-      }
-    },
+        require(['@/components/admin/index.vue'], resolve)
+      },
+      beforeEnter: guardRoute
+    }
 
   ]
 })
 
 function guardRoute (to, from, next) {
-  // work-around to get to the Vuex store (as of Vue 2.0)
-  const auth = router.app.$options.store.state.auth
 
-  if (!auth.isLoggedIn) {
+  const auth = router.app.$options.store
+
+  console.log(auth.getters.isLoggedIn)
+  if (!auth.getters.isLoggedIn) {
+    console.log('not logged in')
     next({
       path: '/login',
-      query: { redirect: to.fullPath }
+      query: { redirect: to.path }
     })
   } else {
     next()
