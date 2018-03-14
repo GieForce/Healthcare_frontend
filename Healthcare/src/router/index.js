@@ -58,4 +58,5 @@ function guardRoute (to, from, next) {
   }
 }
 
+export default router
 
