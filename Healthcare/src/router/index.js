@@ -31,6 +31,13 @@ const router = new Router({
       },
       beforeEnter: guardRoute
     },
+    {
+      path: '/dossier',
+      name: 'dossier',
+      component: function (resolve) {
+        require(['@/components/dashboard/dossier.vue'], resolve)
+      }
+    },
 
   ]
 })
@@ -52,4 +59,3 @@ function guardRoute (to, from, next) {
 }
 
 
-export default router
