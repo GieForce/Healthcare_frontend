@@ -74,7 +74,7 @@ const Store = new Vuex.Store({
           commit(LOGIN_SUCCES);
           localStorage.setItem("healthcare", response.data.access_token);
           console.log(response);
-          commit(USER_CHANGED, 'admin');
+          commit(USER_CHANGED, response.data.user);
           resolve();
          }).catch(function (error) {
           localStorage.removeItem("healthcare");

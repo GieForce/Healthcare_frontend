@@ -44,9 +44,9 @@ const router = new Router({
 
 function guardRoute (to, from, next) {
 
-  const auth = router.app.$options.store
+  const auth = router.app.$options.store;
 
-  console.log('logged in as ' + auth.getters.user)
+  console.log('logged in as ' + auth.getters.user.type)
 
   if (!auth.getters.isLoggedIn  && auth.getters.user.type != null) {
     next({
