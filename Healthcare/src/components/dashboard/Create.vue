@@ -1,15 +1,4 @@
 <template>
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Zonnevelt</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-  </head>
-  <body>
   <div class="page">
     <!-- Breadcrumb-->
     <div class="breadcrumb-holder">
@@ -124,9 +113,6 @@
       </div>
     </section>
   </div>
-  </body>
-  </html>
-
 </template>
 
 <script>
@@ -135,6 +121,3 @@
     }
 </script>
 
-<style scoped>
-
-</style>
