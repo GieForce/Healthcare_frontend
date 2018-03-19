@@ -94,19 +94,19 @@ const Store = new Vuex.Store({
      }, 1000);
     });
    },
-   putRequest({ commit }, url, wachtwoord) {
+   putRequest({ commit }, info) {
     commit(PENDING);
     return new Promise(resolve => {
     setTimeout(() => {
+      console.log(info.url)
+      console.log(info.body)
      axios({
       method: 'put',
-      url: 'https://zonnevelt.nl/' + url,
+      url: 'https://zonnevelt.nl/' + info.url,
       headers: {
-        
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      data: {
-          password: wachtwoord,
-        }
+      data: info.body,
       }).then(function (response) {
        resolve(response.data);
       }).catch(function (error){

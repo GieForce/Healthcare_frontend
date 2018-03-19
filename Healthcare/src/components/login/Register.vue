@@ -51,7 +51,7 @@
               <!--<div class="col-md-3"></div>-->
               <div class="col">
                 <div style="text-align:center">
-                  <button v-bind:class="{ button: !errors.length, 'buttonGrey': errors.length }" style="vertical-align:middle"><span> Registreren </span></button>
+                  <button v-bind:class="{ button: !errors.length, 'buttonGrey': errors.length }" v-on:click="register" style="vertical-align:middle"><span> Registreren </span></button>
                 </div>
               </div>
             </div>
@@ -80,6 +80,17 @@
         token: this.$route.query,
       }
     },
+    created (){
+    console.log(this.$route.query.token)
+      this.$store.dispatch("putRequest", {
+        url: 'patients/validate/' + this.$route.query.token,
+        body: {
+
+        }
+      }).then(response => {
+        console.log(response);
+      });
+    },
     methods: {
     formCheck:function(e) {
       this.errors = [];
@@ -91,13 +102,19 @@
       }
       if(!this.errors.length) return true;
       e.preventDefault();
-    },
-    register() {
-      this.$http.Put(this.token)
-      this.$store.dispatch("putRequest",patients ,this.wachtwoord).then(() => {
-      console.log(response);
-      });
-    }
+      },
+      register: function() {
+        console.log('sending request with password: ' + this.wachtwoord)
+        var link = "patients/activate/" + this.$route.query.token;
+        this.$store.dispatch("putRequest", {
+          url: link,
+          body: {
+            password: this.wachtwoord
+          }
+        }).then(response => {
+          this.$router.push('login');
+        });
+      }
     },
     components: {
       'loader': Loader
