@@ -46,12 +46,10 @@ function guardRoute (to, from, next) {
 
   const auth = router.app.$options.store;
 
-  console.log('logged in as ' + auth.getters.user.type)
-
-  if (!auth.getters.isLoggedIn  && auth.getters.user.type != null) {
+  if (auth.getters.user == null || (!auth.getters.isLoggedIn  && auth.getters.user.type != null)) {
     next({
       path: '/login',
-      query: { redirect: to.path }
+      query: { redirect: to.fullPath }
     })
   } else {
     next()

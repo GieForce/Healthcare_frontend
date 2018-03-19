@@ -27,3 +27,7 @@ body {
 	font-family: 'Dosis', sans-serif;
 	color: #B5B5B5;
 }
+
+#ddown1 a {
+	color: blue;
+}

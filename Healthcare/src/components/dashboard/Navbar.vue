@@ -1,13 +1,16 @@
 <template>
   <div class="navbar-component">
   <header class="header">
-    <nav class="navbar">
-      <div class="container-fluid">
-        <div class="navbar-holder d-flex align-items-center justify-content-between">
-            <div class="navbar-header"><a id="toggle-btn" href="" class="menu-btn"><i class="icon-bars"> </i></a><a class="navbar-brand">
-            <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">{{ user.Name }}</strong></div></a></div>
+    <nav class="navbar d-felx justify-content-end">
+        <a id="toggle-btn" href="" class="menu-btn mr-auto p-2"><i class="icon-bars"></i></a><a class="navbar-brand"></a>
+        
+        <div>
+          <b-dropdown id="ddown1" style="cursor:pointer":text="user.firstname + ' ' + user.lastname" class="m-md-2">
+            <a class="dropdown-item" v-on:click="logout">Logout</a>
+          </b-dropdown>
         </div>
-      </div>
+
+
     </nav>
   </header>
   </div>
@@ -19,6 +22,13 @@
       data(){
         return{
           user: this.$store.getters.user
+        }
+      },
+      methods: {
+        logout(){
+          this.$store.dispatch("logout").then(() => {
+            this.$router.push('/');
+          });
         }
       }
     }

@@ -189,16 +189,18 @@ object{
     --uiFieldPaddingBottom: var(--fieldPaddingBottom, 0px);
     --uiFieldPaddingLeft: var(--fieldPaddingLeft, 0px);
 
-    --uiFieldBorderColor: var(--fieldBorderColor, transpatent);
+    --uiFieldBorderColor: var(--fieldBorderColor, #B5B5B5);
     --uiFieldBorderTop: var(--fieldBorderTop, 0px);
     --uiFieldBorderRight: var(--fieldBorderRight, 0px);
     --uiFieldBorderBottom: var(--fieldBorderBottom, 0px);
     --uiFieldBorderLeft: var(--fieldBorderLeft, 0px);
 
     --uiFieldBgColor: var(--fieldBgColor, transpatent);
-    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #B5B5B5);
     --uiFieldAnimationDuration: var(--fieldAnimationDuration, .3s);
     --uiFieldFonstSize: var(--fieldFontSize, 16px);
+
+    --uiFieldLabelColor: var(--fieldLabelColor, #B5B5B5);
 
     position: relative;
     display: block;
@@ -213,6 +215,7 @@ object{
     position: absolute;
     top: calc(0px + var(--uiFieldPaddingTop) + var(--uiFieldBorderTop));
     left: calc(0px + var(--uiFieldPaddingLeft) + var(--uiFieldBorderLeft));
+    color: var(--uiFieldLabelColor);
 
     pointer-events: none;
     font-size: .8em;
@@ -397,11 +400,12 @@ html{
 }
 
 .bordercontainerlogin{
-    border-top: 30px solid transparent;
-    -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
-    -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
-    -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
-    border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    border-top: 15px solid transparent;
+    -webkit-border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
+    -moz-border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
+    -o-border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
+    border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
+    border-top-left-radius: 25px;
 }
 
 object{
@@ -414,4 +418,10 @@ object{
 
 .loginform{
     margin-top: 10%;
+}
+
+i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

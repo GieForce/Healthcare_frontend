@@ -71,9 +71,9 @@ const Store = new Vuex.Store({
             'content-type': 'application/x-www-form-urlencoded'
           }
          }).then(function (response) {
-          commit(LOGIN_SUCCES);
           localStorage.setItem("healthcare", response.data.access_token);
           console.log(response);
+          commit(LOGIN_SUCCES);
           commit(USER_CHANGED, response.data.user);
           resolve();
          }).catch(function (error) {

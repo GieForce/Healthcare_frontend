@@ -6,23 +6,19 @@
   <div class="login-page text-center id=logincheck">
     <div class="container text-center loginform">
         <div class="row">
-
             <div class="col"></div>
             <div class="col-xl-5">
               <div class="form-inner bordercontainerlogin">
-                <div v-if="isLoading" > <loader> </loader> </div>
-                <div v-if="!isLoading">
-                <a href="index.html" class="logosvg">
+                <div v-if="isLoading" > <loader></loader> </div>
+                <div v-if="!isLoading && !isLoggedIn">
                   <div class="text-center">
-                    <img src="../../assets/img/logoZonnevelt-02.svg" alt="lock" width="250px">
+                    <img src="../../assets/img/logoZonnevelt-02.svg" alt="lock" width="250px" style="padding-bottom:60px">
                   </div>
-                </a>
-                <hr width="100%">
                 <div class="row">
-                  <i style="font-size:24px" class="fa">&#xf003;</i>
+                  <div class="col-md-1" align="center"><i class="ion-android-mail" style="font-size:20px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type3">
-                      <input class="field__input" id="email" v-model="email" placeholder="bv. Jan.hermans@hotmail.com">
+                      <input class="field__input" id="email" v-model="email" placeholder="mail@provider.nl">
                         <span class="field__label-wrap">
                           <span class="field__label">Email</span>
                         </span>
@@ -30,10 +26,10 @@
                   </div>
               </div>
               <div class="row py-3">
-                <img src="../../assets/img/lock2.0.jpg" alt="lock" width="25" height="25">
+                  <div class="col-md-1" align="center" style="text-align:center;"><i class="ion-android-lock" style="font-size:20px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type2">
-                      <input type="password" class="field__input" id="password" v-model="password" placeholder="wachtwoord">
+                      <input type="password" class="field__input" id="password" v-model="password" placeholder="****************">
                       <span class="field__label-wrap">
                         <span class="field__label">Wachtwoord</span>
                       </span>
@@ -61,7 +57,6 @@
             </div>
           </div>
             <div class="col"></div>
-
           </div>
           </div>
           </div>
@@ -84,6 +79,14 @@
     computed: {
       isLoading () {
           return this.$store.getters.isPending;
+      },
+      isLoggedIn () {
+          return this.$store.getters.isLoggedIn;
+      }
+    },
+    created () {
+      if(this.$store.getters.isLoggedIn){
+        this.$router.push('/dashboard')
       }
     },
     methods: {
@@ -106,4 +109,6 @@
 <style>
 @import"../../assets/style/landing.css";
 @import"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css";
+@import"../../assets/icons-reference/ionicons.css";
+
 </style>
