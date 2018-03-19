@@ -14,8 +14,35 @@ import Sidebar from './Sidebar.vue'
 export default {
   name: 'app',
   components:{
-    'navbar' : Navbar,
-    'sidebar' : Sidebar
+    'home':  Home,
+    'navbar': Navbar,
+    'sidebar': Sidebar,
+    'create': Create
+  },
+  data () {
+    return {
+      cHome: true,
+      cCreate: false,
+      cDelete: false,
+      cUpdate: false
+    }
+  },
+  methods: {
+    setCreate: function (event) {
+      this.cCreate = true;
+      this.cDelete = false;
+      this.cUpdate = false;
+    },
+    setDelete: function (event) {
+      this.cCreate = false;
+      this.cDelete = true;
+      this.cUpdate = false;
+    },
+    setUpdate: function (event) {
+      this.cCreate = false;
+      this.cDelete = false;
+      this.cUpdate = true;
+    }
   }
 }
 </script>
