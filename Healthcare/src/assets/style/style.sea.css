@@ -2967,6 +2967,7 @@ a > code {
 }
 
 .dashboardContent{
+  background-color: #F7F7F7;
   padding-left: 250px;
   padding-right: 40px;
   padding-top: 50px;

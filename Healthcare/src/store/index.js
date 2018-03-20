@@ -37,6 +37,7 @@ const Store = new Vuex.Store({
     [LOGOUT] (state){
       state.isLoggedIn = false;
       state.user = null;
+      state.pending = false;
     },
     [REQUEST_SUCCES] (state){
       state.pending = true;
@@ -46,6 +47,7 @@ const Store = new Vuex.Store({
     },
     [USER_CHANGED] (state, user){
       state.user = user;
+      state.pending = false;
     }
   },
   actions: {

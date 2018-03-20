@@ -71,7 +71,6 @@
         getItems () {
           this.isBusy = true;
           this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
-            console.log(this.user)
             this.isBusy = false;
             this.items = response;
           });

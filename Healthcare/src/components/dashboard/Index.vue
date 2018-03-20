@@ -4,7 +4,8 @@
     <navbar></navbar>
     <sidebar></sidebar>
     <div class="dashboardContent">
-    <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
+      <news v-if="openComponent === 'home'"></news>
+      <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ import Navbar from './Navbar.vue'
 import Sidebar from './Sidebar.vue'
 
 import Dossier from './Dossier.vue'
+import News from './News.vue'
 
 export default {
 
@@ -29,6 +31,7 @@ export default {
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
+    'news' : News
   },
   methods: {
     changeComponent (component) {
