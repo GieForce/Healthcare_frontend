@@ -44,45 +44,31 @@ const router = new Router({
         require(['@/components/landingpage/medewerkers.vue'], resolve)
       }
     },
-    { path: '/patients',
-      name: 'beheer',
+    {
+      path: '/dashboard',
+      name: 'dashboard',
       component: function (resolve) {
-      require(['@/components/Patiëntbeheer/Beheer.vue'], resolve)
-      }
+        require(['@/components/dashboard/Index.vue'], resolve)
+      },
+      beforeEnter: guardRoute
     },
-    { path: '/patient/:patient_id',
-      name: 'patient',
+    {
+      path: '/overview',
+      name: 'overview',
       component: function (resolve) {
-        require(['@/components/Patiëntbeheer/Patient.vue'], resolve)
-      }
-    },
-    { path: '/add-patient',
-      name: 'patient-add',
-      component: function (resolve) {
-        require(['@/components/Patiëntbeheer/addPatient.vue'], resolve)
-      }
-    },
-    { path: '/product/:product_id/edit',
-      name: 'patient-edit',
-      component: function (resolve) {
-        require(['@/components/Patiëntbeheer/patientEdit.vue'], resolve)
-      }
-    },
-    { path: '/patient/:patient_id/delete',
-      name: 'patient-delete',
-      component: function (resolve) {
-        require(['@/components/Patiëntbeheer/patientDelete.vue'], resolve)
-      }
+        require(['@/components/dashboard/PatientOverview.vue'], resolve)
+      },
+      beforeEnter: guardRoute
+
     },
 
   ]
 })
 
 function guardRoute (to, from, next) {
-  // work-around to get to the Vuex store (as of Vue 2.0)
-  const auth = router.app.$options.store.state.auth
+  const auth = router.app.$options.store
 
-  if (!auth.isLoggedIn) {
+  if (!auth.getters.isLoggedIn  && auth.getters.user.type != null) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }

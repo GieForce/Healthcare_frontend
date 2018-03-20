@@ -1,71 +1,35 @@
 <template>
-<div>
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Zonnevelt Huisartsen</title>
-</head>
-<vnavbar> </vnavbar>
-<div>
-    <b-carousel id="carousel1"
-                style="text-shadow: 1px 1px 2px #333;"
-                controls
-                indicators
-                background="#ababab"
-                :interval="4000"
-                img-width="1024"
-                img-height="480"
-                v-model="slide"
-                @sliding-start="onSlideStart"
-                @sliding-end="onSlideEnd"
-    >
+  <div>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Zonnevelt Huisartsen</title>
+    </head>
 
-      <!-- Text slides with image -->
-      <b-carousel-slide :img-src="require('../../assets/ousa-chea-552189-unsplash.jpeg')">
-      </b-carousel-slide>
+    <b-navbar class="navbar navbar-expand-lg sticky-top navbar-light bg-light bordernavbar" toggleable="md" variant="info">
+        <b-navbar-brand class="logosvg">
+            <img v-on:click="setHome" style="cursor:pointer" src="../../assets/img/logoZonnevelt-02.svg" alt="" height="55px">
+        </b-navbar-brand>
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>     
+        <b-collapse is-nav id="nav_collapse">
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item v-on:click="setHome" style="cursor:pointer" class="linkani">Home</b-nav-item>
+            <b-nav-item v-on:click="setMedewerkers" style="cursor:pointer" class="linkani">Werknemers</b-nav-item>
+            <b-nav-item v-on:click="setContact" style="cursor:pointer" class="linkani">Contactgegevens</b-nav-item>
+            <b-button size="sm" class="my-2 my-sm-0 buttonnav" type="submit" href="/login"><span>Inloggen</span></b-button>
+         </b-navbar-nav>       
+      </b-collapse>
+    </b-navbar>
 
-      <!-- Slides with custom text -->
-      <b-carousel-slide :img-src="require('../../assets/dan-gold-220226-unsplash.jpeg')">
-      </b-carousel-slide>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide :img-src="require('../../assets/jesse-orrico-60373-unsplash.jpeg')">
-      </b-carousel-slide>
-    </b-carousel>
+
+    <vmedewerkers v-if="cMedewerkers"></vmedewerkers>
+    <vcontactgegevens v-if="cContactgegevens"></vcontactgegevens>
+    <vhome v-if="cHome"></vhome>
+
+    <vfooter></vfooter>
+
   </div>
-<div class="container-fluid py-5">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col">
-            <h1 style="color:#666666;">Lorem ipsum</h1>
-            <hr>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. </p>
-        </div>
-        <div class="col-md-2"></div>
-  </div>
-    <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col">
-                <h1 style="color:#666666;">Lorem ipsum</h1>
-                <hr>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. </p>
-            </div>
-            <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col">
-            <h1 style="color:#666666;">Lorem ipsum</h1>
-            {{ message }}
-            <hr>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. </p>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-</div>
-<vfooter></vfooter>
-</div>
 </template>
 
 <style>
@@ -74,28 +38,43 @@
 
 <script>
 
-import vnavbar from './v-navbar.vue'
 import vfooter from './v-footer.vue'
+import vmedewerkers from './medewerkers.vue'
+import vcontactgegevens from './contactgegevens.vue'
+import vhome from './home.vue'
 
 export default {
   data () {
     return {
       slide: 0,
       sliding: null,
-      image1: image
-    }
-  },
-  methods: {
-    onSlideStart (slide) {
-      this.sliding = true
-    },
-    onSlideEnd (slide) {
-      this.sliding = false
+      cMedewerkers: false,
+      cHome: true,
+      cContactgegevens: false
     }
   },
   components: {
-    vnavbar,
-    vfooter
+    vfooter,
+    vmedewerkers,
+    vhome,
+    vcontactgegevens
+  },
+  methods: {
+    setHome: function (event) {
+      this.cMedewerkers = false;
+      this.cHome = true;
+      this.cContactgegevens = false;
+    },
+    setContact: function (event) {
+      this.cMedewerkers = false;
+      this.cHome = false;
+      this.cContactgegevens = true;
+    },
+    setMedewerkers: function (event) {
+      this.cMedewerkers =  true;
+      this.cHome = false;
+      this.cContactgegevens = false;
+    }
   }
 }
 </script>

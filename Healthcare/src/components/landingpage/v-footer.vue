@@ -3,7 +3,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="../../assets/logoZonnevelt-02.svg" alt="" width="80%">
+                    <img src="../../assets/img/logoZonnevelt-02.svg" alt="" width="80%">
                     <h6 style="color: #FFF; margin-top:30px;">Spoednummer:</h6>
                     <h3 style="color: #4ec7dc;">0987-654321</h3>
                 </div>
@@ -17,10 +17,10 @@
                     <br>
                     <div class="footerLinks">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="medewerkers.html">Medewerkers</a></li>
-                            <li><a href="contactgegevens.html">Contact</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a>Home</a></li>
+                            <li><a>Medewerkers</a></li>
+                            <li><a>Contact</a></li>
+                            <li><a>Contact</a></li>
                         </ul></div>
                 </div>
                 <div class="col-md-3">

@@ -11,11 +11,16 @@ const LOGOUT = "LOGOUT";
 const PENDING = 'PENDING';
 const REQUEST_SUCCES = 'REQUEST_SUCCES';
 const REQUEST_FAIL = 'REQUEST_FAIL';
+const USER_CHANGED = 'USER_CHANGED';
+
+import createPersistedState from 'vuex-persistedstate'
 
 const Store = new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     isLoggedIn: !!localStorage.getItem("healthcare"),
-    pending: false
+    pending: false,
+    user: null,
   },
   mutations: {
     [PENDING] (state){
@@ -31,12 +36,16 @@ const Store = new Vuex.Store({
     },
     [LOGOUT] (state){
       state.isLoggedIn = false;
+      state.user = null;
     },
     [REQUEST_SUCCES] (state){
       state.pending = true;
     },
     [REQUEST_FAIL] (state){
       state.pending = true;
+    },
+    [USER_CHANGED] (state, user){
+      state.user = user;
     }
   },
 
@@ -62,13 +71,15 @@ const Store = new Vuex.Store({
             'content-type': 'application/x-www-form-urlencoded'
           }
          }).then(function (response) {
-          localStorage.setItem("healthcare", response.data.access_token);
           commit(LOGIN_SUCCES);
+          localStorage.setItem("healthcare", response.data.access_token);
+          commit(USER_CHANGED, 'admin')
+          resolve();
          }).catch(function (error) {
           localStorage.removeItem("healthcare");
           commit(LOGIN_FAILED);
+          resolve();
         });
-         resolve();
        }, 1000);
      });
    },
@@ -122,6 +133,9 @@ const Store = new Vuex.Store({
     },
     isPending: state => {
       return state.pending
+    },
+    user: state => {
+      return state.user
     }
   }
 });

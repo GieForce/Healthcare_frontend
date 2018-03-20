@@ -6,14 +6,12 @@
 <title>Zonnevelt Huisartsen</title>
 </head>
 <body>
-<vnavbar></vnavbar>
 <gmap-map
   :center="{lat:52.722306, lng:6.46789}"
   :zoom="15"
   map-type-id="terrain"
   style="width: 100%; height: 450px">
   <gmap-marker
-      :key="index"
       :position="{lat:52.722306, lng:6.46789}"
       :clickable="true"
       :draggable="false"
@@ -23,7 +21,7 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col">
-            <img src="../../assets/contactPraktijk.jpg" class="img-fluid rounded"/>
+            <img src="../../assets/img/contactPraktijk.jpg" class="img-fluid rounded"/>
         </div>
         <div class="col-md-1"></div>
         <div class="col">
@@ -36,21 +34,16 @@
         <div class="col-md-1"></div>
     </div>
 </div>
-<vfooter></vfooter>
 </body>
 </div>
 </template>
 
 <script>
 
-import vnavbar from './v-navbar.vue'
-import vfooter from './v-footer.vue'
-
 export default {
 
   components: {
-    vnavbar,
-    vfooter
+    
   }
 }
 </script>

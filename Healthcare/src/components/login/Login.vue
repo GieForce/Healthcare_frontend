@@ -14,7 +14,7 @@
                 <div v-if="!isLoading">
                 <a href="index.html" class="logosvg">
                   <div class="text-center">
-                    <img src="../../assets/logoZonnevelt-02.svg" alt="lock" width="250px">
+                    <img src="../../assets/img/logoZonnevelt-02.svg" alt="lock" width="250px">
                   </div>
                 </a>
                 <hr width="100%">
@@ -30,7 +30,7 @@
                   </div>
               </div>
               <div class="row py-3">
-                <img src="../../assets/lock2.0.jpg" alt="lock" width="25" height="25">
+                <img src="../../assets/img/lock2.0.jpg" alt="lock" width="25" height="25">
                   <div class="col">
                     <label class="field field_type2">
                       <input type="password" class="field__input" id="password" v-model="password" placeholder="wachtwoord">
@@ -44,7 +44,7 @@
                 <div class="col" style="padding-top: .35rem">
                   <div class="form-check mb-2 mr-sm-2 mb-sm-0, text-center">
                     <label class="form-check-label">
-                      <input class="form-check-input" name="remember"type="checkbox">
+                      <input class="form-check-input" name="remember" type="checkbox">
                       <span style="padding-bottom: .15rem">Remember me</span>
                     </label>
                   </div>
@@ -66,7 +66,6 @@
           </div>
           </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -93,9 +92,7 @@
           email: this.email,
           password: this.password,
         }).then(() => {
-          this.$store.dispatch("getRequest", "patients").then(response => {
-            console.log(response)
-          })
+          this.$router.push('dashboard')
         });
       }
     },
