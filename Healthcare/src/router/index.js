@@ -24,6 +24,13 @@ const router = new Router({
       }
     },
     {
+      path: '/register',
+      name: 'register',
+      component: function (resolve) {
+        require(['@/components/login/Register.vue'], resolve)
+      }
+    },
+    {
       path: '/contactgegevens',
       name: 'contactgegevens',
       component: function (resolve) {
@@ -52,6 +59,7 @@ const router = new Router({
         require(['@/components/dashboard/PatientOverview.vue'], resolve)
       },
       beforeEnter: guardRoute
+
     },
 
   ]
