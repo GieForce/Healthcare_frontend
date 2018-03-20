@@ -45,6 +45,14 @@ const router = new Router({
       },
       beforeEnter: guardRoute
     },
+    {
+      path: '/overview',
+      name: 'overview',
+      component: function (resolve) {
+        require(['@/components/dashboard/PatientOverview.vue'], resolve)
+      },
+      beforeEnter: guardRoute
+    },
 
   ]
 })
