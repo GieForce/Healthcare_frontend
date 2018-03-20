@@ -80,10 +80,10 @@
 .linkani:hover
 {
     border-bottom: 3px solid transparent;
-    -webkit-border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
-    -moz-border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
-    -o-border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
-    border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
+    -webkit-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
+    -moz-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
+    -o-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
+    border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
     height: 100%;
     transition: all 0.3s;
     color: #000;
