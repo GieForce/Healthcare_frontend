@@ -172,8 +172,11 @@ section header {
 * ==========================================================
 */
 nav.navbar {
-  background: #393836;
-  padding: .8rem 0;
+  background: linear-gradient(to right, #56CCF2, #11998E);
+  padding: 4px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
   /* Navbar Brand --------- */
   /*  Dropdowns ------------ */
   /* Toggle Button ---------- */
@@ -327,7 +330,28 @@ nav.navbar a.menu-btn:hover {
 *     SIDE NAVBAR
 * ==========================================================
 */
+
+.profile-userpic {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.profile-userpic img{
+  float: none;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
 .side-navbar {
+  margin-top: 8px;
   position: fixed;
   top: 0;
   left: 0;
@@ -335,8 +359,8 @@ nav.navbar a.menu-btn:hover {
   height: 100%;
   width: 200px;
   text-align: left;
-  background: #379392;
-  color: #fff;
+  background: white;
+  color: black;
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
   z-index: 999;
@@ -382,8 +406,8 @@ nav.navbar a.menu-btn:hover {
 }
 
 .side-navbar li a:focus, .side-navbar li a:hover, .side-navbar li a[aria-expanded="true"] {
-  background: #393836;
-  color: #fff;
+  background: #34B3C1;
+  color: white !important;
   text-decoration: none;
 }
 
@@ -433,9 +457,9 @@ nav.navbar a.menu-btn:hover {
 }
 
 .side-navbar .sidenav-header {
-  background: #292929;
+  background: white;
   padding: 6%;
-  margin-bottom: 10px;
+  margin-top: 250%;
 }
 
 .side-navbar .sidenav-header img {
@@ -476,8 +500,6 @@ nav.navbar a.menu-btn:hover {
 
 .side-navbar i {
   font-size: inherit;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
   margin-right: 10px;
 }
 
@@ -2519,6 +2541,7 @@ a.text-primary:focus, a.text-primary:hover {
   padding: 0.25rem 1.5rem;
   color: #212529;
 }
+
 
 .dropdown-item:focus, .dropdown-item:hover {
   color: #16181b;
