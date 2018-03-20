@@ -2965,3 +2965,23 @@ a > code {
     margin-left: 15px;
   }
 }
+
+.dashboardContent{
+  padding-left: 250px;
+  padding-right: 40px;
+  padding-top: 50px;
+
+}
+
+@media only screen and (max-width: 1199px) {
+  .dashboardContent {
+    padding-left: 10px;
+    padding-right: 20px;
+  }
+}
+
+.loader{
+  width: 5%;
+  padding-top: 20%;
+  margin: 0 auto;
+}

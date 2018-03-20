@@ -8,7 +8,7 @@
       <!-- Sidebar Navigation Menus-->
       <div class="main-menu">
         <ul id="side-main-menu" class="side-menu list-unstyled">
-          <li><a style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
+          <li><a v-on:click="changeCompontent('home')" style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
 
           <div v-if="userType === 'admin'">
             <li><a style="cursor:pointer"> <i class="ion-ios-people"></i>Werknemers</a></li>
@@ -20,7 +20,7 @@
           </div>
 
           <div v-if="userType === 'patient'">
-            <li><a style="cursor:pointer"> <i class="ion-document"></i>Mijn dossier</a></li>
+            <li><a v-on:click="changeCompontent('personalDossier')" style="cursor:pointer"> <i class="ion-document"></i>Mijn dossier</a></li>
           </div>
 
         </ul>
@@ -30,14 +30,20 @@
 </template>
 
 <script>
-      export default {
-        name:'navbar',
-        data(){
-          return{
-            userType: this.$store.getters.user.type
-          }
-        }
+  export default {
+    name:'navbar',
+    data(){
+      return{
+        userType: this.$store.getters.user.type,
+        cPersonalDossier: false,
       }
+    },
+    methods: {
+      changeCompontent (component) {
+        this.$parent.changeComponent(component)
+      }
+    }
+  }
 </script>
 
 

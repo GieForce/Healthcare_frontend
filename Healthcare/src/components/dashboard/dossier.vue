@@ -1,70 +1,81 @@
 <template>
-  <div class="container-fluid" style="padding: 50px;width: 100%;">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col text-center py-5">
-            <b-img slot="aside" blank-color="#ccc" width="200px" height="200px" alt="placeholder" class="rounded-circle" src="https://lorempixel.com/1024/400/"></b-img>
-          </div>
-          <div class="col py-1">
-            <h4>Volledige naam:</h4>
-            <p>Jan van Hoofd</p>
-            <hr>
-            <h4>Naam:</h4>
-            <p>Jan van Hoofd</p>
-            <hr>
-            <h4>Naam:</h4>
-            <p>Jan van Hoofd</p>
-            <hr>
-            <h4>Naam:</h4>
-            <p>Jan van Hoofd</p>
+  <div  style="width: 100%;">
+    <div class="loader" v-if="isBusy" ><loader></loader></div>
+    <div v-if="!isBusy">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col text-center py-5">
+              <b-img slot="aside" blank-color="#ccc" width="200px" height="200px" alt="placeholder" class="rounded-circle" src="https://lorempixel.com/200/200/"></b-img>
+            </div>
+            <div class="col py-1">
+              <h4>Volledige naam:</h4>
+              <p>{{ user.firstname + ' ' + user.lastname }}</p>
+              <hr>
+              <h4>Mail:</h4>
+              <p>{{ user.username }}</p>
+              <hr>
+              <h4>Leeftijd:</h4>
+              <p>{{ user.age }}</p>
+              <hr>
+              <h4>Arts:</h4>
+              <p>Bartje Jansen</p>
+            </div>
           </div>
         </div>
-      </div>
       <div class="col-md-6">
       </div>
-    </div>
-    <div class="row">
-      <b-table :sort-by.sync="sortBy"
-               :sort-desc.sync="sortDesc"
-               :items="items"
-               :fields="fields"
-                style="width: 100%;"
-                >
-      </b-table>
+      </div>
+      <div class="row">
+        <b-table :sort-by.sync="sortBy"
+                 :sort-desc.sync="sortDesc"
+                 :items="items"
+                 :busy.sync="isBusy"
+                 :fields="fields"
+                  style="width: 100%;"
+                  >
+        </b-table>
+      </div>
     </div>
   </div>
-
-
 </template>
 
 <script>
+
+    import Loader from '../loader.vue'
+
     export default {
-        name: "dossier",
+      name: "dossier",
+      props: ['userId'],
+      components: {
+        'loader' : Loader,
+      },
       data () {
         return {
           sortBy: 'date',
           sortDesc: false,
-          fields: [
-            { key: 'category', value:'Categorie'},
-            { key: 'report', value: 'Rapport'},
-            { key: 'date', value:'Datum', sortable: true }
-          ],
-          items: [
-          {id: 1, category: "Rug", report: "Hevige pijn in de rug. Dit gaat gepaard met nek klachten. Afspraak met fysio word geadviseerd. En devins moeder is een hele lieve mevrouw. ik ga altijd koffie drinken bij devin.", date: new Date(2018,4,3).toLocaleDateString()},
-          {id: 2, category: "Hoofd", report: "Migraine geconstateerd1", date: new Date(2018,4,4).toLocaleDateString()},
-          {id: 2, category: "Hoofd", report: "Migraine geconstateerd2", date: new Date(2017,1,6).toLocaleDateString()},
-            {id: 2, category: "Hoofd", report: "Migraine geconstateerd3", date: new Date(2018,4,7).toLocaleDateString()},
-        ]
+          fields: {
+            category: {label: 'Categorie', sortable: true},
+            report: {label: 'Diagnose', sortable: true},
+            date: {label: 'Datum', sortable: true},
+          },
+          isBusy: false,
+          items: [],
+          user: this.$store.getters.user
         }
       },
+      mounted () {
+        this.getItems();
+      },
       methods: {
-          getPatientData() {
-            this.$store.dispatch("getRequest", "dossier" + userid).then(response => {
-              console.log(response);
-              items: response.body();
-            });
-          }
+        getItems () {
+          this.isBusy = true;
+          this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
+            console.log(this.user)
+            this.isBusy = false;
+            this.items = response;
+          });
+        }
       }
     }
 </script>

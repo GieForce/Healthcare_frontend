@@ -1,8 +1,11 @@
 <template>
-  <div id="app">
+  <div id="parent">
     <router-view/>
     <navbar></navbar>
     <sidebar></sidebar>
+    <div class="dashboardContent">
+    <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
+    </div>
   </div>
 </template>
 
@@ -10,12 +13,27 @@
 import Navbar from './Navbar.vue'
 import Sidebar from './Sidebar.vue'
 
+import Dossier from './Dossier.vue'
 
 export default {
+
+
   name: 'app',
-  components:{
+  data() {
+    return {
+      openComponent: 'home',
+      userId: this.$store.getters.user.userId,
+    }
+  },
+  components: {
     'navbar' : Navbar,
-    'sidebar' : Sidebar
+    'sidebar' : Sidebar,
+    'dossier' : Dossier,
+  },
+  methods: {
+    changeComponent (component) {
+      this.openComponent = component;
+    }
   }
 }
 </script>
