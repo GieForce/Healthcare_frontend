@@ -48,14 +48,12 @@ const Store = new Vuex.Store({
       state.user = user;
     }
   },
-
   actions: {
    login({ commit }, creds) {
-     commit(PENDING); // show spinner
+     commit(PENDING); 
      console.log("Loggin in...");
      return new Promise(resolve => {
        setTimeout(() => {
-
          axios({
           method: 'post',
           url: 'https://zonnevelt.nl/oauth/token',

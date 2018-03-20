@@ -5,7 +5,7 @@
         <a id="toggle-btn" href="" class="menu-btn mr-auto p-2"><i class="icon-bars"></i></a><a class="navbar-brand"></a>
         
         <div>
-          <b-dropdown id="ddown1" style="cursor:pointer":text="user.firstname + ' ' + user.lastname" class="m-md-2">
+          <b-dropdown id="ddown1" style="cursor:pointer" :text="user.firstname + ' ' + user.lastname" class="m-md-2">
             <a class="dropdown-item" v-on:click="logout">Logout</a>
           </b-dropdown>
         </div>
@@ -27,7 +27,7 @@
       methods: {
         logout(){
           this.$store.dispatch("logout").then(() => {
-            this.$router.push('/');
+            this.$router.push('/login');
           });
         }
       }
