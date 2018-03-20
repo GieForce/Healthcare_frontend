@@ -106,7 +106,7 @@ const Store = new Vuex.Store({
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      data: info.body,
+      params: info.body,
       }).then(function (response) {
        resolve(response.data);
       }).catch(function (error){
