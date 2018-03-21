@@ -1,5 +1,5 @@
 <template>
-  <div class="container containernews">
+  <div class="container">
     <div v-for="item in items" class="row">
       <div class="col blogShort">
         <div class="row">
@@ -63,7 +63,7 @@
     -o-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
     border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
     margin-top: 20px;
-    background: #f5f5f5 ;
+    background: white ;
     -webkit-border-radius: 15px 15px 0px 0px;
     -moz-border-radius: 15px 15px 0px 0px;
     border-radius: 15px 15px 0px 0px;

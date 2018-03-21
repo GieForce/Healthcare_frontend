@@ -6,7 +6,7 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col text-center py-5">
-              <b-img slot="aside" blank-color="#ccc" width="200px" height="200px" alt="placeholder" class="rounded-circle" src="https://lorempixel.com/200/200/"></b-img>
+              <b-img slot="aside" blank-color="#ccc" width="200px" height="200px" alt="placeholder" class="rounded-circle" src="https://studiomango.nl/wp-content/uploads/2014/10/team-profile-picture_minko.jpg"></b-img>
             </div>
             <div class="col py-1">
               <h4>Volledige naam:</h4>
@@ -61,20 +61,24 @@
           },
           isBusy: false,
           items: [],
-          user: this.$store.getters.user
+          user: '',
         }
       },
-      mounted () {
-        this.getItems();
+      created () {
+        console.log(this.userId);
+        this.isBusy = true;
+        this.$store.dispatch("getRequest", "patients/" + this.userId).then(response => {
+          console.log(response)
+          this.user = response;
+        });
+        this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
+          this.isBusy = false;
+          this.items = response;
+        });
       },
       methods: {
         getItems () {
-          this.isBusy = true;
-          this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
-            console.log(this.user)
-            this.isBusy = false;
-            this.items = response;
-          });
+          
         }
       }
     }

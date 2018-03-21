@@ -11,6 +11,8 @@
       <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
+      <news v-if="openComponent === 'home'"></news>
+      <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
     </div>
   </div>
 </template>
@@ -25,6 +27,7 @@ import CreateM from "./CreateM";
 import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
+import News from './News.vue'
 
 export default {
 
@@ -52,6 +55,7 @@ export default {
     getMedewerker(){
       return this.medewerker;
     }
+    'news' : News
   },
   methods: {
     changeComponent (component) {
