@@ -61,3 +61,4 @@ export default {
 <style>@import"../../assets/style/grasp_mobile_progress_circle-1.0.0.min.css";</style>
 <style>@import"../../assets/style/style.sea.css";</style>
 <style>@import"../../assets/icons-reference/ionicons.css";</style>
+<style>@import"../../assets/style/landing.css";</style>

@@ -1,10 +1,7 @@
 <template>
   <div class="dashboardContentForms">
   <form id="form-list-client">
-    <h1 class="tableheader">Patiënten</h1>
-    <div class="pull-right">
-      <button class="buttonadd" style="vertical-align:middle" v-on:click="addRow('voornaam', 'achternaam', '17-01-1998', 'M')"><span></span></button>
-    </div>
+    <h1 class="tableheader">Werknemers</h1>
     <div class="tbl-header">
       <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
         <thead>
