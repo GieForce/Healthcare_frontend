@@ -1,6 +1,6 @@
 <template>
   <section class="forms">
-    <div class="dashboardContent">
+    <div class="dashboardContentForms">
       <div class="container">
         <!-- Page Header-->
         <header>
@@ -59,7 +59,7 @@
           <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
               <button class="btn btn-secondary" style="vertical-align:middle" v-on:click="setHome"><span>Cancel</span></button>
-              <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,bdate,adres,})"><span>Create</span></button>
+              <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,})"><span>Create</span></button>
             </div>
           </div>
         </form>

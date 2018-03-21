@@ -47,6 +47,11 @@
           ]
         }
       },
+      methods: {
+        changeCompontent (component) {
+          this.$parent.changeComponent(component)
+        }
+      },
     }
 </script>
 

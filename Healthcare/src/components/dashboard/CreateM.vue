@@ -1,6 +1,6 @@
 <template>
     <section class="forms">
-      <div class="dashboardContent">
+      <div class="dashboardContentForms">
       <div class="container">
         <!-- Page Header-->
         <header>
