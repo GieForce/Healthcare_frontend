@@ -12,14 +12,14 @@
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">Naam</label>
               <div class="col-sm-10">
-                <input type="text" placeholder="Naam" class="form-control">
-              </div>
+                <input type="text" placeholder="Naam" v-model="name" class="form-control">
+            </div>
             </div>
             <div class="line"></div>
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">Achternaam</label>
               <div class="col-sm-10">
-                <input type="text" placeholder="Achternaam" class="form-control">
+                <input type="text" placeholder="Achternaam" v-model="lname" class="form-control">
               </div>
             </div>
             <div class="line"></div>
@@ -33,34 +33,17 @@
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">E-Mail</label>
               <div class="col-sm-10">
-                <input type="text" placeholder="E-Mail" class="form-control">
+                <input type="text" placeholder="E-Mail" v-model="email" class="form-control">
               </div>
             </div>
             <div class="line"></div>
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">Wachtwoord</label>
               <div class="col-sm-10">
-                <input type="text" placeholder="Wachtwoord" class="form-control">
+                <input type="text" placeholder="Wachtwoord" v-model="password" class="form-control">
               </div>
             </div>
             <div class="line"></div>
-            <div class="form-group row">
-              <label class="col-sm-2 form-control-label">Beroep</label>
-              <div class="col-sm-10">
-                <div class="i-checks">
-                  <input id="radioCustom1" type="radio" checked="" value="option1" name="optionsRadios" class="form-control-custom radio-custom">
-                  <label for="radioCustom1">Huisarts</label>
-                </div>
-                <div class="i-checks">
-                  <input id="radioCustom2" type="radio" checked="" value="option2" name="optionsRadios" class="form-control-custom radio-custom">
-                  <label for="radioCustom2">Receptie Medewerker</label>
-                </div>
-                <div class="i-checks">
-                  <input id="radioCustom3" type="radio" checked="" value="option3" name="optionsRadios" class="form-control-custom radio-custom">
-                  <label for="radioCustom3">Apotheker</label>
-                </div>
-              </div>
-            </div>
             <div class="line"></div>
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">Geboortedatum</label>
@@ -80,14 +63,9 @@
                 </div>
               </div>
             </div>
-            <div class="line"></div>
-            <div class="form-group row">
-              <div class="col-sm-4 offset-sm-2">
-                <button class="btn btn-secondary" style="vertical-align:middle" v-on:click="setHome"><span>Cancel</span></button>
-                <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,bdate,adres,})"><span>Create</span></button>
-              </div>
-            </div>
           </form>
+          <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
+          <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,password})"><span>Create</span></button>
         </div>
       </div>
     </section>
@@ -102,6 +80,11 @@
 
       data(){
         return{
+          name:'',
+          lname:'',
+          email:'',
+          password:'',
+
         }
       },
       components:{
@@ -109,16 +92,16 @@
       },
       methods: {
         create() {
-          this.$store.dispatch("update", {
-            name: this.name,
-            lname: this.lname,
-            email: this.email,
-            password: this.password,
-            job: this.job,
-            bdate: this.bdate,
-            adres: this.adres
+          this.$store.dispatch('postRequest', {
+            url:'doctors',
+            body:{
+              firstname: this.name,
+              lastname: this.lname,
+              username: this.email,
+              password: this.password,
+            }
           }).then(() => {
-            this.$router.push('dashboard')
+            console.log('lukte')
           });
         },
         changeCompontent (component) {

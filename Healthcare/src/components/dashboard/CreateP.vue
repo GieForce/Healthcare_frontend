@@ -12,28 +12,28 @@
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Naam</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Naam" class="form-control">
+              <input type="text" placeholder="Naam" v-model="name" class="form-control">
             </div>
           </div>
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Achternaam</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Achternaam" class="form-control">
+              <input type="text" placeholder="Achternaam" v-model="lname" class="form-control">
             </div>
           </div>
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Leeftijd</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Leeftijd" class="form-control">
+              <input type="text" placeholder="Leeftijd"  class="form-control">
             </div>
           </div>
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">E-Mail</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="E-Mail" class="form-control">
+              <input type="text" placeholder="E-Mail" v-model="email" class="form-control">
             </div>
           </div>
           <div class="line"></div>
@@ -58,8 +58,8 @@
           <div class="line"></div>
           <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
-              <button class="btn btn-secondary" style="vertical-align:middle" v-on:click="setHome"><span>Cancel</span></button>
-              <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,})"><span>Create</span></button>
+              <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
+              <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,password})"><span>Create</span></button>
             </div>
           </div>
         </form>
@@ -76,6 +76,9 @@
 
     data(){
       return{
+        name:'',
+        lname:'',
+        email:'',
       }
     },
     components:{
@@ -83,17 +86,15 @@
     },
     methods: {
       create() {
-        this.$store.dispatch("update", {
-          name: this.name,
-          lname: this.lname,
-          email: this.email,
-          password: this.password,
-          job: this.job,
-          bdate: this.bdate,
-          adres: this.adres,
-          hnr: this.hnr
+        this.$store.dispatch("postRequest", {
+          url:'patients',
+          body:{
+            firstname: this.name,
+            surname: this.lname,
+            username: this.email,
+          }
         }).then(() => {
-          this.$router.push('dashboard')
+
         });
       },
       changeCompontent (component) {

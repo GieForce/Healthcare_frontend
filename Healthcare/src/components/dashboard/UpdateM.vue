@@ -7,18 +7,6 @@
         <h1 class="h3 display">Wijzigen</h1>
       </header>
     </div>
-      <div class="card-body">
-        <div class="form-group row">
-          <label class="col-sm-2 form-control-label">Selecteer Werknemer</label>
-          <div class="col-sm-10 mb-3">
-            <select name="account" class="form-control">
-              <option>Werknemer 1</option>
-              <option>Werknemer 2</option>
-              <option>Werknemer 3</option>
-              <option>Werknemer 4</option>
-            </select>
-          </div>
-        </div>
         <div class="line"></div>
         <form class="form-horizontal">
           <div class="form-group row">
@@ -78,7 +66,7 @@
       <div class="line"></div>
       <div class="form-group row">
         <div class="col-sm-4 offset-sm-2">
-          <button class="btn btn-secondary" style="vertical-align:middle" v-on:click="setHome"><span>Cancel</span></button>
+          <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
           <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,bdate,adres,})"><span>Create</span></button>
         </div>
       </div>
@@ -100,28 +88,30 @@
       },
 
       data() {
-        return {}
+        return {
+          employees: [],
+        }
       },
       methods: {
         create() {
-          this.$store.dispatch("update", {
+          this.$store.dispatch("", {
             name: this.name,
             lname: this.lname,
             email: this.email,
             password: this.password,
-            job: this.job,
-            bdate: this.bdate,
-            adres: this.adres
           }).then(() => {
-            this.$router.push('dashboard')
           });
         },
-        methods: {
           changeComponent (component) {
             this.openComponent = component;
           }
-        }
-      }
+        },
+        mounted() {
+          this.$store.dispatch("getRequest", 'admins').then((response) => {
+            this.employees = response
+            console.log(this.employees)
+          });
+        },
     }
 </script>
 
