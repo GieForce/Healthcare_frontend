@@ -80,10 +80,10 @@
 .linkani:hover
 {
     border-bottom: 3px solid transparent;
-    -webkit-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
-    -moz-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
-    -o-border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
-    border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
+    -webkit-border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
+    -moz-border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
+    -o-border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
+    border-image: linear-gradient(to right, #33ffff , #34B3C1) 3;
     height: 100%;
     transition: all 0.3s;
     color: #000;
@@ -143,6 +143,21 @@ object{
     display: inline-block;
 }
 
+.buttonadd {
+    display: inline-block;
+    border-radius: 2px;
+    background-color: #34B3C1;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    width: 50px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 10px;
+}
+
 .button {
     display: inline-block;
     border-radius: 4px;
@@ -183,24 +198,35 @@ object{
     right: 0;
 }
 
+.buttonGrey {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #808080;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+}
+
 .field{
     --uiFieldPaddingTop: var(--fieldPaddingTop, 0px);
     --uiFieldPaddingRight: var(--fieldPaddingRight, 0px);
     --uiFieldPaddingBottom: var(--fieldPaddingBottom, 0px);
     --uiFieldPaddingLeft: var(--fieldPaddingLeft, 0px);
 
-    --uiFieldBorderColor: var(--fieldBorderColor, #B5B5B5);
+    --uiFieldBorderColor: var(--fieldBorderColor, transpatent);
     --uiFieldBorderTop: var(--fieldBorderTop, 0px);
     --uiFieldBorderRight: var(--fieldBorderRight, 0px);
     --uiFieldBorderBottom: var(--fieldBorderBottom, 0px);
     --uiFieldBorderLeft: var(--fieldBorderLeft, 0px);
 
     --uiFieldBgColor: var(--fieldBgColor, transpatent);
-    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #B5B5B5);
+    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
     --uiFieldAnimationDuration: var(--fieldAnimationDuration, .3s);
     --uiFieldFonstSize: var(--fieldFontSize, 16px);
-
-    --uiFieldLabelColor: var(--fieldLabelColor, #B5B5B5);
 
     position: relative;
     display: block;
@@ -215,7 +241,6 @@ object{
     position: absolute;
     top: calc(0px + var(--uiFieldPaddingTop) + var(--uiFieldBorderTop));
     left: calc(0px + var(--uiFieldPaddingLeft) + var(--uiFieldBorderLeft));
-    color: var(--uiFieldLabelColor);
 
     pointer-events: none;
     font-size: .8em;
@@ -345,15 +370,6 @@ object{
     width: 50%;
 }
 
-.form-check-input{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: blue;
-}
-
 .logotext1{
     font-family: 'Monda', sans-serif;
     text-align: center;
@@ -404,21 +420,16 @@ object{
     height: 100%;
 }
 
-.ddown1{
-    color: transparent;
-}
-
 html{
     background: #f5f5f5;
 }
 
 .bordercontainerlogin{
-    border-top: 15px solid transparent;
-    -webkit-border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
-    -moz-border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
-    -o-border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
-    border-image: linear-gradient(to right, #56CCF2 , #11998E) 10;
-    border-top-left-radius: 25px;
+    border-top: 30px solid transparent;
+    -webkit-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    -moz-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    -o-border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
+    border-image: linear-gradient(to right, #33ffff , #00cccc) 10;
 }
 
 object{
@@ -433,8 +444,41 @@ object{
     margin-top: 10%;
 }
 
-i{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.tableheader{
+  font-size: 30px;
+  color: #000066;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.tableoverview{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid #000066;
+}
+.thoverview{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #000066;
+  text-transform: uppercase;
+}
+.tdoverview{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #000066;
+  border-bottom: solid 1px #000066;
 }

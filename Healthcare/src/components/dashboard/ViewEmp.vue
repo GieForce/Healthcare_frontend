@@ -9,6 +9,7 @@
           <th class="thoverview">Voornaam</th>
           <th class="thoverview">Achternaam</th>
           <th class="thoverview">Afdeling</th>
+          <th class="thoverview">Email</th>
           <th class="thoverview">Acties</th>
         </tr>
 
@@ -21,10 +22,11 @@
             <td class="tdoverview"><input class="form-control" v-model="employee.firstname" readonly/></td>
             <td class="tdoverview"><input class="form-control" v-model="employee.surname" readonly/></td>
             <td class="tdoverview"><input class="form-control" v-model="employee.department" readonly/></td>
+            <td class="tdoverview"><input class="form-control" v-model="employee.email" readonly/></td>
             <td class="tdoverview">
-              <a title="view this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf06e;</i> </a>
-              <a title="edit this user" class="btn btn-default btn-sm ">  <i style="font-size:24px" class="fa">&#xf044;</i> </a>
-              <a title="delete this user" class="btn btn-default btn-sm ">  <i style="font-size:24px" class="fa">&#xf014;</i> </a>
+              <button title="view this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf06e;</i> </button>
+              <button title="edit this user" class="btn btn-default btn-sm " v-on:click="changeCompontent('updateWerknemer')">  <i style="font-size:24px" class="fa">&#xf044;</i> </button>
+              <button title="delete this user" class="btn btn-default btn-sm ">  <i style="font-size:24px" class="fa">&#xf014;</i> </button>
             </td>
           </tr>
           </tbody>
@@ -59,9 +61,8 @@
           console.log(e);
         }
       },
-
       changeComponent (component) {
-        this.openComponent = component;
+        this.$parent.openComponent = component;
       }
     }
   }
