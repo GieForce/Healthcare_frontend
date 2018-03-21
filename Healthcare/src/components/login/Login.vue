@@ -18,7 +18,7 @@
                   <div class="col-md-1" align="center"><i class="ion-android-mail" style="font-size:22px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type3">
-                      <input class="field__input" id="email" v-on:keyup.enter="login({ email, password })" v-model="email" placeholder="mail@provider.nl">
+                      <input class="field__input" id="email" v-model="email" placeholder="mail@provider.nl">
                         <span class="field__label-wrap">
                           <span class="field__label">Email</span>
                         </span>
@@ -29,7 +29,7 @@
                   <div class="col-md-1" align="center" style="text-align:center;"><i class="ion-android-lock" style="font-size:22px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type2">
-                      <input type="password" class="field__input" id="password" v-on:keyup.enter="login({ email, password })" v-model="password" placeholder="****************">
+                      <input type="password" class="field__input" id="password" v-model="password" placeholder="****************">
                       <span class="field__label-wrap">
                         <span class="field__label">Wachtwoord</span>
                       </span>
