@@ -1,6 +1,5 @@
 <template>
   <div class="dashboardContentForms">
-  <form id="form-list-client">
     <h1 class="tableheader">Werknemers</h1>
     <div class="tbl-header">
       <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
@@ -20,12 +19,12 @@
           <tbody id="form-list-client-body">
           <tr v-for="employee in employees">
             <td class="tdoverview"><input class="form-control" v-model="employee.firstname" readonly/></td>
-            <td class="tdoverview"><input class="form-control" v-model="employee.surname" readonly/></td>
-            <td class="tdoverview"><input class="form-control" v-model="employee.department" readonly/></td>
-            <td class="tdoverview"><input class="form-control" v-model="employee.email" readonly/></td>
+            <td class="tdoverview"><input class="form-control" v-model="employee.lastname" readonly/></td>
+            <td class="tdoverview"><input class="form-control" v-model="employee.type" readonly/></td>
+            <td class="tdoverview"><input class="form-control" v-model="employee.username" readonly/></td>
             <td class="tdoverview">
               <button title="view this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf06e;</i> </button>
-              <button title="edit this user" class="btn btn-default btn-sm " v-on:click="changeCompontent('updateWerknemer')">  <i style="font-size:24px" class="fa">&#xf044;</i> </button>
+              <button title="edit this user" class="btn btn-default btn-sm " v-on:click="changeComponent('updateWerknemer', employee)">  <i style="font-size:24px" class="fa">&#xf044;</i> </button>
               <button title="delete this user" class="btn btn-default btn-sm ">  <i style="font-size:24px" class="fa">&#xf014;</i> </button>
             </td>
           </tr>
@@ -33,7 +32,6 @@
         </table>
       </div>
     </div>
-  </form>
   </div>
 
 </template>
@@ -48,23 +46,16 @@
       }
     },
     mounted() {
-      this.$store.dispatch("getRequest", 'employees').then((response) => {
+      this.$store.dispatch("getRequest", 'admins').then((response) => {
         this.employees = response
         console.log(this.employees)
       });
     },
     methods: {
-      addRow: function (voornaam, achternaam, geboortedatum, geslacht) {
-        try {
-          this.employees.splice(firstName, achternaam, geboortedatum, geslacht, {});
-        } catch (e) {
-          console.log(e);
-        }
-      },
-      changeComponent (component) {
-        this.$parent.openComponent = component;
+      changeComponent (component, employee) {
+        this.$parent.changeComponent(component, employee);
       }
-    }
+    },
   }
 
 </script>

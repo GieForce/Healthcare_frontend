@@ -148,6 +148,28 @@ const Store = new Vuex.Store({
         }, 1000);
       });
     },
+    updateRequest ({commit}, info) {
+      commit(PENDING);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          console.log(info.url)
+          console.log(info.body)
+          axios({
+            method: 'update',
+            url: 'https://zonnevelt.nl/' + info.url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
+            },
+            data: info.body,
+          }).then(function (response) {
+            resolve(response.data);
+          }).catch(function (error) {
+            resolve(error);
+          });
+        }, 1000);
+      });
+    },
   },
   getters: {
     isLoggedIn: state => {

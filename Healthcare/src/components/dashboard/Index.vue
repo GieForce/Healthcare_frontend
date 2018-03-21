@@ -7,7 +7,7 @@
       <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatient'"></createp>
-      <updatem :userId="userId" v-if="openComponent === 'updateWerknemer'"></updatem>
+      <updatem :userId="userId" :user="getMedewerker" v-if="openComponent === 'updateWerknemer'"></updatem>
       <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
@@ -34,6 +34,7 @@ export default {
     return {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
+      medewerker: '',
     }
   },
   components: {
@@ -47,9 +48,18 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
   },
+  computed: {
+    getMedewerker(){
+      return this.medewerker;
+    }
+  },
   methods: {
     changeComponent (component) {
       this.openComponent = component;
+    },
+    changeComponent (component, user) {
+      this.openComponent = component;
+      this.medewerker = user;
     }
   }
 }
