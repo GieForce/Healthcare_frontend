@@ -61,3 +61,7 @@ export default {
 <style>@import"../../assets/style/grasp_mobile_progress_circle-1.0.0.min.css";</style>
 <style>@import"../../assets/style/style.sea.css";</style>
 <style>@import"../../assets/icons-reference/ionicons.css";</style>
+<style>@import"../../assets/style/landing.css";</style>
+<style>@import"http://fontawesome.io/assets/font-awesome/css/font-awesome.css";</style>
+<style>@import"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";</style>
+<style>@import"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css";</style>
