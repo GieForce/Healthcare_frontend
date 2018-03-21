@@ -2972,6 +2972,12 @@ a > code {
   padding-top: 50px;
 
 }
+.dashboardContentForms{
+  padding-left: 200px;
+  padding-right: 40px;
+  padding-top: 50px;
+
+}
 
 @media only screen and (max-width: 1199px) {
   .dashboardContent {
