@@ -11,22 +11,22 @@
           <h6> {{ user.firstname + ' ' + user.lastname }} </h6>
         </div>
 
-          <li><a v-on:click="changeCompontent('home')" style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
+        <li><a v-on:click="changeCompontent('home')" style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
 
-          <div v-if="user.type === 'admin'">
-            <li><a style="cursor:pointer"><i class="ion-ios-people"></i>Werknemers</a></li>
-            <li><a style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
-          </div>
+        <div v-if="user.type === 'admin'">
+          <li><a style="cursor:pointer"><i class="ion-ios-people"></i>Werknemers</a></li>
+          <li><a style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
+        </div>
 
-          <div v-if="user.type === 'arts'">
-            <li><a style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
-          </div>
+        <div v-if="user.type === 'arts'">
+          <li><a style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
+        </div>
 
-          <div v-if="user.type === 'patient'">
-            <li><a v-on:click="changeCompontent('personalDossier')" style="cursor:pointer"><i class="ion-document"></i>Mijn dossier</a></li>
-          </div>
+        <div v-if="user.type === 'patient'">
+          <li><a v-on:click="changeCompontent('personalDossier')" style="cursor:pointer"><i class="ion-document"></i>Mijn dossier</a></li>
+        </div>
 
-          <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Logout</a></li>
+        <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Logout</a></li>
 
         </ul>
         <div class="sidenav-header d-flex align-items-center justify-content-center">
