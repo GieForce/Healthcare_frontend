@@ -103,8 +103,7 @@ const Store = new Vuex.Store({
       }); 
       });
      }, 1000);
-    });
-   },
+    },
    putRequest({ commit }, info) {
     commit(PENDING);
     return new Promise(resolve => {

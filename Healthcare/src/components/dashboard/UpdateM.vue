@@ -86,10 +86,10 @@
           this.$store.dispatch('updateRequest', {
             url:'doctors/' + this.user.user_id,
             body:{
-              firstname: this.name,
-              lastname: this.lname,
-              username: this.email,
-              password: this.password,
+              firstname: this.user.firstname,
+              lastname: this.user.lastname,
+              username: this.user.username,
+              password: this.user.password,
             }
           }).then(() => {
             console.log('lukte')
