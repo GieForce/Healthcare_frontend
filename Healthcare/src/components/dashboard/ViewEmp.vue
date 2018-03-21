@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboardContent">
+  <div class="dashboardContentForms">
   <form id="form-list-client">
     <h1 class="tableheader">Patiënten</h1>
     <div class="pull-right">
