@@ -26,7 +26,7 @@
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Leeftijd</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Leeftijd"  class="form-control">
+              <input type="text" placeholder="Leeftijd" v-model="leeftijd" class="form-control">
             </div>
           </div>
           <div class="line"></div>
@@ -58,11 +58,12 @@
           <div class="line"></div>
           <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
-              <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
-              <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,password})"><span>Create</span></button>
+          
             </div>
           </div>
         </form>
+        <button class="btn btn-secondary" v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
+        <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,leeftijd})"><span>Create</span></button>
       </div>
     </div>
   </section>
@@ -79,6 +80,7 @@
         name:'',
         lname:'',
         email:'',
+        leeftijd:''
       }
     },
     components:{
@@ -86,18 +88,19 @@
     },
     methods: {
       create() {
-        this.$store.dispatch("postRequest", {
+        this.$store.dispatch('postRequest', {
           url:'patients',
           body:{
             firstname: this.name,
-            surname: this.lname,
+            lastname: this.lname,
             username: this.email,
+            age: this.leeftijd,
           }
         }).then(() => {
-
+          this.changeComponent('viewPatients');
         });
       },
-      changeCompontent (component) {
+      changeComponent (component) {
         this.$parent.changeComponent(component)
       }
     },

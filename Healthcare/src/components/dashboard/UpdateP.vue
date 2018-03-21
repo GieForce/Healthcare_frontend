@@ -63,13 +63,14 @@
           <div class="line"></div>
           <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
-              <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
-              <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,bdate,adres,})"><span>Wijzig</span></button>
+              
             </div>
           </div>
         </form>
       </div>
     </div>
+    <button class="btn btn-secondary" v-on:click="changeCompontent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
+    <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,bdate,adres,})"><span>Wijzig</span></button>
   </section>
 </template>
 

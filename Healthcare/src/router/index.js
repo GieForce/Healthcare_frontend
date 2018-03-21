@@ -38,7 +38,13 @@ const router = new Router({
         require(['@/components/dashboard/Dossier.vue'], resolve)
       }
     },
-
+    {
+      path: '/register',
+      name: 'register',
+      component: function (resolve) {
+        require(['@/components/login/Register.vue'], resolve)
+      }
+    },
   ]
 })
 

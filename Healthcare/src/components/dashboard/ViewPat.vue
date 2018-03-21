@@ -3,7 +3,7 @@
   <form id="form-list-client">
     <h1 class="tableheader">Patiënten</h1>
     <div class="pull-right">
-      <button class="buttonadd" style="vertical-align:middle" v-on:click="addRow('voornaam', 'achternaam', '17-01-1998', 'M')"><span></span></button>
+      <a v-on:click="changeComponent('createPatients')" style="cursor:pointer"> <i class="ion-ios-plus"></i> Patient Aanmaken</a>
     </div>
     <div class="tbl-header">
       <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
@@ -26,7 +26,7 @@
               <input class="form-control" v-model="patient.firstname" readonly/>
             </td>
             <td class="tdoverview">
-              <input class="form-control" v-model="patient.surname" readonly/>
+              <input class="form-control" v-model="patient.lastname" readonly/>
             </td>
             <td class="tdoverview">
               <input class="form-control" v-model="patient.age" readonly/>
@@ -36,7 +36,7 @@
             </td>
             <td class="tdoverview">
               <a title="view this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf06e;</i> </a>
-              <a title="edit this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf044;</i> </a>
+              <a title="edit this user" v-on:click="changeComponent('updateWerknemer', patient)" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf044;</i> </a>
               <a title="delete this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf014;</i> </a>
             </td>
           </tr>
@@ -71,6 +71,12 @@
           console.log(e);
         }
       },
+      changeComponent (component) {
+        this.$parent.changeComponent(component);
+      },
+      changeComponent (component, employee) {
+        this.$parent.changeComponent(component, employee);
+      }
     }
   }
 

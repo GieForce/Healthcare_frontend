@@ -4,7 +4,7 @@
       <div class="container">
         <!-- Page Header-->
         <header>
-          <h1 class="h3 display">Creëren            </h1>
+          <h1 class="h3 display">Creëren</h1>
         </header>
       </div>
         <div class="card-body">
@@ -64,7 +64,7 @@
               </div>
             </div>
           </form>
-          <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
+          <button class="btn btn-secondary" v-on:click="changeComponent('viewWerknemers')" style="cursor:pointer"><span>Cancel</span></button>
           <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,password})"><span>Create</span></button>
         </div>
       </div>
@@ -101,10 +101,10 @@
               password: this.password,
             }
           }).then(() => {
-            console.log('lukte')
+            this.changeComponent('viewWerknemers')
           });
         },
-        changeCompontent (component) {
+        changeComponent (component) {
           this.$parent.changeComponent(component)
         }
       },

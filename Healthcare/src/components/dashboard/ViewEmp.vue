@@ -1,8 +1,10 @@
 <template>
-  <div class="dashboardContentForms">
+  <div class="dashboardContent">
     <h1 class="tableheader">Werknemers</h1>
     <div class="tbl-header">
-      <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
+    <div class="pull-right">
+      <a v-on:click="changeComponent('createWerknemer')" style="cursor:pointer"> <i class="ion-ios-plus"></i> Werknemer Aanmaken</a>
+    </div>      <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
         <thead>
         <tr>
           <th class="thoverview">Voornaam</th>
@@ -52,6 +54,9 @@
       });
     },
     methods: {
+      changeComponent (component) {
+        this.$parent.changeComponent(component);
+      },
       changeComponent (component, employee) {
         this.$parent.changeComponent(component, employee);
       }
@@ -59,7 +64,3 @@
   }
 
 </script>
-
-<style>
-
-</style>

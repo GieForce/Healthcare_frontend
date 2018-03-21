@@ -55,7 +55,7 @@
         </div>
       </div>
       </form>
-      <button class="btn btn-secondary" v-on:click="changeCompontent('home')" style="cursor:pointer"><span>Cancel</span></button>
+      <button class="btn btn-secondary" v-on:click="changeComponent('home')" style="cursor:pointer"><span>Cancel</span></button>
       <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password })"><span>Create</span></button>
     </div>
   </section>
@@ -96,7 +96,7 @@
           });
         },
           changeComponent (component) {
-            this.openComponent = component;
+            this.$parent.changeComponent(component);
           }
         },
         mounted() {
