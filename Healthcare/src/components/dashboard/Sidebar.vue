@@ -11,12 +11,15 @@
           <li><a v-on:click="changeCompontent('home')" style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
 
           <div v-if="userType === 'admin'">
-            <li><a style="cursor:pointer"> <i class="ion-ios-people"></i>Werknemers</a></li>
-            <li><a style="cursor:pointer"> <i class="ion-person"></i>Patienten</a></li>
+            <li><a v-on:click="changeCompontent('viewWerknemers')" style="cursor:pointer"> <i class="ion-document"></i>Werknemer Overzicht</a></li>
+            <li><a v-on:click="changeCompontent('createWerknemer')" style="cursor:pointer"> <i class="ion-document"></i>Werknemer Aanmaken</a></li>
+            <li><a v-on:click="changeCompontent('updateWerknemer')" style="cursor:pointer"> <i class="ion-document"></i>Werknemer Update</a></li>
           </div>
 
           <div v-if="userType === 'arts'">
             <li><a style="cursor:pointer"> <i class="ion-person"></i>Patienten</a></li>
+            <li><a v-on:click="changeCompontent('createPatient')" style="cursor:pointer"> <i class="ion-document"></i>Patient Aanmaken</a></li>
+            <li><a v-on:click="changeCompontent('updatePatient')" style="cursor:pointer"> <i class="ion-document"></i>Patient Update</a></li>
           </div>
 
           <div v-if="userType === 'patient'">
@@ -35,7 +38,6 @@
     data(){
       return{
         userType: this.$store.getters.user.type,
-        cPersonalDossier: false,
       }
     },
     methods: {

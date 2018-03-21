@@ -85,6 +85,7 @@
           email: this.email,
           password: this.password,
         }).then(() => {
+          console.log("het ging fout hier")
           this.$router.push('dashboard')
         });
       }

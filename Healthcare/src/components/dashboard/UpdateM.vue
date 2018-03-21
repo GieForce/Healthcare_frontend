@@ -72,9 +72,6 @@
         return {}
       },
       methods: {
-        setHome: function (event) {
-          this.cHome = true;
-        },
         create() {
           this.$store.dispatch("update", {
             name: this.name,
@@ -87,6 +84,11 @@
           }).then(() => {
             this.$router.push('dashboard')
           });
+        },
+        methods: {
+          changeComponent (component) {
+            this.openComponent = component;
+          }
         }
       }
     }

@@ -4,7 +4,13 @@
     <navbar></navbar>
     <sidebar></sidebar>
     <div class="dashboardContent">
-    <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
+      <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
+      <createm v-if="openComponent === 'createWerknemer'"></createm>
+      <createp v-if="openComponent === 'createPatient'"></createp>
+      <updatem :userId="userId" v-if="openComponent === 'updateWerknemer'"></updatem>
+      <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
+      <news v-if="openComponent === 'news'"></news>
+      <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
     </div>
   </div>
 </template>
@@ -12,8 +18,13 @@
 <script>
 import Navbar from './Navbar.vue'
 import Sidebar from './Sidebar.vue'
-
 import Dossier from './Dossier.vue'
+import UpdateP from "./UpdateM";
+import UpdateM from "./UpdateP";
+import CreateM from "./UpdateM";
+import CreateP from "./UpdateP";
+import News from './News.vue'
+import ViewEmp from './ViewEmp.vue'
 
 export default {
 
@@ -29,6 +40,12 @@ export default {
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
+    'createm' : CreateM,
+    'createp' : CreateP,
+    'updatem' : UpdateM,
+    'updatep' : UpdateP,
+    'news' : News,
+    'viewemp' : ViewEmp,
   },
   methods: {
     changeComponent (component) {
