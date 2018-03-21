@@ -126,6 +126,127 @@ const Store = new Vuex.Store({
      }, 1000);
     });
    },
+    login({commit}, creds) {
+      commit(PENDING);
+      console.log("Loggin in...");
+      return new Promise(resolve => {
+        setTimeout(() => {
+          axios({
+            method: 'post',
+            url: 'https://zonnevelt.nl/oauth/token',
+            params: {
+              grant_type: 'password',
+              username: creds.email,
+              password: creds.password,
+              scope: 'read',
+              client_id: 'pharmacy'
+            },
+            headers: {
+              'Authorization': 'Basic cGhhcm1hY3k6c2VjcmV0',
+              'content-type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function (response) {
+            localStorage.setItem("healthcare", response.data.access_token);
+            console.log(response);
+            commit(LOGIN_SUCCES);
+            commit(USER_CHANGED, response.data.user);
+            resolve();
+          }).catch(function (error) {
+            localStorage.removeItem("healthcare");
+            commit(LOGIN_FAILED);
+            resolve();
+          });
+        }, 1000);
+      });
+    },
+    putRequest({commit}, info) {
+      commit(PENDING);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          console.log(info.url)
+          console.log(info.body)
+          axios({
+            method: 'put',
+            url: 'https://zonnevelt.nl/' + info.url,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            params: info.body,
+          }).then(function (response) {
+            resolve(response.data);
+          }).catch(function (error) {
+            resolve(error);
+          });
+        }, 1000);
+      });
+    },
+
+    logout({commit}) {
+      localStorage.removeItem("healthcare");
+      commit(LOGOUT);
+    },
+    getRequest({commit}, url) {
+      commit(PENDING);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          axios({
+            method: 'get',
+            url: 'https://zonnevelt.nl/' + url,
+            headers: {
+              'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
+            }
+          }).then(function (response) {
+            resolve(response.data);
+          }).catch(function (error) {
+            resolve(error);
+          });
+        }, 1000);
+      });
+    },
+    postRequest({commit}, info) {
+      commit(PENDING);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          console.log(info.url)
+          console.log(info.body)
+          axios({
+            method: 'post',
+            url: 'https://zonnevelt.nl/' + info.url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
+            },
+            data: info.body,
+          }).then(function (response) {
+            resolve(response.data);
+          }).catch(function (error) {
+            resolve(error);
+          });
+        }, 1000);
+      });
+    },
+    updateRequest ({commit}, info) {
+      commit(PENDING);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          console.log(info.url)
+          console.log(info.body)
+          axios({
+            method: 'update',
+            url: 'https://zonnevelt.nl/' + info.url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
+            },
+            data: info.body,
+          }).then(function (response) {
+            resolve(response.data);
+          }).catch(function (error) {
+            resolve(error);
+          });
+        }, 1000);
+      });
+    },
   },
   getters: {
     isLoggedIn: state => {
@@ -140,3 +261,4 @@ const Store = new Vuex.Store({
   }
 });
 
+export default Store
