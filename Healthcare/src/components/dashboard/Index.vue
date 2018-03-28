@@ -4,16 +4,15 @@
     <navbar></navbar>
     <sidebar></sidebar>
     <div class="dashboardContent">
-      <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
+      <dossier :userId="userId" :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
-      <updatem :userId="userId" :user="getMedewerker" v-if="openComponent === 'updateWerknemer'"></updatem>
+      <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
       <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
-
     </div>
   </div>
 </template>
@@ -38,7 +37,7 @@ export default {
     return {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
-      medewerker: '',
+      user: '',
     }
   },
   components: {
@@ -54,17 +53,15 @@ export default {
     'viewpat' : ViewPat,
   },
   computed: {
-    getMedewerker(){
-      return this.medewerker;
+    getUser(){
+      return this.user;
     }
   },
   methods: {
-    changeComponent (component) {
-      this.openComponent = component;
-    },
     changeComponent (component, user) {
+      console.log('Changing component to: ' + component)
       this.openComponent = component;
-      this.medewerker = user;
+      this.user = user;
     }
   }
 }

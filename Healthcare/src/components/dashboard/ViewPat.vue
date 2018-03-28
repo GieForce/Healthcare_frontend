@@ -35,8 +35,8 @@
               <input class="form-control" v-model="patient.gender" readonly/>
             </td>
             <td class="tdoverview">
-              <a title="view this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf06e;</i> </a>
-              <a title="edit this user" v-on:click="changeComponent('updateWerknemer', patient)" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf044;</i> </a>
+              <a title="view this user" v-on:click="changeComponent('personalDossier', patient)" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf06e;</i> </a>
+              <a title="edit this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf044;</i> </a>
               <a title="delete this user" class="btn btn-default btn-sm "> <i style="font-size:24px" class="fa">&#xf014;</i> </a>
             </td>
           </tr>
@@ -60,7 +60,6 @@
     mounted() {
       this.$store.dispatch("getRequest", 'patients').then((response) => {
         this.patients = response
-        console.log(this.patients)
       });
     },
     methods: {
@@ -74,8 +73,8 @@
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },
-      changeComponent (component, employee) {
-        this.$parent.changeComponent(component, employee);
+      changeComponent (component, patient) {
+        this.$parent.changeComponent(component, patient);
       }
     }
   }

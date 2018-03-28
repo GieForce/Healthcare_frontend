@@ -4,7 +4,8 @@
     <div class="tbl-header">
     <div class="pull-right">
       <a v-on:click="changeComponent('createWerknemer')" style="cursor:pointer"> <i class="ion-ios-plus"></i> Werknemer Aanmaken</a>
-    </div>      <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
+    </div>      
+    <table class="tableoverview" cellpadding="0" cellspacing="0" border="0">
         <thead>
         <tr>
           <th class="thoverview">Voornaam</th>

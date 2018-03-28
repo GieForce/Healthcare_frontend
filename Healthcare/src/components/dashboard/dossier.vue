@@ -1,7 +1,23 @@
 <template>
   <div  style="width: 100%;">
-    <div class="loader" v-if="isBusy" ><loader></loader></div>
-    <div v-if="!isBusy">
+    <div class="loader" v-if="isLoading" ><loader></loader></div>
+    <div v-if="!isLoading">
+      <b-modal id="addDiagnoseModal" 
+               title="Voeg een diagnose toe"
+               @ok="newDiagnose"
+               ok-title="Toevoegen">
+        <b-form @submit="newDiagnose" @reset="">
+          <label for="categoryInput">Categorie: </label>
+          <b-form-input id="categoryInput"
+                        v-model="form.category"
+                        placeholder="Allergie, botbreuk, controle, etc"></b-form-input>
+          <br>
+          <label for="diagnoseInput">Diagnose: </label>
+          <b-form-textarea  id="diagnoseInput"
+                            v-model="form.diagnose"
+                            :rows="3"></b-form-textarea>
+        </b-form>
+      </b-modal>
       <div class="row">
         <div class="col-md-6">
           <div class="row">
@@ -10,13 +26,13 @@
             </div>
             <div class="col py-1">
               <h4>Volledige naam:</h4>
-              <p>{{ user.firstname + ' ' + user.lastname }}</p>
+              <p>{{ patient.firstname + ' ' + patient.lastname }}</p>
               <hr>
               <h4>Mail:</h4>
-              <p>{{ user.username }}</p>
+              <p>{{ patient.username }}</p>
               <hr>
               <h4>Leeftijd:</h4>
-              <p>{{ user.age }}</p>
+              <p>{{ patient.age }}</p>
               <hr>
               <h4>Arts:</h4>
               <p>Bartje Jansen</p>
@@ -26,7 +42,7 @@
       <div class="col-md-6">
       </div>
       </div>
-      <div class="row">
+      <div class="row">    
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
                  :items="items"
@@ -34,7 +50,13 @@
                  :fields="fields"
                   style="width: 100%;"
                   >
+          <td>Something special here</td>
         </b-table>
+        <div v:if="this.$store.getters.user.type === 'doctor'">
+          <b-button @click.stop="showModal($event.target)" class="btn btn-primary">
+            Voeg diagnose toe
+          </b-button>
+        </div>
       </div>
     </div>
   </div>
@@ -46,7 +68,7 @@
 
     export default {
       name: "dossier",
-      props: ['userId'],
+      props: ['patientid'],
       components: {
         'loader' : Loader,
       },
@@ -61,24 +83,45 @@
           },
           isBusy: false,
           items: [],
-          user: '',
+          patient: this.patientid,
+          form: {
+            category: '',
+            diagnose: ''
+          },
+          isLoading: false
         }
       },
       created () {
-        console.log(this.userId);
         this.isBusy = true;
-        this.$store.dispatch("getRequest", "patients/" + this.userId).then(response => {
-          console.log(response)
-          this.user = response;
+        this.isLoading = true
+        this.$store.dispatch("getRequest", "patients/" + this.patient.user_id).then(response => {
+          this.patient = response;
+          this.isLoading = false;
         });
-        this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
-          this.isBusy = false;
-          this.items = response;
-        });
+        this.loadDiagnosis();
       },
       methods: {
-        getItems () {
-          
+        showModal (button) {
+          this.$root.$emit('bv::show::modal', 'addDiagnoseModal', button)
+        },
+        newDiagnose () {
+          this.isBusy = true
+          this.$store.dispatch('postRequest' ,{
+            url: 'patients/dossier/2',
+            body: {
+              category: this.form.category,
+              report: this.form.diagnose,
+              date: new Date().toJSON().slice(0,10).replace(/-/g,'-')
+            }
+          }).then(response => {
+            this.loadDiagnosis();
+          })
+        },
+        loadDiagnosis() {
+          this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
+            this.isBusy = false;
+            this.items = response;
+          });
         }
       }
     }
