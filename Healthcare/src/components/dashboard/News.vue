@@ -3,8 +3,8 @@
     <div v-for="item in items" class="row">
       <div class="col blogShort">
         <div class="row">
-          <div class="col-md-10"><h2>{{item.Title}}</h2></div>
-          <div class="col"><p>{{item.date}}</p></div>
+          <div class="col-md-10"><h2 style="margin-top: 10px;">{{item.Title}}</h2></div>
+          <div class="col pull-right"><p style="margin-top: 10px;">{{item.date}}</p></div>
         </div>
         <b-img left rounded :src="item.Photo" alt="left image" class="pull-left img-responsive margin10 img-rounded" width="175px"/>
         <article><p>
