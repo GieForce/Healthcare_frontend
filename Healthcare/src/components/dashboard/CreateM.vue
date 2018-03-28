@@ -22,6 +22,11 @@
                 <input type="text" placeholder="Achternaam" v-model="lname" class="form-control">
               </div>
             </div>
+            <div>
+              <b-input-group prepend="Username">
+                <b-form-input type="text" placeholder="Achternaam" v-model="lname"></b-form-input>
+              </b-input-group>
+            </div>
             <div class="line"></div>
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">Leeftijd</label>

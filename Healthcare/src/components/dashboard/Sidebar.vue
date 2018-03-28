@@ -14,7 +14,9 @@
         <li><a v-on:click="changeComponent('home')" style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
 
         <div v-if="user.type === 'admin'">
-          <li><a v-on:click=" changeComponent('viewWerknemers')" style="cursor:pointer"><i class="ion-ios-people"></i>Werknemers</a></li>
+          <li><a v-on:click="changeComponent('viewWerknemers')" style="cursor:pointer"><i class="ion-ios-people"></i>Werknemers</a></li>
+          <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
+          <li><a v-on:click="changeComponent('viewswitch')" style="cursor:pointer"><i class="ion-person"></i>Switch</a></li>
         </div>
 
         <div v-if="user.type === 'doctor'">
