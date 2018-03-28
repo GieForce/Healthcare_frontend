@@ -18,7 +18,7 @@
                   <div class="col-md-1" align="center"><i class="ion-android-mail" style="font-size:22px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type3">
-                      <input class="field__input" id="email" v-on:keyup.enter="login({ email, password })" v-model="email" placeholder="mail@provider.nl">
+                      <input class="field__input" id="email" v-on:keyup.enter="login({ email, password })" v-on:keyup="checkForm" v-model="email" placeholder="mail@provider.nl">
                         <span class="field__label-wrap">
                           <span class="field__label">Email</span>
                         </span>
@@ -29,13 +29,19 @@
                   <div class="col-md-1" align="center" style="text-align:center;"><i class="ion-android-lock" style="font-size:22px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type2">
-                      <input type="password" class="field__input" id="password" v-on:keyup.enter="login({ email, password })" v-model="password" placeholder="****************">
+                      <input type="password" class="field__input" id="password" v-on:keyup.enter="login({ email, password })" v-on:keyup="checkForm" v-model="password" placeholder="****************">
                       <span class="field__label-wrap">
                         <span class="field__label">Wachtwoord</span>
                       </span>
                     </label>
                   </div>
               </div>
+                  <p v-if="errors.length">
+                    <b>De volgende fouten traden op:</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                  </p>
               <div class="row" style="padding-top: 1rem">
                 <div class="col">
                   <div style="text-align:center">
@@ -64,6 +70,7 @@
       return {
         email: '',
         password: '',
+        errors: [],
       }
     },
     computed: {
@@ -81,13 +88,33 @@
     },
     methods: {
       login() {
-        this.$store.dispatch("login", {
-          email: this.email,
-          password: this.password,
-        }).then(() => {
-          console.log("het ging fout hier")
-          this.$router.push('dashboard')
-        });
+          this.$store.dispatch("login", {
+            email: this.email,
+            password: this.password,
+          }).then(() => {
+            this.$router.push('dashboard')
+          }).catch(error => {
+            console.log("foutmelding: ");
+            this.errors.push(error);
+            console.log(this.errors)
+          });
+      },
+      checkForm:function(e) {
+        this.errors = [];
+        console.log(this.errors);
+        if(!this.password) this.errors.push("Voer een wachtwoord in");
+        if(!this.email) {
+          this.errors.push("Voer een E-mail adres in");
+        } else if(!this.validEmail(this.email)) {
+          this.errors.push("Voer een geldig E-mail adres in");
+        }
+        if(!this.errors.length) return true;
+        e.preventDefault();
+
+      },
+      validEmail:function(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
       }
     },
     components: {
