@@ -91,11 +91,11 @@
           this.$store.dispatch("login", {
             email: this.email,
             password: this.password,
-          }).then(() => {
+          }).then(response => {
             this.$router.push('dashboard')
+            this.errors.push("Incorrect wachtwoord of E-mail adres")
           }).catch(error => {
-            console.log("foutmelding: ");
-            this.errors.push(error);
+            this.errors.push("Incorrect wachtwoord of E-mail adres");
             console.log(this.errors)
           });
       },

@@ -53,7 +53,7 @@ const Store = new Vuex.Store({
   actions: {
    login({ commit }, creds) {
      commit(PENDING);
-     console.log("asdf");
+     console.log("logging in...");
      return new Promise(resolve => {
        setTimeout(() => {
          axios({
@@ -139,7 +139,7 @@ const Store = new Vuex.Store({
    },
     login({commit}, creds) {
       commit(PENDING);
-      console.log("Loggin in...");
+      console.log("asdf");
       return new Promise(resolve => {
         setTimeout(() => {
           axios({
@@ -166,6 +166,7 @@ const Store = new Vuex.Store({
             localStorage.removeItem("healthcare");
             commit(LOGIN_FAILED);
             resolve();
+            //throw "Incorrect wachtwoord of E-mail adres"
           });
         }, 1000);
       });
