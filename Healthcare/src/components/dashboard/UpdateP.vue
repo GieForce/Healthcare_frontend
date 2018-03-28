@@ -44,7 +44,7 @@
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geboortedatum</label>
-            <datepicker placeholder="Selecteer een Datum"  v-model="vModelExample"></datepicker>
+            <datepicker placeholder="Selecteer een Datum"  v-model="vModelExample">datepicker</datepicker>
           </div>
           <div class="line"></div>
           <div class="form-group row">
@@ -63,7 +63,7 @@
           <div class="line"></div>
           <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
-              
+
             </div>
           </div>
         </form>

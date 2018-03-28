@@ -49,7 +49,7 @@
     },
     mounted() {
       this.$store.dispatch("getRequest", 'admins').then((response) => {
-        this.employees = response
+        this.employees = response;
         console.log(this.employees)
       });
     },

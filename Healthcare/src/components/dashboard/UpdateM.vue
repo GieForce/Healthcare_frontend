@@ -32,7 +32,7 @@
       <div class="line"></div>
       <div class="form-group row">
         <label class="col-sm-2 form-control-label">Geboortedatum</label>
-        <datepicker placeholder="Selecteer een Datum" ></datepicker>
+        <datepicker placeholder="Selecteer een Datum"></datepicker>
       </div>
       <div class="line"></div>
       <div class="form-group row">

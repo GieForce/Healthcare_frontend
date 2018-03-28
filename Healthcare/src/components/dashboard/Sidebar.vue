@@ -11,11 +11,6 @@
           <h6> {{ user.firstname + ' ' + user.lastname }} </h6>
         </div>
 
-          <div v-if="userType === 'arts'">
-            <li><a style="cursor:pointer"> <i class="ion-person"></i>Patienten</a></li>
-            <li><a v-on:click="changeComponent('createPatient')" style="cursor:pointer"> <i class="ion-document"></i>Patient Aanmaken</a></li>
-          </div>
-
         <li><a v-on:click="changeComponent('home')" style="cursor:pointer"> <i class="ion-home"></i>Home</a></li>
 
         <div v-if="user.type === 'admin'">
@@ -25,6 +20,11 @@
         <div v-if="user.type === 'doctor'">
           <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
         </div>
+
+          <div v-if="user.type === receptionist">
+            <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
+            <li><a v-on:click="changeComponent()" style="cursor:pointer"><i class="ion-person"></i>Afspraken</a></li>
+          </div>
 
         <div v-if="user.type === 'patient'">
           <li><a v-on:click="changeComponent('personalDossier')" style="cursor:pointer"><i class="ion-document"></i>Mijn dossier</a></li>
