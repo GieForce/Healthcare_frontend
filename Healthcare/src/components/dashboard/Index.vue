@@ -4,7 +4,7 @@
     <navbar></navbar>
     <sidebar></sidebar>
     <div class="dashboardContent">
-      <dossier :userId="userId" v-if="openComponent === 'personalDossier'"></dossier>
+      <dossier :userId="getMedewerker" v-if="openComponent === 'personalDossier'"></dossier>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getMedewerker" v-if="openComponent === 'updateWerknemer'"></updatem>

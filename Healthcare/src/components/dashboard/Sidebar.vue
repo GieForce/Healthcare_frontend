@@ -8,7 +8,7 @@
 
         <div class="profile-userpic">
           <img src="https://studiomango.nl/wp-content/uploads/2014/10/team-profile-picture_minko.jpg" class="img-responsive" alt="">
-          <h6> {{ user.firstname + ' ' + user.lastname }} </h6>
+          <h6 class="py-1" style="text-align: center;"> {{ user.firstname + ' ' + user.lastname }} </h6>
         </div>
 
           <div v-if="userType === 'arts'">
@@ -32,7 +32,7 @@
         <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Logout</a></li>
 
         </ul>
-        <div class="sidenav-header d-flex align-items-center justify-content-center">
+        <div class="sidenav-header d-flex align-items-center justify-content-center sidebar-footer">
           <img src="../../assets/img/logoZonnevelt-02.svg">
         </div>
       </div>

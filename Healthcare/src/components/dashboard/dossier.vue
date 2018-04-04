@@ -67,8 +67,13 @@
       created () {
         console.log(this.userId);
         this.isBusy = true;
+        console.log(this.$store.getters.user)
+        if(this.$store.getters.user.type == 'patient'){
+          console.log('user is patient')
+          this.userId = this.$store.getters.user.userId
+        }
         this.$store.dispatch("getRequest", "patients/" + this.userId).then(response => {
-          console.log(response)
+          console.log(response);
           this.user = response;
         });
         this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
@@ -78,7 +83,7 @@
       },
       methods: {
         getItems () {
-          
+
         }
       }
     }

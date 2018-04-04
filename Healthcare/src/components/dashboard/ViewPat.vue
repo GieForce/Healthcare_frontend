@@ -29,7 +29,7 @@
     >
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button size="sm" v-on:click="changeComponent('personalDossier', row.item)" variant="primary">
+        <b-button size="sm" v-on:click="changeComponent('personalDossier', row.item.user_id)" variant="primary">
           <i style="font-size:24px" class="fa">&#xf06e;</i>
         </b-button>
         <b-button size="sm" v-on:click="changeComponent('updateWerknemer', row.item)" variant="primary">
