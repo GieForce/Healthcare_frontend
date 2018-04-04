@@ -24,27 +24,27 @@
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Naam</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Naam" class="form-control">
+              <input type="text" placeholder="Naam" v-model="name" v-on:keyup="checkForm" class="form-control">
             </div>
           </div>
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Achternaam</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Achternaam" class="form-control">
-            </div>
-          </div>
-          <div class="line"></div>
-          <div class="form-group row">
-            <label class="col-sm-2 form-control-label">E-Mail</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="E-Mail" class="form-control">
+              <input type="text" placeholder="Achternaam" v-model="lname" v-on:keyup="checkForm" class="form-control">
             </div>
           </div>
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geboortedatum</label>
-            <datepicker placeholder="Selecteer een Datum"  v-model="vModelExample"></datepicker>
+            <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm"></datepicker>
+          </div>
+          <div class="line"></div>
+          <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Wachtwoord</label>
+            <div class="col-sm-10">
+              <input type="text" placeholder="Wachtwoord" v-model="password" v-on:keyup="checkForm" class="form-control">
+            </div>
           </div>
           <div class="line"></div>
           <div class="form-group row">
@@ -52,10 +52,10 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-md-4">
-                  <input type="text" placeholder="Straat" class="form-control">
+                  <input type="text" placeholder="Straat" v-model="street" v-on:keyup="checkForm" class="form-control">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" placeholder="Huisnummer" class="form-control">
+                  <input type="number" placeholder="Huisnummer" v-model="number" v-on:keyup="checkForm" class="form-control">
                 </div>
               </div>
             </div>
@@ -63,14 +63,24 @@
           <div class="line"></div>
           <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
-              
+
             </div>
           </div>
         </form>
       </div>
     </div>
-    <button class="btn btn-secondary" v-on:click="changeCompontent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
-    <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update({ name,lname,email,password,job,bdate,adres,})"><span>Wijzig</span></button>
+    <p v-if="errors.length">
+      <b>De volgende fouten traden op:</b>
+    <ul>
+      <li v-for="error in errors">{{ error }}</li>
+    </ul>
+    </p>
+    <div class="form-group row">
+      <button class="btn btn-secondary" v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
+      <div v-if="!errors.length">
+        <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,password})"><span>Create</span></button>
+      </div>
+    </div>
   </section>
 </template>
 
