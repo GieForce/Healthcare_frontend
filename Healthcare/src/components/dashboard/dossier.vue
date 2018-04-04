@@ -42,6 +42,9 @@
       <div class="col-md-6">
       </div>
       </div>
+      <b-button @click="downloadDiagnosis">
+        <i class="ion-ios-cloud-download"></i>
+      </b-button>
       <div class="row">    
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
@@ -65,6 +68,7 @@
 <script>
 
     import Loader from '../loader.vue'
+    var jsonexport = require('jsonexport');
 
     export default {
       name: "dossier",
@@ -121,6 +125,21 @@
           this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
             this.isBusy = false;
             this.items = response;
+          });
+        },
+        downloadDiagnosis() {
+          var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
+          jsonexport(this.items, function(err, csv){
+            if(err) 
+              return console.log(err);
+            console.log(csv)
+            const url = window.URL.createObjectURL(new Blob([csv]));
+            var link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", fileName);
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
           });
         }
       }
