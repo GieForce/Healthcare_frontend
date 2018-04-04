@@ -1,7 +1,5 @@
 <template>
   <div  style="width: 100%;">
-    <div class="loader" v-if="isBusy" ><loader></loader></div>
-    <div v-if="!isBusy">
     <div class="loader" v-if="isLoading" ><loader></loader></div>
     <div v-if="!isLoading">
       <b-modal id="addDiagnoseModal" 

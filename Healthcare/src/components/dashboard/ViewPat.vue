@@ -1,6 +1,7 @@
 <template>
   <div class="dashboardContentForms">
   <form id="form-list-client">
+<<<<<<< HEAD
     <b-row>
       <b-col md="6" class="my-1">
         <b-form-group horizontal label="Filter" class="mb-0">
@@ -40,6 +41,7 @@
         </b-button>
       </template>
     </b-table>
+=======
     <h1 class="tableheader">Patiënten</h1>
     <div class="pull-right">
       <a v-on:click="changeComponent('createPatients')" style="cursor:pointer"> <i class="ion-ios-plus"></i> Patient Aanmaken</a>
@@ -113,10 +115,12 @@
       console.log(this.userId);
       this.isBusy = true;
       this.$store.dispatch("getRequest", 'patients').then((response) => {
+<<<<<<< HEAD
         this.isBusy = false;
         this.patients = response;
         console.log(this.patients);
         this.totalRows = this.patients.length
+=======
         this.patients = response
 >>>>>>> DiagnoseCreate
       });
@@ -133,13 +137,16 @@
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },
+<<<<<<< HEAD
       changeComponent (component, employee) {
         this.$parent.changeComponent(component, employee);
       },
       onFiltered (filteredItems) {
         this.totalRows = filteredItems.length
+=======
       changeComponent (component, patient) {
         this.$parent.changeComponent(component, patient);
+>>>>>>> DiagnoseCreate
       }
     }
   }

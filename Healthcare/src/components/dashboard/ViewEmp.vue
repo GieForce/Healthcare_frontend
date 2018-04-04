@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="dashboardContentForms">
     <form id="form-list-client">
       <b-row>
@@ -41,6 +42,7 @@
         </template>
       </b-table>
     </form>
+=======
   <div class="dashboardContent">
     <h1 class="tableheader">Werknemers</h1>
     <div class="tbl-header">
@@ -77,6 +79,7 @@
         </table>
       </div>
     </div>
+>>>>>>> DiagnoseCreate
   </div>
 
 </template>
