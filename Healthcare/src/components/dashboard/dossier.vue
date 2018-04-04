@@ -1,7 +1,7 @@
 <template>
   <div  style="width: 100%;">
-    <div class="loader" v-if="isLoading" ><loader></loader></div>
-    <div v-if="!isLoading">
+    <div class="loader" v-if="isBusy" ><loader></loader></div>
+    <div v-if="!isBusy">
       <b-modal id="addDiagnoseModal" 
                title="Voeg een diagnose toe"
                @ok="newDiagnose"
@@ -95,35 +95,10 @@
           isLoading: false
         }
       },
-      created () {
-        this.isBusy = true;
-<<<<<<< HEAD
-        console.log(this.$store.getters.user)
-        if(this.$store.getters.user.type == 'patient'){
-          console.log('user is patient')
-          this.userId = this.$store.getters.user.userId
-        }
-        this.$store.dispatch("getRequest", "patients/" + this.userId).then(response => {
-          console.log(response);
-          this.user = response;
-        });
-        this.$store.dispatch("getRequest", "patients/dossier/" + this.userId).then(response => {
-          this.isBusy = false;
-          this.items = response;
-=======
-        this.isLoading = true
-        this.$store.dispatch("getRequest", "patients/" + this.patient.user_id).then(response => {
-          this.patient = response;
-          this.isLoading = false;
->>>>>>> DiagnoseCreate
-        });
-        this.loadDiagnosis();
-      },
       methods: {
-<<<<<<< HEAD
         getItems () {
-
-=======
+          return this.items;
+        },
         showModal (button) {
           this.$root.$emit('bv::show::modal', 'addDiagnoseModal', button)
         },
@@ -141,7 +116,7 @@
           })
         },
         loadDiagnosis() {
-          this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
+          this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
             this.isBusy = false;
             this.items = response;
           });
@@ -160,9 +135,28 @@
 
             link.click();
           });
->>>>>>> DiagnoseCreate
         }
-      }
+      },
+      created () {
+        this.isBusy = true;
+        console.log(this.$store.getters.user)
+        if(this.$store.getters.user.type == 'patient'){
+          console.log('user is patient')
+          this.patientid = this.$store.getters.user.userId
+        }
+        this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
+          console.log(response);
+          this.user = response;
+          this.patient = response;
+          this.isLoading = false;
+        });
+        this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
+          this.isBusy = false;
+          this.items = response;
+          this.isLoading = true
+        });
+        this.loadDiagnosis();
+      },
     }
 </script>
 
