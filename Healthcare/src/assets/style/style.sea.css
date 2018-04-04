@@ -460,8 +460,6 @@ nav.navbar a.menu-btn:hover {
 
 .side-navbar .sidenav-header {
   background: white;
-  padding: 6%;
-  margin-top: 250%;
   overflow:hidden;
 }
 
@@ -574,6 +572,12 @@ nav.navbar a.menu-btn:hover {
 
 .side-navbar.shrink .badge {
   display: none;
+}
+
+.sidebar-footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 /* SIDE NAVBAR MEDIAQUERIES ------------------------------ */
