@@ -12,6 +12,7 @@ const PENDING = 'PENDING';
 const REQUEST_SUCCES = 'REQUEST_SUCCES';
 const REQUEST_FAIL = 'REQUEST_FAIL';
 const USER_CHANGED = 'USER_CHANGED';
+const API_URL = 'http://167.99.221.199:8081/api/';
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -58,7 +59,7 @@ const Store = new Vuex.Store({
        setTimeout(() => {
          axios({
           method: 'post',
-          url: 'https://zonnevelt.nl/oauth/token',
+          url: API_URL + 'oauth/token',
           params: {
             grant_type: 'password',
             username: creds.email,
@@ -104,7 +105,7 @@ const Store = new Vuex.Store({
     setTimeout(() => {
      axios({
       method: 'get',
-      url: 'https://zonnevelt.nl/' + url,
+      url: API_URL + url,
       headers: {
         'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
       }
@@ -124,7 +125,7 @@ const Store = new Vuex.Store({
       console.log(info.body)
      axios({
       method: 'put',
-      url: 'https://zonnevelt.nl/' + info.url,
+      url: API_URL + info.url,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -144,7 +145,7 @@ const Store = new Vuex.Store({
         setTimeout(() => {
           axios({
             method: 'post',
-            url: 'https://zonnevelt.nl/oauth/token',
+            url: API_URL + 'oauth/token',
             params: {
               grant_type: 'password',
               username: creds.email,
@@ -179,7 +180,7 @@ const Store = new Vuex.Store({
           console.log(info.body)
           axios({
             method: 'put',
-            url: 'https://zonnevelt.nl/' + info.url,
+            url: API_URL + info.url,
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
@@ -203,7 +204,7 @@ const Store = new Vuex.Store({
         setTimeout(() => {
           axios({
             method: 'get',
-            url: 'https://zonnevelt.nl/' + url,
+            url: API_URL + url,
             headers: {
               'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
             }
@@ -223,7 +224,7 @@ const Store = new Vuex.Store({
           console.log(info.body)
           axios({
             method: 'post',
-            url: 'https://zonnevelt.nl/' + info.url,
+            url: API_URL + info.url,
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
@@ -245,7 +246,7 @@ const Store = new Vuex.Store({
           console.log(info.body)
           axios({
             method: 'update',
-            url: 'https://zonnevelt.nl/' + info.url,
+            url: API_URL + info.url,
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer' + localStorage.getItem("healthcare"),
