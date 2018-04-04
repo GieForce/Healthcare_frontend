@@ -52,8 +52,8 @@ const Store = new Vuex.Store({
   },
   actions: {
    login({ commit }, creds) {
-     commit(PENDING); 
-     console.log("Loggin in...");
+     commit(PENDING);
+     console.log("logging in...");
      return new Promise(resolve => {
        setTimeout(() => {
          axios({
@@ -71,15 +71,25 @@ const Store = new Vuex.Store({
             'content-type': 'application/x-www-form-urlencoded'
           }
          }).then(function (response) {
+           if (response instanceof Error) {
+             console.log(response);
+             localStorage.setItem("error", "true");
+           }
+           else{
+             console.log("hoi");
+           }
+           console.log("hier komt ie wel");
           localStorage.setItem("healthcare", response.data.access_token);
           console.log(response);
           commit(LOGIN_SUCCES);
           commit(USER_CHANGED, response.data.user);
           resolve();
          }).catch(function (error) {
-          localStorage.removeItem("healthcare");
+           console.log(error.response);
+           localStorage.setItem("error", "false");
+           localStorage.removeItem("healthcare");
           commit(LOGIN_FAILED);
-          resolve();
+          return Promise.reject(error.response)
         });
        }, 1000);
      });
@@ -102,7 +112,7 @@ const Store = new Vuex.Store({
        resolve(response.data);
       }).catch(function (error){
        resolve(error);
-      }); 
+      });
       });
      }, 1000);
     },
@@ -129,7 +139,7 @@ const Store = new Vuex.Store({
    },
     login({commit}, creds) {
       commit(PENDING);
-      console.log("Loggin in...");
+      console.log("asdf");
       return new Promise(resolve => {
         setTimeout(() => {
           axios({
@@ -156,6 +166,7 @@ const Store = new Vuex.Store({
             localStorage.removeItem("healthcare");
             commit(LOGIN_FAILED);
             resolve();
+            //throw "Incorrect wachtwoord of E-mail adres"
           });
         }, 1000);
       });
