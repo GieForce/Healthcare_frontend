@@ -5,6 +5,7 @@
     <sidebar></sidebar>
     <div class="dashboardContent">
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
+      <calendar :doctorid="2" v-if="openComponent === 'calendar'"></calendar>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
@@ -28,6 +29,7 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import Calendar from './Calendar.vue'
 
 export default {
 
@@ -51,6 +53,7 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+    'calendar' : Calendar,
   },
   computed: {
     getUser(){

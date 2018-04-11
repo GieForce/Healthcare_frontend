@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1f7f5cd-0d82-434b-9972-c66e17ab9a17" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/config/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/src/assets/style/landing.css" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/assets/style/landing.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Sidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Healthcare/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/store/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,74 +27,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CreateM.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-782">
-              <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewEmp.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/ViewEmp.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="124" column="7" lean-forward="true" selection-start-line="121" selection-start-column="3" selection-end-line="124" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreateP.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateP.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="131" lean-forward="true" selection-end-line="131" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Calendar.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+            <state relative-caret-position="170">
+              <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateM.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateM.vue">
+      <file leaf-file-name="CreateM.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+            <state relative-caret-position="85">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateP.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateP.vue">
+      <file leaf-file-name="style.sea.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/style.sea.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="82" column="10" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
+            <state relative-caret-position="205">
+              <caret line="1326" column="1" selection-start-line="1326" selection-start-column="1" selection-end-line="1326" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dossier.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/dossier.vue">
+      <file leaf-file-name="landing.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/landing.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2277" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Healthcare/src/router/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-561">
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="219">
+              <caret line="496" column="35" selection-start-line="496" selection-start-column="35" selection-end-line="496" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -95,8 +66,47 @@
       <file leaf-file-name="Register.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/components/login/Register.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="46" column="47" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
+            <state relative-caret-position="225">
+              <caret line="46" column="48" lean-forward="true" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/login/Login.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="426">
+              <caret line="126" selection-start-line="126" selection-end-line="131" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/src/router/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="918">
+              <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/config/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sidebar.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Sidebar.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -104,8 +114,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/store/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2703">
-              <caret line="165" column="37" selection-start-line="165" selection-start-column="37" selection-end-line="165" selection-end-column="37" />
+            <state relative-caret-position="1955">
+              <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -119,6 +129,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Vue Single File Component" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -128,6 +139,12 @@
       <find>commit</find>
       <find>foutmelding</find>
       <find>firstname</find>
+      <find>patientid</find>
+      <find>appointmentc</find>
+      <find>takeappointmentsforday</find>
+      <find>day</find>
+      <find>button</find>
+      <find>radio</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,17 +154,20 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Healthcare/index.html" />
-        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/Sidebar.vue" />
-        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/ViewEmp.vue" />
-        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/login/Register.vue" />
-        <option value="$PROJECT_DIR$/Healthcare/src/store/index.js" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/login/Login.vue" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateM.vue" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateP.vue" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateP.vue" />
+        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/patientafspraak.html" />
+        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/ViewEmp.vue" />
+        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue" />
+        <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/Sidebar.vue" />
+        <option value="$PROJECT_DIR$/Healthcare/config/index.js" />
+        <option value="$PROJECT_DIR$/Healthcare/src/store/index.js" />
         <option value="$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue" />
+        <option value="$PROJECT_DIR$/Healthcare/src/assets/style/landing.css" />
       </list>
     </option>
   </component>
@@ -163,7 +183,7 @@
     <handled-path value="$PROJECT_DIR$/Healthcare/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="37" />
+    <option name="x" value="35" />
     <option name="width" value="975" />
     <option name="height" value="1050" />
   </component>
@@ -172,7 +192,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -189,7 +208,28 @@
               <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
               <item name="Healthcare_frontend" type="462c0819:PsiDirectoryNode" />
               <item name="Healthcare" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Healthcare_frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Healthcare" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Healthcare_frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Healthcare" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Healthcare_frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Healthcare" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="style" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -205,6 +245,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Healthcare_frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="Healthcare" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="landingpage" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Healthcare_frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -232,9 +280,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -319,11 +369,14 @@
       <workItem from="1522222313117" duration="5888000" />
       <workItem from="1522228262159" duration="332000" />
       <workItem from="1522826049656" duration="5563000" />
+      <workItem from="1523345341961" duration="3685000" />
+      <workItem from="1523361586921" duration="2645000" />
+      <workItem from="1523430766250" duration="14091000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29143000" />
+    <option name="totallyTimeSpent" value="50155000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -338,13 +391,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6774648" visible="true" weight="0.15364583" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6732394" visible="true" weight="0.076171875" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32934782" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.30869564" />
+      <window_info id="npm" order="2" sideWeight="0.32676056" side_tool="true" visible="true" weight="0.076171875" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32934782" />
-      <window_info id="npm" order="2" sideWeight="0.32253522" side_tool="true" visible="true" weight="0.15364583" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32934782" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -364,40 +417,16 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/HelloWorld.vue" />
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/store/actions.js" />
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/store/getters.js" />
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/App.vue" />
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/login/Login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/HelloWorld.vue" />
-    <entry file="file://$PROJECT_DIR$/Healthcare/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
-          <folding>
-            <element signature="e#561#594#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -488,9 +517,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
-          <folding>
-            <element signature="e#561#594#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -546,33 +572,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateM.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
-          <folding>
-            <element signature="e#561#594#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1751">
+          <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateP.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="82" column="10" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/patientafspraak.html" />
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/ViewEmp.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1904">
+          <caret line="112" column="6" selection-start-line="104" selection-start-column="3" selection-end-line="112" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/dossier.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="74" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Sidebar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        <state relative-caret-position="544">
+          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/login/Login.vue">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-748">
-          <caret line="31" column="143" selection-start-line="31" selection-start-column="143" selection-end-line="31" selection-end-column="143" />
+        <state relative-caret-position="-223">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2977">
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/build/build.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-155" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-561">
+        <state relative-caret-position="918">
+          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -581,8 +643,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/store/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2703">
-          <caret line="165" column="37" selection-start-line="165" selection-start-column="37" selection-end-line="165" selection-end-column="37" />
+        <state relative-caret-position="1955">
+          <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -591,58 +653,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/login/Register.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="46" column="47" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
+        <state relative-caret-position="225">
+          <caret line="46" column="48" lean-forward="true" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateM.vue">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/login/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+        <state relative-caret-position="426">
+          <caret line="126" selection-start-line="126" selection-end-line="131" selection-end-column="8" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/UpdateP.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="82" column="10" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/dossier.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2277" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateP.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="131" lean-forward="true" selection-end-line="131" />
+        <state relative-caret-position="1309">
+          <caret line="104" column="8" lean-forward="true" selection-start-line="104" selection-start-column="8" selection-end-line="104" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Home.vue">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/News.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-560" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/ViewPat.vue">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="78" column="38" lean-forward="true" selection-start-line="78" selection-start-column="38" selection-end-line="78" selection-end-column="38" />
+          <folding>
+            <element signature="e#902#935#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/landing.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="496" column="35" selection-start-line="496" selection-start-column="35" selection-end-line="496" selection-end-column="35" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-782">
-          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        <state relative-caret-position="85">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/ViewEmp.vue">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/style.sea.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="124" column="7" lean-forward="true" selection-start-line="121" selection-start-column="3" selection-end-line="124" selection-end-column="7" />
+        <state relative-caret-position="205">
+          <caret line="1326" column="1" selection-start-line="1326" selection-start-column="1" selection-end-line="1326" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+        <state relative-caret-position="170">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
         </state>
       </provider>
     </entry>
