@@ -40,7 +40,7 @@ import ViewPat from './ViewPat.vue'
 import Planner from './Planner.vue';
 
 let demoEvents = [
-  {
+    {
     title: 'Otto Naus Kniepijn 9:15-10:15',
     start: '2018-04-11',
     end: '2018-04-11'
@@ -61,7 +61,14 @@ export default {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
       user: '',
-      fcEvents: demoEvents
+      fcEvents: demoEvents,
+
+      events: [],
+      fields: {
+        title: {labelV: 'Voornaam',labelA:'Achternaam',labelN:'Note',labelT:'timeslot'},
+        start: {labelD: 'Date'},
+        end: {labelD: 'Date'},
+      },
     }
   },
   components: {
