@@ -12,6 +12,16 @@
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
+               first-day='1' locale="nl"
+               @changeMonth="changeMonth"
+               @eventClick="eventClick"
+               @dayClick="dayClick"
+               @moreClick="moreClick">
+        <template slot="fc-event-card" scope="p">
+          <p>{{ p.event.title }}</p>
+        </template>
+      </planner>
     </div>
   </div>
 </template>
@@ -27,6 +37,20 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import Planner from './Planner.vue';
+
+let demoEvents = [
+  {
+    title: 'Otto Naus Kniepijn 9:15-10:15',
+    start: '2018-04-11',
+    end: '2018-04-11'
+  },
+  {
+    title: "naam " + "lname "+ "reden " + "timeslot ",
+    start: "date",
+    end: "samedate"
+  },
+];
 
 export default {
 
@@ -37,6 +61,7 @@ export default {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
       user: '',
+      fcEvents: demoEvents
     }
   },
   components: {
@@ -50,6 +75,7 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+    'planner': Planner,
   },
   computed: {
     getUser(){
@@ -61,6 +87,18 @@ export default {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
       this.user = user;
+    },
+    changeMonth(start, end, current) {
+      console.log('changeMonth', start.format(), end.format(), current.format())
+    },
+    eventClick(event, jsEvent, pos) {
+      console.log('eventClick', event, jsEvent, pos)
+    },
+    dayClick(day, jsEvent) {
+      console.log('dayClick', day, jsEvent)
+    },
+    moreClick(day, events, jsEvent) {
+      console.log('moreCLick', day, events, jsEvent)
     }
   }
 }
