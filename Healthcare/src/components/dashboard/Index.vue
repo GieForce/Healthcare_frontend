@@ -13,6 +13,16 @@
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
+               first-day='1' locale="nl"
+               @changeMonth="changeMonth"
+               @eventClick="eventClick"
+               @dayClick="dayClick"
+               @moreClick="moreClick">
+        <template slot="fc-event-card" scope="p">
+          <p>{{ p.event.title }}</p>
+        </template>
+      </planner>
     </div>
   </div>
 </template>
@@ -28,7 +38,50 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import Planner from './Planner.vue';
 
+let demoEvents = [
+  {
+    title: 'Otto Kniepijn 9:15-10:15',
+    start: '2018-04-11',
+    end: '2018-04-11'
+  },
+  {
+    title: "naam" + "lname" + "reden" + "timeslot",
+    start: "date",
+    end: "samedate"
+  },
+  {
+    title: 'Lunfel 2/27-2/28',
+    start: '2018-04-11',
+    end: '2018-04-20'
+  },
+  {
+    title: 'Lunfel 2/27-2/28',
+    start: '2017-02-27',
+    end: '2017-02-28'
+  },
+  {
+    title: 'Lunfel 2/26-3/05',
+    start: '2017-02-26',
+    end: '2017-03-05'
+  },
+  {
+    title: 'Lunfel 1/27-1/28',
+    start: '2017-01-27',
+    end: '2017-01-28'
+  },
+  {
+    title: 'Lunfel 1/27-2/2',
+    start: '2017-01-27',
+    end: '2017-02-02'
+  },
+  {
+    title: 'Lunfel 3/27-3/28',
+    start: '2017-03-27',
+    end: '2017-03-28'
+  },
+];
 export default {
 
 
@@ -38,33 +91,48 @@ export default {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
       user: '',
+      fcEvents: demoEvents
     }
   },
   components: {
-    'navbar' : Navbar,
-    'sidebar' : Sidebar,
-    'dossier' : Dossier,
-    'createm' : CreateM,
-    'createp' : CreateP,
-    'updatem' : UpdateM,
-    'updatep' : UpdateP,
-    'news' : News,
-    'viewemp' : ViewEmp,
-    'viewpat' : ViewPat,
+    'planner': Planner,
+    'navbar': Navbar,
+    'sidebar': Sidebar,
+    'dossier': Dossier,
+    'createm': CreateM,
+    'createp': CreateP,
+    'updatem': UpdateM,
+    'updatep': UpdateP,
+    'news': News,
+    'viewemp': ViewEmp,
+    'viewpat': ViewPat,
   },
   computed: {
-    getUser(){
+    getUser() {
       return this.user;
     }
   },
   methods: {
-    changeComponent (component, user) {
+    changeComponent(component, user) {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
       this.user = user;
+    },
+    changeMonth(start, end, current) {
+      console.log('changeMonth', start.format(), end.format(), current.format())
+    },
+    eventClick(event, jsEvent, pos) {
+      console.log('eventClick', event, jsEvent, pos)
+    },
+    dayClick(day, jsEvent) {
+      console.log('dayClick', day, jsEvent)
+    },
+    moreClick(day, events, jsEvent) {
+      console.log('moreCLick', day, events, jsEvent)
     }
-  }
+  },
 }
+
 </script>
 
 <style>@import"../../assets/style/style.sea.css";</style>
@@ -76,3 +144,4 @@ export default {
 <style>@import"../../assets/style/landing.css";</style>
 <style>@import"http://fontawesome.io/assets/font-awesome/css/font-awesome.css";</style>
 <style>@import"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";</style>
+
