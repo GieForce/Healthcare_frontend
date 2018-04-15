@@ -4,7 +4,7 @@
     <div class="col-xs-4 text-center row times" v-for="day in takeDaysFromAppointments(appointments)">
       <div class="day-slot">
         <label>{{day.startTime.toString().substring(0,12)}} <br>
-          <input type="radio" v-model="selectedDay" :value="day" v-bind:id="day.id" v-on:change="checkRadio()">
+          <input type="radio" v-model="selectedDay" :value="day" v-bind:id="day.id">
           <p>Beschikbaar: {{takeAppointmentsForDay(day).length}}</p>
         </label>
       </div>
@@ -59,6 +59,19 @@
         });
       },
       methods: {
+        update(selectedAppointment) {
+          this.$store.dispatch('postRequest', {
+            url:'timeslot',
+            body:{
+              doctor: this.name,
+              patient: this.lname,
+              appointment: selectedAppointment,
+              note: this.note,
+            }
+          }).then(() => {
+            this.changeComponent('viewWerknemers')
+          });
+        },
         takeAppointmentsForDay(day) {
           var index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
           var date = day.startTime.toString().substring(0,12);
@@ -103,9 +116,6 @@
         },
         getId(element) {
           return element == element.id;
-        },
-        checkRadio(){
-          console.log(this.selectedDay)
         }
       }
     }

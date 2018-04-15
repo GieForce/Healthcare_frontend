@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f7f5cd-0d82-434b-9972-c66e17ab9a17" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Healthcare/src/assets/style/landing.css" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/assets/style/landing.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="Calendar.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+            <state relative-caret-position="102">
+              <caret line="6" column="83" selection-start-line="6" selection-start-column="83" selection-end-line="6" selection-end-column="83" />
             </state>
           </provider>
         </entry>
@@ -33,8 +32,8 @@
       <file leaf-file-name="CreateM.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="33" column="116" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="116" />
+            <state relative-caret-position="289">
+              <caret line="99" column="8" selection-start-line="99" selection-start-column="8" selection-end-line="114" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -51,8 +50,8 @@
       <file leaf-file-name="landing.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/landing.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="933">
-              <caret line="545" lean-forward="true" selection-start-line="545" selection-end-line="545" />
+            <state relative-caret-position="17">
+              <caret line="545" selection-start-line="545" selection-end-line="545" />
             </state>
           </provider>
         </entry>
@@ -108,7 +107,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Healthcare/src/store/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1802">
+            <state relative-caret-position="1921">
               <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -189,6 +188,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -277,7 +277,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -369,12 +368,13 @@
       <workItem from="1523345341961" duration="3685000" />
       <workItem from="1523361586921" duration="2645000" />
       <workItem from="1523430766250" duration="20124000" />
-      <workItem from="1523703049555" duration="12223000" />
+      <workItem from="1523703049555" duration="12480000" />
+      <workItem from="1523789941743" duration="1029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68411000" />
+    <option name="totallyTimeSpent" value="69697000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -389,13 +389,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.671831" visible="true" weight="0.076171875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.67042255" visible="true" weight="0.076171875" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32934782" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.30869564" />
-      <window_info id="npm" order="2" sideWeight="0.32816902" side_tool="true" visible="true" weight="0.076171875" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32934782" />
+      <window_info id="npm" order="2" sideWeight="0.32957748" side_tool="true" visible="true" weight="0.076171875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32934782" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -615,20 +615,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-223">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-223" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2977">
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-2977" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/build/build.js">
@@ -698,7 +690,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/store/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1802">
+        <state relative-caret-position="1921">
           <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -706,24 +698,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/landing.css">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="933">
-          <caret line="545" lean-forward="true" selection-start-line="545" selection-end-line="545" />
+        <state relative-caret-position="289">
+          <caret line="99" column="8" selection-start-line="99" selection-start-column="8" selection-end-line="114" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/CreateM.vue">
+    <entry file="file://$PROJECT_DIR$/Healthcare/src/assets/style/landing.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="33" column="116" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="116" />
+        <state relative-caret-position="17">
+          <caret line="545" selection-start-line="545" selection-end-line="545" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Healthcare/src/components/dashboard/Calendar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+        <state relative-caret-position="102">
+          <caret line="6" column="83" selection-start-line="6" selection-start-column="83" selection-end-line="6" selection-end-column="83" />
         </state>
       </provider>
     </entry>
