@@ -26,10 +26,14 @@
           <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
         </div>
 
+        <div v-if="user.type === 'doctor'">
+          <li><a v-on:click="changeComponent('doctorChat')" style="cursor:pointer"><i class="ion-chatbubble"></i>Chat</a></li>
+        </div>
+
         <div v-if="user.type === 'patient'">
           <li><a v-on:click="changeComponent('personalDossier')" style="cursor:pointer"><i class="ion-document"></i>Mijn dossier</a></li>
         </div>
-        <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Logout</a></li>
+        <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Uitloggen</a></li>
 
         </ul>
         <div class="sidenav-header d-flex align-items-center justify-content-center sidebar-footer">

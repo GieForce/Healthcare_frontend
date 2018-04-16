@@ -42,9 +42,6 @@
       <div class="col-md-6">
       </div>
       </div>
-      <b-button @click="downloadDiagnosis">
-        <i class="ion-ios-cloud-download"></i>
-      </b-button>
       <div class="row">    
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
@@ -53,13 +50,29 @@
                  :fields="fields"
                   style="width: 100%;"
                   >
-          <td>Something special here</td>
+          <template slot="show_details" slot-scope="row">
+            <a size="sm" @click.stop="row.toggleDetails" class="mr-2">
+              <i v-if="!row.detailsShowing" class="ion-ios-arrow-down"></i>
+              <i v-if="row.detailsShowing" class="ion-ios-arrow-up"></i>
+            </a>
+          </template>
+          <template slot="row-details" slot-scope="row">
+            <b-card>
+              <b-row class="mb-2">
+                <b-col>{{ row.item.report }}</b-col>
+              </b-row>
+            </b-card>
+          </template>
         </b-table>
         <div v:if="this.$store.getters.user.type === 'doctor'">
           <b-button @click.stop="showModal($event.target)" class="btn btn-primary">
             Voeg diagnose toe
           </b-button>
         </div>
+        <hr>
+        <b-button @click="downloadDiagnosis">
+          <i class="ion-ios-cloud-download"></i> Download dossier
+        </b-button>
       </div>
     </div>
   </div>
@@ -82,8 +95,9 @@
           sortDesc: false,
           fields: {
             category: {label: 'Categorie', sortable: true},
-            report: {label: 'Diagnose', sortable: true},
+            summary: {label: 'Diagnose', sortable: true},
             date: {label: 'Datum', sortable: true},
+            show_details: {label: ''},
           },
           isBusy: false,
           items: [],
@@ -118,7 +132,10 @@
         loadDiagnosis() {
           this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
             this.isBusy = false;
-            this.items = response;
+            response.forEach(function(item) {
+              item.summary = item.report.substring(0, 100).concat('...')
+            });
+            this.items = response
           });
         },
         downloadDiagnosis() {
@@ -126,12 +143,11 @@
           jsonexport(this.items, function(err, csv){
             if(err) 
               return console.log(err);
-            console.log(csv)
             const url = window.URL.createObjectURL(new Blob([csv]));
             var link = document.createElement("a");
             link.setAttribute("href", url);
             link.setAttribute("download", fileName);
-            document.body.appendChild(link); // Required for FF
+            document.body.appendChild(link); 
 
             link.click();
           });

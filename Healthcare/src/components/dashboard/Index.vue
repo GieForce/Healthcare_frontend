@@ -1,5 +1,7 @@
 <template>
   <div id="parent">
+    <patientchat v-if="getActiveUser.type === 'patient'"></patientchat>
+    <chatwindow :chatId="userId" v-if="openChat && getActiveUser.type === 'patient'" class="chatFloat"></chatwindow>
     <router-view/>
     <navbar></navbar>
     <sidebar></sidebar>
@@ -13,6 +15,7 @@
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <doctorchat v-if="openComponent === 'doctorChat'"></doctorchat>
     </div>
   </div>
 </template>
@@ -28,14 +31,17 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import DoctorChat from '../chat/DoctorChat.vue'
+import PatientChat from '../chat/PatientChat.vue'
+import ChatWindow from '../chat/ChatWindow.vue'
 
 export default {
-
 
   name: 'app',
   data() {
     return {
       openComponent: 'home',
+      openChat: false,
       userId: this.$store.getters.user.userId,
       user: '',
     }
@@ -51,10 +57,16 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+    'doctorchat' : DoctorChat,
+    'patientchat' : PatientChat,
+    'chatwindow' : ChatWindow,
   },
   computed: {
     getUser(){
       return this.user;
+    },
+    getActiveUser(){
+      return this.$store.getters.user
     }
   },
   methods: {
@@ -62,7 +74,20 @@ export default {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
       this.user = user;
+    },
+    toggleChat (){
+      console.log('toggle chat')
+      this.openChat = !this.openChat
+    },
+    setupSockets(){
+      this.$store.dispatch('setupSockets', this.$store.getters.user)
     }
+
+  },
+  created() {
+    if(this.$store.getters.user.type == 'doctor'){
+      this.setupSockets();
+    }  
   }
 }
 </script>

@@ -83,7 +83,8 @@
         name:'',
         lname:'',
         email:'',
-        leeftijd:''
+        birthdate:'',
+        password:'',
       }
     },
     components:{
