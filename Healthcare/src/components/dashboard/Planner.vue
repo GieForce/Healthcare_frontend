@@ -40,7 +40,7 @@
               'not-cur-month' : !day.isCurMonth}" @click.stop="dayClick(day.date, $event)">
               <p class="day-number">{{day.monthDay}}</p>
               <div class="event-box">
-                <eventc :event="event" :date="day.date" :firstDay="firstDay" v-for="event in day.events" v-show="event.cellIndex <= eventLimit" @click="eventClick">
+                <eventc :event="event" :date="day.date" :firstDay="firstDay" v-for="event in events" v-show="event.cellIndex <= eventLimit" @click="eventClick">
                   <template scope="p">
                     <slot name="fc-event-card" :event="p.event"></slot>
                   </template>
@@ -86,13 +86,8 @@
   import EventCard from '../dashboard/PlannerAssets/eventCard.vue';
   import Header from '../dashboard/PlannerAssets/header.vue'
 
-
   export default {
     props : {
-      events : { // events will be displayed on calendar
-        type : Array,
-        default : () => []
-      },
       locale : {
         type : String,
         default : 'en'
@@ -104,11 +99,12 @@
           return res >= 0 && res <= 6
         },
         default : 0
-      }
+      },
     },
     components : {
       'eventc': EventCard,
       'fc-header' : Header,
+
     },
     mounted () {
       this.emitChangeMonth(this.currentMonth);
@@ -123,7 +119,15 @@
           top: 0,
           left : 0
         },
-        selectDay : {}
+        selectDay : {},
+        events: [],
+        fields: {
+          startTime: {label: 'Dag', sortable: true},
+          id: {label: 'Id', sortable: true},
+          available: {label: 'Beschikbaar', sortable: true},
+          endTime: {label: 'Eindtijd', sortable: true}
+        },
+
       }
     },
     computed: {
@@ -248,7 +252,42 @@
         return start;
       },
       getMonthViewEndDate(date) {return this.getMonthViewStartDate().add(6, 'weeks');
-      }
+      },
+      created () {
+        this.$store.dispatch("getRequest", 'timeslots').then((response) => {
+          this.appointments = this.ConvertToDatetime(response);
+          console.log(this.appointments)
+        });
+      },
+      takeAppointmentsForDay(day) {
+        var index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
+        var dailyAppointments = [];
+        for (var i = index; i < index + 24; i++) {
+          dailyAppointments.push(this.appointments[i]);
+        }
+        console.log(dailyAppointments)
+        return dailyAppointments;
+      },
+      takeDaysFromAppointments(dataValues) {
+        var days = [];
+        for (var i = 0; i < 480; i = i + 24){
+          days.push(dataValues[i])
+        }
+        return days;
+      },
+      ConvertToDatetime(dateValues) {
+        var regex = /-?\d+/;
+        var entryAppointments = dateValues;
+        for (var index = 0; index < entryAppointments.length; ++index) {
+          entryAppointments[index].startTime = new Date( parseFloat( entryAppointments[index].startTime)).toUTCString();
+          entryAppointments[index].endTime = new Date( parseFloat( entryAppointments[index].endTime)).toUTCString();
+        }
+        entryAppointments.sort(function(a,b){
+          var dateA = new Date(a.startTime), dateB = new Date(b.startTime);
+          return dateA - dateB;
+        });
+        return entryAppointments;
+      },
     },
     filters: {
       localeWeekDay (weekday, firstDay, locale) {

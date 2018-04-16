@@ -39,19 +39,6 @@ import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
 import Planner from './Planner.vue';
 
-let demoEvents = [
-    {
-    title: 'Otto Naus Kniepijn 9:15-10:15',
-    start: '2018-04-11',
-    end: '2018-04-11'
-  },
-  {
-    title: "naam " + "lname "+ "reden " + "timeslot ",
-    start: "date",
-    end: "samedate"
-  },
-];
-
 export default {
 
 
@@ -61,7 +48,7 @@ export default {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
       user: '',
-      fcEvents: demoEvents,
+      fcEvents: Planner.props.events,
 
       events: [],
       fields: {
