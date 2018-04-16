@@ -1,12 +1,13 @@
 <template>
   <div class="row times">
-
     <div class="col-xs-4 text-center row times" v-for="day in takeDaysFromAppointments(appointments)">
+      <div class="col-xs-1 times">
       <div class="day-slot">
         <label>{{day.startTime.toString().substring(0,12)}} <br>
           <input type="radio" v-model="selectedDay" :value="day" v-bind:id="day.id">
           <p>Beschikbaar: {{takeAppointmentsForDay(day).length}}</p>
         </label>
+      </div>
       </div>
     </div>
       <br>
@@ -14,7 +15,7 @@
       <div class="row">
       <div v-bind:class="{ 'time-slot': appointment.available == true, 'time-slot-unavailable': appointment.available == false }" v-for="appointment in takeAppointmentsForDay(selectedDay)">
         <label> {{appointment.startTime}} <br>
-          <input type="checkbox" v-bind:id="appointment.id" v-model="appointment.available" v-on:input="appointment.available = $event.target.value">
+          <input type="checkbox" v-bind:id="appointment.id" v-model="appointment.available" v-on:change="selectAppointment(appointment)">
           <span v-if="!appointment.available">Bezet</span>
           <span v-if="appointment.available">Beschikbaar</span>
         </label>
@@ -22,6 +23,10 @@
       </div>
         <div class="row">
           <textarea class="textarea" placeholder="De reden van mijn bezoek is: " v-model="note"></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <button class="btn btn-primary" style="vertical-align:middle" v-on:click=""><span>Bevestig</span></button>
         </div>
       </div>
 
@@ -37,6 +42,7 @@
         return {
           appointmentcheckbox: "",
           selectedDay: "",
+          selectedAppointment: [],
           note: "",
           doctor: "",
           patient: "",
@@ -54,6 +60,7 @@
       created () {
           this.$store.dispatch("getRequest", 'timeslots').then((response) => {
           this.appointments = this.ConvertToDatetime(response);
+          console.log(response);
             console.log("Eind: ");
             console.log(this.appointments)
         });
@@ -83,8 +90,6 @@
                 dailyAppointments.push(this.appointments[i]);
               }
             }
-            console.log("daily: ");
-            console.log(dailyAppointments);
             return dailyAppointments;
         },
         takeDaysFromAppointments(dataValues) {
@@ -98,7 +103,6 @@
               currentTimeSlot = newTimeSlot;
             }
           }
-          console.log(days);
           return days;
         },
         ConvertToDatetime(dateValues) {
@@ -113,6 +117,22 @@
             return dateA - dateB;
           });
           return entryAppointments;
+        },
+        selectAppointment(appointment) {
+          console.log(appointment.available);
+          if(!appointment.available) {
+            this.selectedAppointment.push(appointment);
+            console.log("penis");
+            console.log(this.selectedAppointment);
+          }
+          if(appointment.available){
+            var index = this.selectedAppointment.map(function(x) {return x.id; }).indexOf(appointment.id);
+            if(index != -1) {
+              this.selectedAppointment.splice(index, 1);
+            }
+            console.log("penis");
+            console.log(this.selectedAppointment);
+          }
         },
         getId(element) {
           return element == element.id;

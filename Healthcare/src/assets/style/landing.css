@@ -519,10 +519,12 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
 .time-slot 				{  }
 .time-slot input 	 { display:none; }
 .time-slot label 	 {
+  margin-top:20px;
   padding:10px 20px;
+  margin-bottom:10px;
   color:black;
   cursor:pointer;
-  background:white;
+  background:#34B3C1;
   border-radius:5px;
   transition:0.3s ease all;
   -moz-transition:0.3s ease all;
@@ -531,15 +533,21 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
   border-color: black;
 }
 
-.time-slot-unavailable {
+.time-slot-unavailable 				{  }
+.time-slot-unavailable label {
+  margin-top:20px;
+  margin-bottom:10px;
   padding:10px 20px;
-  color:#FFF;
+  color:black;
   cursor:pointer;
-  background:red;
+  background:gray;
   border-radius:5px;
+  transition:0.3s ease all;
   transition:0.3s ease all;
   -moz-transition:0.3s ease all;
   -webkit-transition:0.3s ease all;
+  border: 2px solid;
+  border-color: black;
 }
 
 .time-slot-unavailable input 	 { display:none; }
@@ -547,10 +555,12 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
 .day-slot 				{  }
 .day-slot input 	 { display:none; }
 .day-slot label 	 {
+  margin-top:20px;
+  margin-right: 20px;
   padding:20px 40px;
   color:black;
   cursor:pointer;
-  background:white;
+  background:#34B3C1;
   border-radius:5px;
   transition:0.3s ease all;
   -moz-transition:0.3s ease all;
@@ -559,28 +569,13 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
   border-color: black;
 }
 
-@keyframes flashBooked {
-  0%, 100% { background:#f2dede; transform:scale(1); }
-  50% 		{ background:#F99090; transform:scale(1.5); }
-}
-@-moz-keyframes flashBooked {
-  0%, 100% { background:#f2dede; transform:scale(1); }
-  50% 		{ background:#F99090; transform:scale(1.5); }
-}
-@-webkit-keyframes flashBooked {
-  0%, 100% { background:#f2dede; transform:scale(1); }
-  50% 		{ background:#F99090; transform:scale(1.5); }
-}
-
-@keyframes flashAvailable {
-  0%, 100% { background:#6AB074; transform:scale(1); }
-  50% 		{ background:rgb(119, 218, 78); transform:scale(1.5); }
-}
-@-moz-keyframes flashAvailable {
-  0%, 100% { background:#6AB074; transform:scale(1); }
-  50% 		{ background:rgb(119, 218, 78); transform:scale(1.5); }
-}
-@-webkit-keyframes flashAvailable {
-  0%, 100% { background:#6AB074; transform:scale(1); }
-  50% 		{ background:rgb(119, 218, 78); transform:scale(1.5); }
+textarea {
+  margin-left: 25%;
+  margin-bottom: 20px;
+  width: 30%;
+  height: 160px;
+  resize: none;
+  overflow: auto;
+  border-radius: 10px;
+  outline: none;
 }
