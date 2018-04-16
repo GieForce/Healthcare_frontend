@@ -120,7 +120,7 @@
           left : 0
         },
         selectDay : {},
-        events: [],
+        appointments: [],
         fields: {
           startTime: {label: 'Dag', sortable: true},
           id: {label: 'Id', sortable: true},

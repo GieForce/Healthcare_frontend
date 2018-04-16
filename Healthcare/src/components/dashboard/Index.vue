@@ -48,14 +48,8 @@ export default {
       openComponent: 'home',
       userId: this.$store.getters.user.userId,
       user: '',
-      fcEvents: Planner.props.events,
+      fcEvents: Planner.events,
 
-      events: [],
-      fields: {
-        title: {labelV: 'Voornaam',labelA:'Achternaam',labelN:'Note',labelT:'timeslot'},
-        start: {labelD: 'Date'},
-        end: {labelD: 'Date'},
-      },
     }
   },
   components: {
