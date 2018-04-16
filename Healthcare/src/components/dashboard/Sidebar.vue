@@ -20,6 +20,7 @@
         <div v-if="user.type === 'doctor'">
           <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
           <li><a v-on:click=" changeComponent('planner')" style="cursor:pointer"><i class="ion-ios-calendar"></i>Kalender</a></li>
+          <li><a v-on:click=" changeComponent('calendar')" style="cursor:pointer"><i class="ion-ios-calendar"></i>afpsraken</a></li>
         </div>
 
         <div v-if="user.type === 'patient'">

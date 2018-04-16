@@ -10,7 +10,6 @@
         <slot name="fc-header-left">
         </slot>
       </div>
-
       <div slot="header-right">
         <slot name="fc-header-right">
         </slot>
@@ -40,7 +39,7 @@
               'not-cur-month' : !day.isCurMonth}" @click.stop="dayClick(day.date, $event)">
               <p class="day-number">{{day.monthDay}}</p>
               <div class="event-box">
-                <eventc :event="event" :date="day.date" :firstDay="firstDay" v-for="event in events" v-show="event.cellIndex <= eventLimit" @click="eventClick">
+                <eventc :event="event" :date="day.date"  :firstDay="firstDay"  v-for="event in events" v-show="event.cellIndex <= eventLimit" @click="eventClick">
                   <template scope="p">
                     <slot name="fc-event-card" :event="p.event"></slot>
                   </template>
@@ -120,8 +119,9 @@
           left : 0
         },
         selectDay : {},
-        appointments: [],
+        events: [],
         fields: {
+          title: {label:'afspraak'},
           startTime: {label: 'Dag', sortable: true},
           id: {label: 'Id', sortable: true},
           available: {label: 'Beschikbaar', sortable: true},
@@ -134,6 +134,13 @@
       currentDates () {
         return this.getCalendar()
       }
+    },
+    created () {
+      this.$store.dispatch("getRequest", 'timeslots').then((response) => {
+        this.events = this.ConvertToDatetime(response);
+        console.log("Eind: ");
+        console.log(this.events)
+      });
     },
     methods : {
       emitChangeMonth (firstDayOfMonth) {

@@ -12,7 +12,7 @@
 
     export default {
         name:'eventc',
-        props: ['event', 'date', 'firstDay'],
+        props: ['event', 'date', 'start-time','end-time', 'firstDay'],
         computed: {
           cssClasses() {
             let cssClasses = this.event.cssClass;

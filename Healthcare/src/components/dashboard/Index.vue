@@ -12,6 +12,7 @@
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <calender v-if="openComponent === 'calendar'"></calender>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -38,6 +39,8 @@ import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
 import Planner from './Planner.vue';
+import Calendar from "./Calendar";
+
 
 export default {
 
@@ -53,6 +56,7 @@ export default {
     }
   },
   components: {
+    'calender': Calendar,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
