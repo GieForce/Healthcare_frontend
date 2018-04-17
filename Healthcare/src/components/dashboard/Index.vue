@@ -23,6 +23,7 @@
           <p>{{ p.event.title }}</p>
         </template>
       </planner>
+      <checker v-if="openComponent === 'checker'"></checker>
     </div>
   </div>
 </template>
@@ -40,6 +41,7 @@ import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
 import Planner from './Planner.vue';
 import Calendar from "./Calendar";
+import AppointmentChecker from "./AppointmentChecker";
 
 
 export default {
@@ -67,7 +69,9 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
-    'planner': Planner,
+    'planner' : Planner,
+    'checker' : AppointmentChecker,
+
   },
   computed: {
     getUser(){
