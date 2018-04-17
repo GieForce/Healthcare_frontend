@@ -32,22 +32,14 @@
         </div>
 
         <!-- absolute so we can make dynamic td -->
-        <div class="dates-events">
+        <div class="dates-events" >
           <div class="events-week" v-for="week in currentDates">
             <div class="events-day" v-for="day in week" track-by="$index"
                  :class="{'today' : day.isToday,
               'not-cur-month' : !day.isCurMonth}" @click.stop="dayClick(day.date, $event)">
               <p class="day-number">{{day.monthDay}}</p>
-              <div class="event-box">
-                <eventc :event="event" :date="day.date"  :firstDay="firstDay"  v-for="event in events" v-show="event.cellIndex <= eventLimit" @click="eventClick">
-                  <template scope="p">
-                    <slot name="fc-event-card" :event="p.event"></slot>
-                  </template>
-                </eventc>
-                <p v-if="day.events.length > eventLimit"
-                   class="more-link" @click.stop="selectThisDay(day, $event)">
-                  + {{day.events[day.events.length -1].cellIndex - eventLimit}} more
-                </p>
+              <div class="event-box" v-for="day2 in takeDaysFromAppointments(events)" >
+                <p v-if="CompareDates(day2, day)"> Ingepland: {{takeAppointmentsForDay(day).length + 1}}</p>
               </div>
             </div>
           </div>
@@ -70,11 +62,8 @@
             </ul>
           </div>
         </div>
-
         <slot name="body-card">
-
         </slot>
-
       </div>
     </div>
   </div>
@@ -113,6 +102,7 @@
         currentMonth : moment().startOf('month'),
         isLismit : true,
         eventLimit : 3,
+        user_id: this.$store.getters.user.user_id,
         showMore : false,
         morePos : {
           top: 0,
@@ -136,12 +126,13 @@
       }
     },
     created () {
-      this.$store.dispatch("getRequest", 'timeslots').then((response) => {
+      console.log(this.user_id),
+      this.$store.dispatch("getRequest", 'timeslots/' + this.user_id + '?approval=0',
+      ).then((response) => {
         this.events = this.ConvertToDatetime(response);
-        console.log("Eind: ");
-        console.log(this.events)
       });
     },
+
     methods : {
       emitChangeMonth (firstDayOfMonth) {
         this.currentMonth = firstDayOfMonth;
@@ -172,7 +163,6 @@
               date : moment(monthViewStartDate),
               events : this.slotEvents(monthViewStartDate)
             });
-
             monthViewStartDate.add(1, 'day');
           }
 
@@ -260,27 +250,34 @@
       },
       getMonthViewEndDate(date) {return this.getMonthViewStartDate().add(6, 'weeks');
       },
-      created () {
-        this.$store.dispatch("getRequest", 'timeslots').then((response) => {
-          this.appointments = this.ConvertToDatetime(response);
-          console.log(this.appointments)
-        });
-      },
       takeAppointmentsForDay(day) {
-        var index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
+        var index = this.events.map(function(x) {return x.id; }).indexOf(day.id);
         var dailyAppointments = [];
-        for (var i = index; i < index + 24; i++) {
-          dailyAppointments.push(this.appointments[i]);
+        for (var i = index; i < index + dailyAppointments.length; i++) {
+          dailyAppointments.push(this.events[i]);
         }
-        console.log(dailyAppointments)
         return dailyAppointments;
       },
       takeDaysFromAppointments(dataValues) {
         var days = [];
-        for (var i = 0; i < 480; i = i + 24){
-          days.push(dataValues[i])
+        var currentTimeSlot = "";
+        var newTimeSlot = "";
+        for (var i = 0; i < dataValues.length; i++){
+          newTimeSlot = dataValues[i].startTime.toString().substring(5,7);
+          if(currentTimeSlot != newTimeSlot){
+            days.push(dataValues[i]);
+            currentTimeSlot = newTimeSlot;
+          }
         }
         return days;
+      },
+      CompareDates(day,calendarDay){
+        var comparer = day.startTime.toString().substring(5,7);
+        if(calendarDay.monthDay.toString() === comparer){
+          return true;
+        }else {
+          return false;
+        }
       },
       ConvertToDatetime(dateValues) {
         var regex = /-?\d+/;
