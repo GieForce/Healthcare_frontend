@@ -2,7 +2,7 @@
   <div  style="width: 100%;">
     <div class="loader" v-if="isBusy" ><loader></loader></div>
     <div v-if="!isBusy">
-      <b-modal id="addDiagnoseModal" 
+      <b-modal id="addDiagnoseModal"
                title="Voeg een diagnose toe"
                @ok="newDiagnose"
                ok-title="Toevoegen">
@@ -31,32 +31,33 @@
               <h4>Mail:</h4>
               <p>{{ patient.username }}</p>
               <hr>
-              <h4>Leeftijd:</h4>
+              <h4>Geboortedatum::</h4>
               <p>{{ patient.age }}</p>
               <hr>
-              <h4>Arts:</h4>
-              <p>Bartje Jansen</p>
+              <h4>Dokter:</h4>
+              <p v-if="patient.doctor !== null">{{patient.doctor.firstname + ' ' + patient.doctor.lastname}}</p>
+              <p v-else>~</p>
             </div>
           </div>
         </div>
       <div class="col-md-6">
       </div>
       </div>
-      <b-button @click="downloadDiagnosis">
+      <b-button @click="downloadDiagnosis" variant="primary">
         <i class="ion-ios-cloud-download"></i>
       </b-button>
-      <div class="row">    
-        <b-table :sort-by.sync="sortBy"
-                 :sort-desc.sync="sortDesc"
-                 :items="items"
-                 :busy.sync="isBusy"
-                 :fields="fields"
-                  style="width: 100%;"
-                  >
-          <td>Something special here</td>
-        </b-table>
+        <div class="row">
+          <b-table :sort-by.sync="sortBy"
+                   :sort-desc.sync="sortDesc"
+                   :items="items"
+                   :busy.sync="isBusy"
+                   :fields="fields"
+                    style="width: 100%;"
+                    >
+            <td>Something special here</td>
+          </b-table>
         <div v:if="this.$store.getters.user.type === 'doctor'">
-          <b-button @click.stop="showModal($event.target)" class="btn btn-primary">
+          <b-button @click.stop="showModal($event.target)" class="btn btn-primary" variant="primary">
             Voeg diagnose toe
           </b-button>
         </div>
@@ -124,7 +125,7 @@
         downloadDiagnosis() {
           var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
           jsonexport(this.items, function(err, csv){
-            if(err) 
+            if(err)
               return console.log(err);
             console.log(csv)
             const url = window.URL.createObjectURL(new Blob([csv]));
@@ -135,6 +136,10 @@
 
             link.click();
           });
+        },
+        dateConverter(value){
+          value.age = new Date( parseFloat( value.age)).toLocaleDateString();
+          return value;
         }
       },
       created () {
@@ -147,7 +152,7 @@
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);
           this.user = response;
-          this.patient = response;
+          this.patient = this.dateConverter(response);
           this.isLoading = false;
         });
         this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {

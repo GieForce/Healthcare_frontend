@@ -13,6 +13,7 @@
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <checker v-if="openComponent === 'checker'"></checker>
     </div>
   </div>
 </template>
@@ -28,6 +29,7 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import AppointmentChecker from "./AppointmentChecker";
 
 export default {
 
@@ -41,6 +43,7 @@ export default {
     }
   },
   components: {
+    AppointmentChecker,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -51,6 +54,7 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+    'checker' : AppointmentChecker,
   },
   computed: {
     getUser(){
