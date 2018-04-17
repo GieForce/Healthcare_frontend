@@ -1,21 +1,36 @@
 <template>
   <div class="row times">
+    <div class="col-xs-4 text-center row times" v-for="doctor in doctors">
+      <div class="col-xs-1 times">
+        <div class="day-slot">
+          <label>
+            <p>Huisarts</p>
+            {{doctor.firstname + " " + doctor.lastname}}
+            <input type="radio" v-model="selectedDoctor" :value="doctor" v-bind:id="doctor.id">
+            <span v-if="doctor.user_id === patient.doctor">Dit is uw huisarts</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div v-if="selectedDoctor" class="row">
     <div class="col-xs-4 text-center row times" v-for="day in takeDaysFromAppointments(appointments)">
       <div class="col-xs-1 times">
-      <div class="day-slot">
-        <label>{{day.startTime.toString().substring(0,12)}} <br>
-          <input type="radio" v-model="selectedDay" :value="day" v-bind:id="day.id">
-          <p>Beschikbaar: {{takeAppointmentsForDay(day).length}}</p>
-        </label>
+        <div class="day-slot">
+          <label>{{day.startTime.toString().substring(0,12)}} <br>
+            <input type="radio" v-model="selectedDay" :value="day" v-bind:id="day.id">
+            <p>Beschikbaar: {{takeAppointmentsForDay(day).length}}</p>
+          </label>
+        </div>
       </div>
-      </div>
+    </div>
     </div>
       <br>
       <div v-if="selectedDay">
       <div class="row">
-      <div v-bind:class="{ 'time-slot': appointment.available == true, 'time-slot-unavailable': appointment.available == false }" v-for="appointment in takeAppointmentsForDay(selectedDay)">
+      <div v-bind:class="{ 'time-slot': appointment.poep == false, 'time-slot-unavailable': appointment.available == false, 'time-slot-selected': appointment.poep == true }" v-for="appointment in takeAppointmentsForDay(selectedDay)">
         <label> {{appointment.startTime}} <br>
-          <input type="checkbox" v-bind:id="appointment.id" v-model="appointment.available" v-on:change="selectAppointment(appointment)">
+          <input type="checkbox" v-bind:id="appointment.id" v-model="appointment.poep" v-on:change="selectAppointment(appointment)">
           <span v-if="!appointment.available">Bezet</span>
           <span v-if="appointment.available">Beschikbaar</span>
         </label>
@@ -24,6 +39,12 @@
         <div class="row">
           <textarea class="textarea" placeholder="De reden van mijn bezoek is: " v-model="note"></textarea>
         </div>
+        <p v-if="errors.length">
+          <b>De volgende fouten traden op:</b>
+        <ul>
+          <li v-for="error in errors">{{ error }}</li>
+        </ul>
+        </p>
         <div class="row">
           <div class="col-md-4"></div>
           <button class="btn btn-primary" style="vertical-align:middle" v-on:click=""><span>Bevestig</span></button>
@@ -38,26 +59,36 @@
 <script>
     export default {
       name: "Calendar",
+      props: ['patientid'],
       data() {
         return {
           appointmentcheckbox: "",
           selectedDay: "",
           selectedAppointment: [],
+          selectedDoctor: "",
           note: "",
-          doctor: "",
-          patient: "",
-          props: ['doctorid'],
+          patient: this.patientid,
+          errors: [],
+          doctors: [],
+          isBusy: false,
           checkboxVal: "hoi",
           appointments: [],
           fields: {
             startTime: {label: 'Dag', sortable: true},
             id: {label: 'Id', sortable: true},
             available: {label: 'Beschikbaar', sortable: true},
-            endTime: {label: 'Eindtijd', sortable: true}
+            endTime: {label: 'Eindtijd', sortable: true},
           },
         }
       },
       created () {
+          this.getAllDoctors();
+          this.$store.dispatch("getRequest", "patients/" + this.patient.user_id).then(response => {
+            console.log(response);
+            this.patient = response;
+            console.log(this.patient)
+          });
+
           this.$store.dispatch("getRequest", 'timeslots').then((response) => {
           this.appointments = this.ConvertToDatetime(response);
           console.log(response);
@@ -67,17 +98,22 @@
       },
       methods: {
         update(selectedAppointment) {
-          this.$store.dispatch('postRequest', {
-            url:'timeslot',
-            body:{
-              doctor: this.name,
-              patient: this.lname,
-              appointment: selectedAppointment,
-              note: this.note,
-            }
-          }).then(() => {
-            this.changeComponent('viewWerknemers')
-          });
+          this.errors = [];
+          if(this.selectedAppointment.length > 1 || this.selectedAppointment.length === 0) {
+            this.errors.push("Selecteer één gespreksmoment")
+          }
+          if(this.selectedAppointment.length === 1) {
+            this.$store.dispatch('postRequest', {
+              url: 'timeslot',
+              body: {
+                patient: this.lname,
+                appointment: selectedAppointment,
+                note: this.note,
+              }
+            }).then(() => {
+              this.changeComponent('viewWerknemers')
+            });
+          }
         },
         takeAppointmentsForDay(day) {
           var index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
@@ -90,6 +126,7 @@
                 dailyAppointments.push(this.appointments[i]);
               }
             }
+            dailyAppointments.forEach(function(obj) { obj.poep = false; });
             return dailyAppointments;
         },
         takeDaysFromAppointments(dataValues) {
@@ -119,20 +156,23 @@
           return entryAppointments;
         },
         selectAppointment(appointment) {
-          console.log(appointment.available);
-          if(!appointment.available) {
+          console.log(appointment);
+          if(!appointment.poep) {
             this.selectedAppointment.push(appointment);
-            console.log("penis");
-            console.log(this.selectedAppointment);
           }
-          if(appointment.available){
+          if(appointment.poep){
             var index = this.selectedAppointment.map(function(x) {return x.id; }).indexOf(appointment.id);
             if(index != -1) {
               this.selectedAppointment.splice(index, 1);
             }
-            console.log("penis");
-            console.log(this.selectedAppointment);
           }
+        },
+        getAllDoctors(){
+          this.isBusy = true;
+          this.$store.dispatch("getRequest", 'doctors').then((response) => {
+            this.doctors = response;
+            this.isBusy = false;
+          });
         },
         getId(element) {
           return element == element.id;

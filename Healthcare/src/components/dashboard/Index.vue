@@ -5,7 +5,7 @@
     <sidebar></sidebar>
     <div class="dashboardContent">
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
-      <calendar :doctorid="2" v-if="openComponent === 'calendar'"></calendar>
+      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       openComponent: 'home',
-      userId: this.$store.getters.user.userId,
+      userId: this.$store.getters.user.user_id,
       user: '',
     }
   },
@@ -60,11 +60,20 @@ export default {
       return this.user;
     }
   },
+  created(){
+
+  },
   methods: {
     changeComponent (component, user) {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
-      this.user = user;
+      if(user === undefined)
+      {
+        this.user = this.$store.getters.user
+      }
+      else {
+        this.user = user;
+      }
     }
   }
 }

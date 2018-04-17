@@ -2,7 +2,7 @@
   <div  style="width: 100%;">
     <div class="loader" v-if="isBusy" ><loader></loader></div>
     <div v-if="!isBusy">
-      <b-modal id="addDiagnoseModal" 
+      <b-modal id="addDiagnoseModal"
                title="Voeg een diagnose toe"
                @ok="newDiagnose"
                ok-title="Toevoegen">
@@ -45,7 +45,7 @@
       <b-button @click="downloadDiagnosis">
         <i class="ion-ios-cloud-download"></i>
       </b-button>
-      <div class="row">    
+      <div class="row">
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
                  :items="items"
@@ -124,7 +124,7 @@
         downloadDiagnosis() {
           var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
           jsonexport(this.items, function(err, csv){
-            if(err) 
+            if(err)
               return console.log(err);
             console.log(csv)
             const url = window.URL.createObjectURL(new Blob([csv]));
@@ -142,7 +142,7 @@
         console.log(this.$store.getters.user)
         if(this.$store.getters.user.type == 'patient'){
           console.log('user is patient')
-          this.patientid = this.$store.getters.user.userId
+          this.patientid = this.$store.getters.user.user_id
         }
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);

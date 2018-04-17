@@ -550,6 +550,24 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
   border-color: black;
 }
 
+.time-slot-selected 				{  }
+.time-slot-selected label {
+  margin-top:20px;
+  margin-bottom:10px;
+  padding:10px 20px;
+  color:black;
+  cursor:pointer;
+  background:forestgreen !important;
+  border-radius:5px;
+  transition:0.3s ease all;
+  transition:0.3s ease all;
+  -moz-transition:0.3s ease all;
+  -webkit-transition:0.3s ease all;
+  border: 2px solid;
+  border-color: black;
+}
+
+
 .time-slot-unavailable input 	 { display:none; }
 
 .day-slot 				{  }
