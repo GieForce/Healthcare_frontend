@@ -74,7 +74,7 @@
         this.isBusy = false;
         this.patients = this.dateConverter(response);
         console.log(this.patients);
-        this.totalRows = this.patients.length
+        this.totalRows = this.patients.length;
         this.patients = response
       });
     },
