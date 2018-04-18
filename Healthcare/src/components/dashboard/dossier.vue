@@ -2,7 +2,7 @@
   <div  style="width: 100%;">
     <div class="loader" v-if="isBusy" ><loader></loader></div>
     <div v-if="!isBusy">
-      <b-modal id="addDiagnoseModal" 
+      <b-modal id="addDiagnoseModal"
                title="Voeg een diagnose toe"
                @ok="newDiagnose"
                ok-title="Toevoegen">
@@ -43,7 +43,7 @@
       <div class="col-md-6">
       </div>
       </div>
-      <div class="row">    
+      <div class="row">
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
                  :items="items"
@@ -65,7 +65,7 @@
             </b-card>
           </template>
         </b-table>
-        <div v:if="this.$store.getters.user.type === 'doctor'">
+        <div v-if="user === 'doctor'">
           <b-button @click.stop="showModal($event.target)" class="btn btn-primary" variant="primary">
             Voeg diagnose toe
           </b-button>
@@ -105,7 +105,8 @@
             category: '',
             diagnose: ''
           },
-          isLoading: false
+          isLoading: false,
+          user: this.$store.getters.user
         }
       },
       methods: {
@@ -147,22 +148,22 @@
         },
         downloadDiagnosis() {
           var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
-          
+
           var csvItems = this.items.slice();
-          csvItems.forEach(function(v){ 
+          csvItems.forEach(function(v){
             delete v.id;
             delete v._showDetails;
           });
 
 
           jsonexport(this.items, function(err, csv){
-            if(err) 
+            if(err)
               return console.log(err);
             const url = window.URL.createObjectURL(new Blob([csv]));
             var link = document.createElement("a");
             link.setAttribute("href", url);
             link.setAttribute("download", fileName);
-            document.body.appendChild(link); 
+            document.body.appendChild(link);
             link.click();
           });
         }
