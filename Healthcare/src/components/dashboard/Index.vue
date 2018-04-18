@@ -14,6 +14,7 @@
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
       <calender v-if="openComponent === 'calendar'"></calender>
       <appointmentlist v-if="openComponent === 'appointmentlist'"></appointmentlist>
+      <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -44,6 +45,7 @@ import Planner from './Planner.vue';
 import Calendar from "./Calendar";
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
+import ArtsSwitch from "./ArtsSwitch.vue";
 
 
 export default {
@@ -74,6 +76,7 @@ export default {
     'planner' : Planner,
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
+    'artsswitch' : ArtsSwitch,
 
   },
   computed: {

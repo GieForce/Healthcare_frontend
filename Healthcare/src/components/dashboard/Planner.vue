@@ -62,6 +62,10 @@
             </ul>
           </div>
         </div>
+        <br>
+        <b-button size="sm" v-on:click="changeComponent('artsswitch')" variant="primary">
+          <i></i> Afwezig melden
+        </b-button>
         <slot name="body-card">
         </slot>
       </div>
@@ -294,7 +298,11 @@
         });
         return entryAppointments;
       },
+      changeComponent (component) {
+        this.$parent.changeComponent(component);
+      },
     },
+
     filters: {
       localeWeekDay (weekday, firstDay, locale) {
         firstDay = parseInt(firstDay);
