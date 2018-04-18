@@ -28,8 +28,10 @@
 <script>
   export default {
     name: "AppointmentList",
+    props: ['day'],
     data (){
       return{
+        user_id: this.$store.getters.user.user_id,
         fields: {
           patient: {label: 'Patiënt', sortable: true},
           startTime: {label: 'Datum', sortable: true},
@@ -38,9 +40,7 @@
           actions: {label: 'Acties'}
         },
         items: [
-          {Patient: 'D.J.M.M van den Bogaard',Date: '17-10-2018',Time: '10:00 - 10:15',Reason: 'Kipfilet beschimmeld opgegeten',Checked:false},
-          {Patient: 'Devin Pennings',Date: '07-05-2018',Time: '10:00 - 10:15',Reason: 'Kipfilet beschimmeld opgegeten',Checked:true},
-          {Patient: 'Devin Pennings',Date: '07-05-2018',Time: '10:00 - 10:15',Reason: 'Kipfilet beschimmeld opgegeten',Checked:false},
+
         ],
         isBusy: false,
         appointments: [],
@@ -50,9 +50,20 @@
     },
     created (){
       this.isBusy = true;
+      console.log(this.$store.getters.user)
+      console.log('hallo')
       this.$store.dispatch("getRequest", 'timeslots/approved/?approval=1&doctor_id=' + this.user_id).then((response) => {
         this.isBusy = false;
         this.appointments = this.ConvertToDatetime(response);
+      });
+      console.log('meegegeven datuM:')
+      console.log(this.day)
+      this.appointments.forEach((x) => {
+        var appointmentDate = new Date(x.startTime);
+
+        if(this.day.toDateString() == appointmentDate.toDateString()){
+          this.items.push(x);
+        }
       });
     },
     methods: {
@@ -64,18 +75,11 @@
           this.loadAppointments();
         })
       },
-      loadAppointments() {
-        this.isBusy = true;
-        this.$store.dispatch("getRequest", 'timeslots/approved/?approval=0&doctor_id=' + this.user_id).then((response) => {
-          this.isBusy = false;
-          this.appointments = this.ConvertToDatetime(response);
-        });
-      },
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },
       CompareDates(day,calendarDay){
-        var comparer = day.startTime.toString().substring(5,7);
+        var comparer = day.dayClick();
         var comparerm = day.startTime.toString().substring(8,11);
         var calenderm = calendarDay.date.toString().substring(4,7);
         if(calendarDay.monthDay.toString() === comparer && comparerm == calenderm){
@@ -106,7 +110,7 @@
         }
         return entryAppointments;
       },
-    }
+    },
   }
 </script>
 

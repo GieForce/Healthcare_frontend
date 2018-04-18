@@ -13,7 +13,7 @@
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
       <calender v-if="openComponent === 'calendar'"></calender>
-      <appointmentlist v-if="openComponent === 'appointmentlist'"></appointmentlist>
+      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
       <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
@@ -58,7 +58,7 @@ export default {
       userId: this.$store.getters.user.userId,
       user: '',
       fcEvents: Planner.events,
-
+      day: ''
     }
   },
   components: {
@@ -82,6 +82,9 @@ export default {
   computed: {
     getUser(){
       return this.user;
+    },
+    getDate(){
+      return this.day;
     }
   },
   methods: {
@@ -100,6 +103,9 @@ export default {
       console.log('eventClick', event, jsEvent, pos)
     },
     dayClick(day, jsEvent) {
+      this.day = day._d;
+      console.log('Meegegeven datum:')
+      console.log(this.day)
       this.changeComponent2('appointmentlist')
       console.log('dayClick', day, jsEvent)
     },
