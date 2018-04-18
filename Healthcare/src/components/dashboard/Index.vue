@@ -13,6 +13,7 @@
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
       <calender v-if="openComponent === 'calendar'"></calender>
+      <appointmentlist v-if="openComponent === 'appointmentlist'"></appointmentlist>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -42,6 +43,7 @@ import ViewPat from './ViewPat.vue'
 import Planner from './Planner.vue';
 import Calendar from "./Calendar";
 import AppointmentChecker from "./AppointmentChecker";
+import AppointmentList from "./AppointmentList.vue";
 
 
 export default {
@@ -71,6 +73,7 @@ export default {
     'viewpat' : ViewPat,
     'planner' : Planner,
     'checker' : AppointmentChecker,
+    'appointmentlist' : AppointmentList,
 
   },
   computed: {
@@ -84,6 +87,9 @@ export default {
       this.openComponent = component;
       this.user = user;
     },
+    changeComponent2(component) {
+      this.openComponent = component;
+    },
     changeMonth(start, end, current) {
       console.log('changeMonth', start.format(), end.format(), current.format())
     },
@@ -91,6 +97,7 @@ export default {
       console.log('eventClick', event, jsEvent, pos)
     },
     dayClick(day, jsEvent) {
+      this.changeComponent2('appointmentlist')
       console.log('dayClick', day, jsEvent)
     },
     moreClick(day, events, jsEvent) {
