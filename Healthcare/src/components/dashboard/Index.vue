@@ -14,6 +14,8 @@
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
       <calender v-if="openComponent === 'calendar'"></calender>
+      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
+      <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -43,6 +45,8 @@ import ViewPat from './ViewPat.vue'
 import Calendar from './Calendar.vue'
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
+import AppointmentList from "./AppointmentList.vue";
+import ArtsSwitch from "./ArtsSwitch.vue";
 
 
 export default {
@@ -55,7 +59,7 @@ export default {
       userId: this.$store.getters.user.user_id,
       user: '',
       fcEvents: Planner.events,
-
+      day: ''
     }
   },
   components: {
@@ -73,10 +77,16 @@ export default {
     'calendar' : Calendar,
     'planner' : Planner,
     'checker' : AppointmentChecker,
+    'appointmentlist' : AppointmentList,
+    'artsswitch' : ArtsSwitch,
+
   },
   computed: {
     getUser(){
       return this.user;
+    },
+    getDate(){
+      return this.day;
     }
   },
   created(){
@@ -94,6 +104,9 @@ export default {
         this.user = user;
       }
     },
+    changeComponent2(component) {
+      this.openComponent = component;
+    },
     changeMonth(start, end, current) {
       console.log('changeMonth', start.format(), end.format(), current.format())
     },
@@ -101,6 +114,10 @@ export default {
       console.log('eventClick', event, jsEvent, pos)
     },
     dayClick(day, jsEvent) {
+      this.day = day._d;
+      console.log('Meegegeven datum:')
+      console.log(this.day)
+      this.changeComponent2('appointmentlist')
       console.log('dayClick', day, jsEvent)
     },
     moreClick(day, events, jsEvent) {

@@ -62,6 +62,10 @@
             </ul>
           </div>
         </div>
+        <br>
+        <b-button size="sm" v-on:click="changeComponent('artsswitch')" variant="primary">
+          <i></i> Afwezig melden
+        </b-button>
         <slot name="body-card">
         </slot>
       </div>
@@ -127,7 +131,7 @@
     },
     created () {
       console.log(this.user_id),
-      this.$store.dispatch("getRequest", 'timeslots/' + this.user_id + '?approval=0',
+      this.$store.dispatch("getRequest", 'timeslots/approved/?approval=1&doctor_id=' + this.user_id
       ).then((response) => {
         this.events = this.ConvertToDatetime(response);
       });
@@ -273,7 +277,9 @@
       },
       CompareDates(day,calendarDay){
         var comparer = day.startTime.toString().substring(5,7);
-        if(calendarDay.monthDay.toString() === comparer){
+        var comparerm = day.startTime.toString().substring(8,11);
+        var calenderm = calendarDay.date.toString().substring(4,7);
+        if(calendarDay.monthDay.toString() === comparer && comparerm == calenderm){
           return true;
         }else {
           return false;
@@ -292,7 +298,11 @@
         });
         return entryAppointments;
       },
+      changeComponent (component) {
+        this.$parent.changeComponent(component);
+      },
     },
+
     filters: {
       localeWeekDay (weekday, firstDay, locale) {
         firstDay = parseInt(firstDay);
