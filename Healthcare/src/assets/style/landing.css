@@ -516,22 +516,22 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
   -webkit-animation:flashAvailable 0.5s ease;
 }
 
-.time-slot 				{  }
-.time-slot input 	 { display:none; }
-.time-slot label 	 {
-  margin-top:20px;
-  padding:10px 20px;
-  margin-bottom:10px;
-  color:black;
+.time-slot 				{
+  height:100px;
+  width: 200px;
+  margin-left: 50px;
+  margin-top: 20px;
   cursor:pointer;
-  background:#34B3C1;
+  background:#f5f5f5;
   border-radius:5px;
+}
+.time-slot :hover {
+  background: #e4e4e4;
   transition:0.3s ease all;
   -moz-transition:0.3s ease all;
   -webkit-transition:0.3s ease all;
-  border: 2px solid;
-  border-color: black;
 }
+.time-slot input 	 { display:none; }
 
 .time-slot-unavailable 				{  }
 .time-slot-unavailable label {
@@ -557,35 +557,55 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
   padding:10px 20px;
   color:black;
   cursor:pointer;
-  background:forestgreen !important;
+  background:#d9d9d9 !important;
   border-radius:5px;
   transition:0.3s ease all;
   transition:0.3s ease all;
   -moz-transition:0.3s ease all;
   -webkit-transition:0.3s ease all;
-  border: 2px solid;
-  border-color: black;
 }
 
 
 .time-slot-unavailable input 	 { display:none; }
 
-.day-slot 				{  }
-.day-slot input 	 { display:none; }
-.day-slot label 	 {
-  margin-top:20px;
-  margin-right: 20px;
-  padding:20px 40px;
-  color:black;
+.day-slot 				{
+  height:100px;
+  width: 200px;
+  margin-left: 50px;
+  margin-top: 20px;
   cursor:pointer;
-  background:#34B3C1;
+  background:#f5f5f5;
   border-radius:5px;
+}
+.day-slot :hover {
+  background: #e4e4e4;
   transition:0.3s ease all;
   -moz-transition:0.3s ease all;
   -webkit-transition:0.3s ease all;
-  border: 4px solid;
-  border-color: black;
 }
+.day-slot input 	 { display:none; }
+
+.doctor-slot 				{
+/height:100px;/
+margin-top: 20px;
+/color:black;/
+cursor:pointer;
+  background:#f5f5f5;
+  border-radius:5px;
+}
+
+.doctor-slot :hover {
+  background: #e4e4e4;
+  transition:0.3s ease all;
+  -moz-transition:0.3s ease all;
+  -webkit-transition:0.3s ease all;
+}
+
+.doctor-slot :active {
+  background: #e4e4e4;
+}
+
+.doctor-slot input 	 { display:none; }
 
 textarea {
   margin-bottom: 20px;
