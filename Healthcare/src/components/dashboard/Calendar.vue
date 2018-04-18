@@ -6,7 +6,7 @@
           <label>
             <p>Huisarts</p>
             {{doctor.firstname + " " + doctor.lastname}}
-            <input type="radio" v-model="selectedDoctor" :value="doctor" v-bind:id="doctor.id" v-on:click="takeDaysFromAppointments(appointments, doctor)">
+            <input type="radio" v-model="selectedDoctor" :value="doctor" v-bind:id="doctor.id" v-on:click="takeDaysFromAppointments(doctor)">
             <span v-if="doctor.user_id === patient.doctor">Dit is uw huisarts</span>
           </label>
         </div>
@@ -93,8 +93,6 @@
       },
       methods: {
         update() {
-          console.log(this.selectedAppointment);
-          console.log(this.selectedAppointment.length);
           this.errors = [];
           if(this.selectedAppointment.length > 1 || this.selectedAppointment.length === 0) {
             this.errors.push("Selecteer één gespreksmoment")
@@ -102,14 +100,13 @@
           if(this.selectedAppointment.length === 1) {
             console.log("hoi");
             this.$store.dispatch('postRequest', {
-              url: 'timeslots/1?user_id=' + this.patient.user_id + '&note=' + this.note,
+              url: 'timeslots/' + this.selectedAppointment[0].id + '?user_id=' + this.patient.user_id + '&note=' + this.note,
             }).then(() => {
               this.changeComponent('News');
             });
           }
         },
         takeAppointmentsForDay(day) {
-          console.log("hai");
           var index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
           var date = day.startTime.toString().substring(0,12);
           var compareDate;
@@ -123,22 +120,23 @@
             dailyAppointments.forEach(function(obj) { obj.poep = false; });
             this.appointmentsOfDay = dailyAppointments;
         },
-        takeDaysFromAppointments(dataValues, doctor) {
+        takeDaysFromAppointments(doctor) {
+          console.log("test");
           this.$store.dispatch("getRequest", 'timeslots/available/?availability=1&doctor_id=' + doctor.user_id).then((response) => {
-              this.appointments = this.ConvertToDatetime(response);});
-
-          var days = [];
-          var currentTimeSlot = "";
-          var newTimeSlot = "";
-          for (var i = 0; i < dataValues.length; i++){
-            newTimeSlot = dataValues[i].startTime.toString().substring(0,12);
-            if(currentTimeSlot != newTimeSlot){
-              days.push(dataValues[i]);
-              currentTimeSlot = newTimeSlot;
+            this.appointments = this.ConvertToDatetime(response);
+            var days = [];
+            var currentTimeSlot = "";
+            var newTimeSlot = "";
+            for (var i = 0; i < this.appointments.length; i++) {
+              newTimeSlot = this.appointments[i].startTime.toString().substring(0, 12);
+              if (currentTimeSlot != newTimeSlot) {
+                days.push(this.appointments[i]);
+                currentTimeSlot = newTimeSlot;
+                this.daysOfAppointments = days;
+                console.log(this.daysOfAppointments)
+              }
             }
-          }
-          this.daysOfAppointments = days;
-          console.log(this.daysOfAppointments)
+          });
         },
         changeComponent (component) {
           this.$parent.changeComponent(component);
