@@ -12,8 +12,19 @@
       <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
-      <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <calender v-if="openComponent === 'calendar'"></calender>
+      <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
+               first-day='1' locale="nl"
+               @changeMonth="changeMonth"
+               @eventClick="eventClick"
+               @dayClick="dayClick"
+               @moreClick="moreClick">
+        <template slot="fc-event-card" scope="p">
+          <p>{{ p.event.title }}</p>
+        </template>
+      </planner>
+      <checker v-if="openComponent === 'checker'"></checker>
     </div>
   </div>
 </template>
@@ -30,6 +41,9 @@ import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
 import Calendar from './Calendar.vue'
+import Planner from './Planner.vue';
+import AppointmentChecker from "./AppointmentChecker";
+
 
 export default {
 
@@ -40,9 +54,12 @@ export default {
       openComponent: 'home',
       userId: this.$store.getters.user.user_id,
       user: '',
+      fcEvents: Planner.events,
+
     }
   },
   components: {
+    'calender': Calendar,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -54,6 +71,8 @@ export default {
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
     'calendar' : Calendar,
+    'planner' : Planner,
+    'checker' : AppointmentChecker,
   },
   computed: {
     getUser(){
@@ -74,6 +93,18 @@ export default {
       else {
         this.user = user;
       }
+    },
+    changeMonth(start, end, current) {
+      console.log('changeMonth', start.format(), end.format(), current.format())
+    },
+    eventClick(event, jsEvent, pos) {
+      console.log('eventClick', event, jsEvent, pos)
+    },
+    dayClick(day, jsEvent) {
+      console.log('dayClick', day, jsEvent)
+    },
+    moreClick(day, events, jsEvent) {
+      console.log('moreCLick', day, events, jsEvent)
     }
   }
 }

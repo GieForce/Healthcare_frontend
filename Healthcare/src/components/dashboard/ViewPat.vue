@@ -14,7 +14,9 @@
       </b-col>
       <b-col md="6" class="my-1">
         <div class="pull-right" style="padding-top: 10px">
-          <a v-on:click="changeComponent('createPatients')" style="cursor:pointer"> <i class="ion-ios-plus"></i> Patient Aanmaken</a>
+          <b-button size="sm" v-on:click="changeComponent('createPatients')" variant="primary">
+            <i class="ion-ios-plus"></i> Patient Aanmaken
+          </b-button>
         </div>
       </b-col>
     </b-row>
@@ -70,9 +72,9 @@
       this.isBusy = true;
       this.$store.dispatch("getRequest", 'patients').then((response) => {
         this.isBusy = false;
-        this.patients = response;
+        this.patients = this.dateConverter(response);
         console.log(this.patients);
-        this.totalRows = this.patients.length
+        this.totalRows = this.patients.length;
         this.patients = response
       });
     },
@@ -93,6 +95,14 @@
       },
       changeComponent (component, patient) {
         this.$parent.changeComponent(component, patient);
+      },
+      dateConverter(values){
+        var regex = /-?\d+/;
+        var entries = values;
+        for (var index = 0; index < entries.length; ++index) {
+          entries[index].age = new Date( parseFloat( entries[index].age)).toLocaleDateString();
+        }
+        return entries;
       }
     }
   }

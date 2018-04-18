@@ -31,32 +31,33 @@
               <h4>Mail:</h4>
               <p>{{ patient.username }}</p>
               <hr>
-              <h4>Leeftijd:</h4>
+              <h4>Geboortedatum::</h4>
               <p>{{ patient.age }}</p>
               <hr>
-              <h4>Arts:</h4>
-              <p>Bartje Jansen</p>
+              <h4>Dokter:</h4>
+              <p v-if="patient.doctor !== null">{{patient.doctor.firstname + ' ' + patient.doctor.lastname}}</p>
+              <p v-else>~</p>
             </div>
           </div>
         </div>
       <div class="col-md-6">
       </div>
       </div>
-      <b-button @click="downloadDiagnosis">
+      <b-button @click="downloadDiagnosis" variant="primary">
         <i class="ion-ios-cloud-download"></i>
       </b-button>
-      <div class="row">
-        <b-table :sort-by.sync="sortBy"
-                 :sort-desc.sync="sortDesc"
-                 :items="items"
-                 :busy.sync="isBusy"
-                 :fields="fields"
-                  style="width: 100%;"
-                  >
-          <td>Something special here</td>
-        </b-table>
+        <div class="row">
+          <b-table :sort-by.sync="sortBy"
+                   :sort-desc.sync="sortDesc"
+                   :items="items"
+                   :busy.sync="isBusy"
+                   :fields="fields"
+                    style="width: 100%;"
+                    >
+            <td>Something special here</td>
+          </b-table>
         <div v:if="this.$store.getters.user.type === 'doctor'">
-          <b-button @click.stop="showModal($event.target)" class="btn btn-primary">
+          <b-button @click.stop="showModal($event.target)" class="btn btn-primary" variant="primary">
             Voeg diagnose toe
           </b-button>
         </div>
@@ -135,6 +136,10 @@
 
             link.click();
           });
+        },
+        dateConverter(value){
+          value.age = new Date( parseFloat( value.age)).toLocaleDateString();
+          return value;
         }
       },
       created () {
@@ -147,7 +152,7 @@
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);
           this.user = response;
-          this.patient = response;
+          this.patient = this.dateConverter(response);
           this.isLoading = false;
         });
         this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
