@@ -15,10 +15,10 @@
     </div>
   </div>
 </template>
-<script type="text/babel">
+
+<script>
 
   import moment from 'moment';
-
 
   export default {
     props : {

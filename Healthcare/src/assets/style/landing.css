@@ -588,7 +588,6 @@ input[type="checkbox"]:not(:checked) + label span.checkbox::after {
 }
 
 textarea {
-  margin-left: 25%;
   margin-bottom: 20px;
   width: 30%;
   height: 160px;

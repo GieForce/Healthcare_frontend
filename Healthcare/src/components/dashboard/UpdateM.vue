@@ -6,33 +6,28 @@
         <input type="text" placeholder="Naam" v-model="name" v-on:keyup="checkForm" class="form-control">
       </div>
     </div>
-    <div class="line"></div>
     <div class="form-group row">
       <label class="col-sm-2 form-control-label">Achternaam</label>
       <div class="col-sm-10">
         <input type="text" placeholder="Achternaam" v-model="lname" v-on:keyup="checkForm" class="form-control">
       </div>
     </div>
-    <div class="line"></div>
     <div class="form-group row">
       <label class="col-sm-2 form-control-label">Geboortedatum</label>
       <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm"></datepicker>
     </div>
-    <div class="line"></div>
     <div class="form-group row">
       <label class="col-sm-2 form-control-label">E-Mail</label>
       <div class="col-sm-10">
         <input type="text" placeholder="E-Mail" v-model="email" v-on:keyup="checkForm" class="form-control">
       </div>
     </div>
-    <div class="line"></div>
     <div class="form-group row">
       <label class="col-sm-2 form-control-label">Wachtwoord</label>
       <div class="col-sm-10">
         <input type="text" placeholder="Wachtwoord" v-model="password" v-on:keyup="checkForm" class="form-control">
       </div>
     </div>
-    <div class="line"></div>
     <div class="form-group row">
       <label class="col-sm-2 form-control-label">Adres</label>
       <div class="col-sm-10">

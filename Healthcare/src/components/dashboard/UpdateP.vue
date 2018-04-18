@@ -8,17 +8,6 @@
         </header>
       </div>
       <div class="card-body">
-        <div class="form-group row">
-          <label class="col-sm-2 form-control-label">Selecteer Patient</label>
-          <div class="col-sm-10 mb-3">
-            <select name="account" class="form-control">
-              <option>Patient 1</option>
-              <option>Patient 2</option>
-              <option>Patient 3</option>
-              <option>Patient 4</option>
-            </select>
-          </div>
-        </div>
         <div class="line"></div>
         <form class="form-horizontal">
           <div class="form-group row">
@@ -90,14 +79,14 @@
 
   export default {
     name: "updatep",
-    props: ['userId'],
+    props: ['patientId'],
     components:{
       'datepicker' : Datepicker
     },
 
     data(){
       return{
-
+        patient: ''
       }
     },
     update() {
@@ -110,6 +99,12 @@
         bdate: this.bdate,
         adres: this.adres
       }).then(() => {
+      });
+    },
+    created(){
+      console.log('getting patient')
+      this.$store.dispatch("getRequest", "patients/" + this.patientId).then(response => {
+        this.patient = response;
       });
     }
   }
