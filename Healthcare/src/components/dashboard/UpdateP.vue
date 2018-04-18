@@ -87,7 +87,7 @@
 
   export default {
     name: "updatep",
-    props: ['userId'],
+    props: ['patientId'],
     components:{
       'datepicker' : Datepicker
     },

@@ -4,25 +4,29 @@
       <div class="container">
         <!-- Page Header-->
         <header>
-          <h1 class="h3 display">Creëren            </h1>
+          <h1 class="h3 display">Creëren</h1>
         </header>
       </div>
       <div class="card-body">
         <form class="form-horizontal">
+          <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" placeholder="Email" v-model="email" v-on:keyup="checkForm" class="form-control">
+            </div>
+          </div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Naam</label>
             <div class="col-sm-10">
               <input type="text" placeholder="Naam" v-model="name" v-on:keyup="checkForm" class="form-control">
             </div>
           </div>
-          <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Achternaam</label>
             <div class="col-sm-10">
               <input type="text" placeholder="Achternaam" v-model="lname" v-on:keyup="checkForm" class="form-control">
             </div>
           </div>
-          <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geboortedatum</label>
             <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm"></datepicker>
@@ -108,8 +112,11 @@
     },
     methods: {
       create() {
+
+        var date = new Date(this.birthdate)
+        console.log(date);
         this.$store.dispatch('postRequest', {
-          url:'patients',
+          url:'patients/' + this.$store.getters.user.user_id,
           body:{
             firstname: this.name,
             lastname: this.lname,

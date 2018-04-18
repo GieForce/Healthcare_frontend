@@ -2,7 +2,7 @@
   <div  style="width: 100%;">
     <div class="loader" v-if="isBusy" ><loader></loader></div>
     <div v-if="!isBusy">
-      <b-modal id="addDiagnoseModal"
+      <b-modal id="addDiagnoseModal" 
                title="Voeg een diagnose toe"
                @ok="newDiagnose"
                ok-title="Toevoegen">
@@ -31,8 +31,8 @@
               <h4>Mail:</h4>
               <p>{{ patient.username }}</p>
               <hr>
-              <h4>Geboortedatum::</h4>
-              <p>{{ patient.age }}</p>
+              <h4>Geboortedatum:</h4>
+              <p>{{ getAge(patient.age) }}</p>
               <hr>
               <h4>Dokter:</h4>
               <p v-if="patient.doctor !== null">{{patient.doctor.firstname + ' ' + patient.doctor.lastname}}</p>
@@ -43,34 +43,45 @@
       <div class="col-md-6">
       </div>
       </div>
-      <b-button @click="downloadDiagnosis" variant="primary">
-        <i class="ion-ios-cloud-download"></i>
-      </b-button>
-        <div class="row">
-          <b-table :sort-by.sync="sortBy"
-                   :sort-desc.sync="sortDesc"
-                   :items="items"
-                   :busy.sync="isBusy"
-                   :fields="fields"
-                    style="width: 100%;"
-                    >
-            <td>Something special here</td>
-          </b-table>
+      <div class="row">    
+        <b-table :sort-by.sync="sortBy"
+                 :sort-desc.sync="sortDesc"
+                 :items="items"
+                 :busy.sync="isBusy"
+                 :fields="fields"
+                  style="width: 100%;"
+                  >
+          <template slot="show_details" slot-scope="row">
+            <a size="sm" @click.stop="row.toggleDetails" class="mr-2">
+              <i v-if="!row.detailsShowing" class="ion-ios-arrow-down"></i>
+              <i v-if="row.detailsShowing" class="ion-ios-arrow-up"></i>
+            </a>
+          </template>
+          <template slot="row-details" slot-scope="row">
+            <b-card>
+              <b-row class="mb-2">
+                <b-col>{{ row.item.report }}</b-col>
+              </b-row>
+            </b-card>
+          </template>
+        </b-table>
         <div v:if="this.$store.getters.user.type === 'doctor'">
           <b-button @click.stop="showModal($event.target)" class="btn btn-primary" variant="primary">
             Voeg diagnose toe
           </b-button>
         </div>
+        <hr>
+        <b-button @click="downloadDiagnosis">
+          <i class="ion-ios-cloud-download"></i> Download dossier
+        </b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
     import Loader from '../loader.vue'
     var jsonexport = require('jsonexport');
-
     export default {
       name: "dossier",
       props: ['patientid'],
@@ -83,8 +94,9 @@
           sortDesc: false,
           fields: {
             category: {label: 'Categorie', sortable: true},
-            report: {label: 'Diagnose', sortable: true},
+            summary: {label: 'Diagnose', sortable: true},
             date: {label: 'Datum', sortable: true},
+            show_details: {label: ''},
           },
           isBusy: false,
           items: [],
@@ -97,6 +109,11 @@
         }
       },
       methods: {
+        getAge(age){
+          var d = new Date(age); // The 0 there is the key, which sets the date to the epoch
+          console.log(d)
+          return d.toLocaleDateString()
+        },
         getItems () {
           return this.items;
         },
@@ -106,7 +123,7 @@
         newDiagnose () {
           this.isBusy = true
           this.$store.dispatch('postRequest' ,{
-            url: 'patients/dossier/2',
+            url: 'patients/dossier/' + this.patient.user_id,
             body: {
               category: this.form.category,
               report: this.form.diagnose,
@@ -117,29 +134,37 @@
           })
         },
         loadDiagnosis() {
-          this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
+          this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
             this.isBusy = false;
-            this.items = response;
+            response.forEach(function(item) {
+              item.summary = item.report.substring(0, 150)
+              if(item.summary.length > 150){
+                item.summary = item.summary.concat('...')
+              }
+            });
+            this.items = response
           });
         },
         downloadDiagnosis() {
           var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
+          
+          var csvItems = this.items.slice();
+          csvItems.forEach(function(v){ 
+            delete v.id;
+            delete v._showDetails;
+          });
+
+
           jsonexport(this.items, function(err, csv){
-            if(err)
+            if(err) 
               return console.log(err);
-            console.log(csv)
             const url = window.URL.createObjectURL(new Blob([csv]));
             var link = document.createElement("a");
             link.setAttribute("href", url);
             link.setAttribute("download", fileName);
-            document.body.appendChild(link); // Required for FF
-
+            document.body.appendChild(link); 
             link.click();
           });
-        },
-        dateConverter(value){
-          value.age = new Date( parseFloat( value.age)).toLocaleDateString();
-          return value;
         }
       },
       created () {
@@ -152,7 +177,7 @@
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);
           this.user = response;
-          this.patient = this.dateConverter(response);
+          this.patient = response;
           this.isLoading = false;
         });
         this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
@@ -166,5 +191,4 @@
 </script>
 
 <style scoped>
-
 </style>

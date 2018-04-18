@@ -608,7 +608,6 @@ cursor:pointer;
 .doctor-slot input 	 { display:none; }
 
 textarea {
-  margin-left: 25%;
   margin-bottom: 20px;
   width: 30%;
   height: 160px;

@@ -29,14 +29,8 @@
       >
         <template slot="actions" slot-scope="row">
           <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-          <b-button size="sm" variant="primary">
-            <i style="font-size:24px" class="fa">&#xf06e;</i>
-          </b-button>
           <b-button size="sm" v-on:click="changeComponent('updateWerknemer', row.item)" variant="primary">
             <i style="font-size:24px" class="fa">&#xf044;</i>
-          </b-button>
-          <b-button size="sm" variant="primary">
-            <i style="font-size:24px" class="fa">&#xf014;</i>
           </b-button>
         </template>
       </b-table>
@@ -56,7 +50,7 @@
           lastname: {label: 'Achternaam', sortable: true},
           type: {label: 'Type', sortable: true},
           username: {label: 'Email', sortable: true},
-          actions: {label: 'Acties'}
+          // actions: {label: 'Acties'}
         },
         isBusy: false,
         totalRows: 0,
@@ -67,7 +61,7 @@
     },
     created () {
       this.isBusy = true;
-      this.$store.dispatch("getRequest", 'admins').then((response) => {
+      this.$store.dispatch("getRequest", 'employees').then((response) => {
         this.isBusy = false;
         this.employees = response
         console.log(this.employees)
