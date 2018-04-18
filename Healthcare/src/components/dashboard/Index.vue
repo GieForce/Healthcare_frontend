@@ -76,7 +76,6 @@ export default {
       this.user = user;
     },
     toggleChat (){
-      console.log('toggle chat')
       this.openChat = !this.openChat
     },
     setupSockets(){

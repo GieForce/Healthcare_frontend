@@ -1,6 +1,5 @@
 <template>
-  <b-card no-body>
-    {{ chatSession.status }}
+  <b-card style="height: 90vh" title="Live chat">
     <b-tabs pills card vertical nav-wrapper-class="w-25">
       <b-tab active v-for="chat in chatSession.chats" 
              v-bind:data="chat"
@@ -8,7 +7,7 @@
        <template slot="title">
           <b-img slot="aside" blank-color="#ccc" width="25px" height="25px" alt="placeholder" class="rounded-circle" src="https://studiomango.nl/wp-content/uploads/2014/10/team-profile-picture_minko.jpg"></b-img> {{ chat.patient.firstname + ' ' + chat.patient.lastname }}
        </template>
-       <chatwindow :chatId="chat.id"></chatwindow>
+       <chatwindow :pChatId="chat.id"></chatwindow>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -83,7 +82,7 @@ export default {
       if(event.keyCode == 13){
         socket.emit('sent_message', {
           sender: this.user,
-          channelId: this.partner.userId,
+          channelId: this.partner.user_id,
           message: this.message
         })
         this.message = ''
@@ -92,7 +91,8 @@ export default {
   },
 
   created() {
-    console.log(this.chatSession)
+    console.log('chats')
+    console.log(this.chatSession.chats)
   },
 }
 </script>
