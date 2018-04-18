@@ -60,8 +60,9 @@
       },
       created (){
         this.isBusy = true;
-        this.$store.dispatch("getRequest", 'timeslots?availability=0').then((response) => {
+        this.$store.dispatch("getRequest", 'timeslots/available?availability=2').then((response) => {
           this.isBusy = false;
+          console.log(response);
           this.appointments = this.ConvertToDatetime(response);
         });
       },
@@ -84,7 +85,7 @@
         },
           loadAppointments() {
             this.isBusy = true;
-            this.$store.dispatch("getRequest", 'timeslots?availability=0').then((response) => {
+            this.$store.dispatch("getRequest", 'timeslots/available?availability=2').then((response) => {
               this.isBusy = false;
               this.appointments = this.ConvertToDatetime(response);
             });
@@ -105,6 +106,7 @@
             return dateA - dateB;
           });
           for (var i = 0; i < entryAppointments.length; ++i){
+            console.log(entryAppointments[i]);
             if (entryAppointments[i].approval === true) {
               entryAppointments.splice(i,1)
             }

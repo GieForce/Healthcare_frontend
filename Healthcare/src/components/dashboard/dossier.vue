@@ -147,7 +147,7 @@
         console.log(this.$store.getters.user)
         if(this.$store.getters.user.type == 'patient'){
           console.log('user is patient')
-          this.patientid = this.$store.getters.user.userId
+          this.patientid = this.$store.getters.user.user_id
         }
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);
