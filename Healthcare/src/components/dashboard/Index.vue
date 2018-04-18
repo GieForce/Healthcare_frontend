@@ -5,6 +5,7 @@
     <sidebar></sidebar>
     <div class="dashboardContent">
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
+      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
@@ -39,8 +40,8 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import Calendar from './Calendar.vue'
 import Planner from './Planner.vue';
-import Calendar from "./Calendar";
 import AppointmentChecker from "./AppointmentChecker";
 
 
@@ -51,7 +52,7 @@ export default {
   data() {
     return {
       openComponent: 'home',
-      userId: this.$store.getters.user.userId,
+      userId: this.$store.getters.user.user_id,
       user: '',
       fcEvents: Planner.events,
 
@@ -69,20 +70,29 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+    'calendar' : Calendar,
     'planner' : Planner,
     'checker' : AppointmentChecker,
-
   },
   computed: {
     getUser(){
       return this.user;
     }
   },
+  created(){
+
+  },
   methods: {
     changeComponent (component, user) {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
-      this.user = user;
+      if(user === undefined)
+      {
+        this.user = this.$store.getters.user
+      }
+      else {
+        this.user = user;
+      }
     },
     changeMonth(start, end, current) {
       console.log('changeMonth', start.format(), end.format(), current.format())

@@ -482,3 +482,118 @@ object{
   color: #000066;
   border-bottom: solid 1px #000066;
 }
+
+.container span.radio:hover {
+  cursor: pointer;
+}
+.container span.radio::before {
+  left: -52px;
+  width: 45px;
+  height: 25px;
+  background-color: #A8AAC1;
+  border-radius: 50px;
+}
+.container span.radio::after {
+  left: -49px;
+  width: 17px;
+  height: 17px;
+  border-radius: 10px;
+  background-color: #6C788A;
+  transition: left .25s, background-color .25s;
+}
+input[type="checkbox"]:checked + label span.checkbox::after {
+  background:#f2dede;
+  cursor:not-allowed;
+  animation:flashBooked 0.5s ease;
+  -moz-animation:flashBooked 0.5s ease;
+  -webkit-animation:flashBooked 0.5s ease;
+}
+
+input[type="checkbox"]:not(:checked) + label span.checkbox::after {
+  background:#6AB074;
+  animation:flashAvailable 0.5s ease;
+  -moz-animation:flashAvailable 0.5s ease;
+  -webkit-animation:flashAvailable 0.5s ease;
+}
+
+.time-slot 				{  }
+.time-slot input 	 { display:none; }
+.time-slot label 	 {
+  margin-top:20px;
+  padding:10px 20px;
+  margin-bottom:10px;
+  color:black;
+  cursor:pointer;
+  background:#34B3C1;
+  border-radius:5px;
+  transition:0.3s ease all;
+  -moz-transition:0.3s ease all;
+  -webkit-transition:0.3s ease all;
+  border: 2px solid;
+  border-color: black;
+}
+
+.time-slot-unavailable 				{  }
+.time-slot-unavailable label {
+  margin-top:20px;
+  margin-bottom:10px;
+  padding:10px 20px;
+  color:black;
+  cursor:pointer;
+  background:gray;
+  border-radius:5px;
+  transition:0.3s ease all;
+  transition:0.3s ease all;
+  -moz-transition:0.3s ease all;
+  -webkit-transition:0.3s ease all;
+  border: 2px solid;
+  border-color: black;
+}
+
+.time-slot-selected 				{  }
+.time-slot-selected label {
+  margin-top:20px;
+  margin-bottom:10px;
+  padding:10px 20px;
+  color:black;
+  cursor:pointer;
+  background:forestgreen !important;
+  border-radius:5px;
+  transition:0.3s ease all;
+  transition:0.3s ease all;
+  -moz-transition:0.3s ease all;
+  -webkit-transition:0.3s ease all;
+  border: 2px solid;
+  border-color: black;
+}
+
+
+.time-slot-unavailable input 	 { display:none; }
+
+.day-slot 				{  }
+.day-slot input 	 { display:none; }
+.day-slot label 	 {
+  margin-top:20px;
+  margin-right: 20px;
+  padding:20px 40px;
+  color:black;
+  cursor:pointer;
+  background:#34B3C1;
+  border-radius:5px;
+  transition:0.3s ease all;
+  -moz-transition:0.3s ease all;
+  -webkit-transition:0.3s ease all;
+  border: 4px solid;
+  border-color: black;
+}
+
+textarea {
+  margin-left: 25%;
+  margin-bottom: 20px;
+  width: 30%;
+  height: 160px;
+  resize: none;
+  overflow: auto;
+  border-radius: 10px;
+  outline: none;
+}
