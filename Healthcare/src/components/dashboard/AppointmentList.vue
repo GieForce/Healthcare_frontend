@@ -6,7 +6,7 @@
     <div class="row">
       <b-table
         show-empty
-        :items="appointments"
+        :items="items"
         :busy.sync="isBusy"
         :fields="fields"
         :empty-text="'Er zijn geen afspraken'"
@@ -52,18 +52,21 @@
       this.isBusy = true;
       console.log(this.$store.getters.user)
       console.log('hallo')
-      this.$store.dispatch("getRequest", 'timeslots/approved/?approval=1&doctor_id=' + this.user_id).then((response) => {
+      this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
         this.isBusy = false;
-        this.appointments = this.ConvertToDatetime(response);
-      });
-      console.log('meegegeven datuM:')
-      console.log(this.day)
-      this.appointments.forEach((x) => {
-        var appointmentDate = new Date(x.startTime);
-
-        if(this.day.toDateString() == appointmentDate.toDateString()){
-          this.items.push(x);
-        }
+        console.log(response)
+        this.appointments = response;
+        console.log('meegegeven datuM:')
+        console.log(this.day)
+        var result = [];
+        this.appointments.forEach((x) => {
+          var appointmentDate = new Date(x.startTime);
+          if(this.day.toDateString() == appointmentDate.toDateString()){
+            result.push(x);
+          }
+        });
+        console.log(result)
+        this.items = this.ConvertToDatetime(result)
       });
     },
     methods: {
@@ -89,26 +92,12 @@
         }
       },
       ConvertToDatetime(dateValues) {
-        var regex = /-?\d+/;
-        var entryAppointments = dateValues;
-        for (var index = 0; index < entryAppointments.length; ++index) {
-          var startTimeNew = new Date( parseFloat( entryAppointments[index].startTime));
-          var endTimeNew = new Date( parseFloat( entryAppointments[index].endTime));
-          var timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
-          var timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
-          entryAppointments[index].startTime = new Date( parseFloat( entryAppointments[index].startTime)).toDateString();
-          entryAppointments[index].endTime = timeSlotStart + ' - ' + timeSlotEnd;
-        }
-        entryAppointments.sort(function(a,b){
-          var dateA = new Date(a.startTime), dateB = new Date(b.startTime);
-          return dateA - dateB;
-        });
-        for (var i = 0; i < entryAppointments.length; ++i){
-          if (entryAppointments[i].approval === true) {
-            entryAppointments.splice(i,1)
-          }
-        }
-        return entryAppointments;
+        dateValues.forEach(x => {
+          x.startTime = new Date(x.startTime).toDateString();
+          var endTime = new Date(x.endTime);
+          x.endTime = endTime.getUTCHours() + ':' + endTime.getUTCMinutes();
+        })
+        return dateValues;
       },
     },
   }
