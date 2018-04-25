@@ -115,9 +115,9 @@ export default {
     },
     dayClick(day, jsEvent) {
       this.day = day._d;
-      console.log('Meegegeven datum:')
-      console.log(this.day)
-      this.changeComponent2('appointmentlist')
+      console.log('Meegegeven datum:');
+      console.log(this.day);
+      this.changeComponent2('appointmentlist');
       console.log('dayClick', day, jsEvent)
     },
     moreClick(day, events, jsEvent) {
