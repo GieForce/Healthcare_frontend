@@ -3,7 +3,7 @@
     <b-button size="sm" v-on:click="changeComponent('planner')" variant="primary">
       <i class="ion-ios-arrow-back"></i> Terug
     </b-button>
-    <div class="row">
+    <div v-if="user.type === 'doctor'" class="row">
       <b-table
         show-empty
         :items="items"
@@ -22,6 +22,32 @@
         </template>
       </b-table>
     </div>
+    <div v-if="user.type === 'doctorEmployee'" class="row">
+      <b-table
+        show-empty
+        :items="items"
+        :busy.sync="isBusy"
+        :fields="fieldsEmployee"
+        :empty-text="'Er zijn geen afspraken'"
+      > <template slot="patient" slot-scope="row">
+        <div v-if="row.item.mappedPatient !== null">{{row.item.mappedPatient.firstname + ' ' + row.item.mappedPatient.lastname}}</div>
+        <div v-else>NOTHING</div>
+      </template>
+        <template slot="currentDoctor" slot-scope="row">
+          <div v-if="row.item.mappedPatient.doctor !== null">{{row.item.mappedPatient.doctor.firstname + ' ' + row.item.mappedPatient.doctor.lastname}}</div>
+          <div v-else>~</div>
+        </template>
+        <template slot="doctor" slot-scope="row">
+          <div v-if="row.item.mappedDoctor !== null">{{row.item.mappedDoctor.firstname + ' ' + row.item.mappedDoctor.lastname}}</div>
+          <div v-else>NOTHING</div>
+        </template>
+        <template slot="actions" slot-scope="row">
+          <b-button variant="secondary" size="sm" v-on:click="disapprove(row.item)">
+            Verwijderen
+          </b-button>
+        </template>
+      </b-table>
+  </div>
   </div>
 </template>
 
@@ -32,11 +58,19 @@
     data (){
       return{
         user_id: this.$store.getters.user.user_id,
+        user: this.$store.getters.user,
         fields: {
           patient: {label: 'Patiënt', sortable: true},
-          startTime: {label: 'Datum', sortable: true},
           endTime: {label: 'Tijd', sortable: true},
           note: {label: 'Reden van bezoek'},
+          actions: {label: 'Acties'}
+        },
+        fieldsEmployee:{
+          patient: {label: 'Patiënt', sortable: true},
+          endTime: {label: 'Tijd', sortable: true},
+          note: {label: 'Reden van bezoek'},
+          doctor: {label: 'Dokter', sortable: true},
+          currentDoctor: {label: 'Huidige dokter', sortable: true},
           actions: {label: 'Acties'}
         },
         items: [
@@ -50,24 +84,36 @@
     },
     created (){
       this.isBusy = true;
-      console.log(this.$store.getters.user)
-      console.log('hallo')
-      this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
-        this.isBusy = false;
-        console.log(response)
-        this.appointments = response;
-        console.log('meegegeven datuM:')
-        console.log(this.day)
-        var result = [];
-        this.appointments.forEach((x) => {
-          var appointmentDate = new Date(x.startTime);
-          if(this.day.toDateString() == appointmentDate.toDateString()){
-            result.push(x);
-          }
+      if(this.$store.getters.user.type === 'doctor') {
+        this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
+          this.isBusy = false;
+          this.appointments = response;
+          var result = [];
+          this.appointments.forEach((x) => {
+            var appointmentDate = new Date(x.startTime);
+            if (this.day.toDateString() == appointmentDate.toDateString()) {
+              console.log(this.appointments.length)
+              result.push(x);
+            }
+          });
+          console.log(result)
+          this.items = this.ConvertToDatetime(result)
         });
-        console.log(result)
-        this.items = this.ConvertToDatetime(result)
-      });
+      }else if(this.$store.getters.user.type === 'doctorEmployee'){
+        this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
+          this.isBusy = false;
+          this.appointments = response;
+          var result = [];
+          this.appointments.forEach((x) => {
+            var appointmentDate = new Date(x.startTime);
+            if (this.day.toDateString() == appointmentDate.toDateString()) {
+              result.push(x);
+            }
+          });
+          console.log(result)
+          this.items = this.ConvertToDatetime(result)
+        });
+      }
     },
     methods: {
       delete(appointment){
@@ -92,11 +138,15 @@
         }
       },
       ConvertToDatetime(dateValues) {
+        var entryAppointments = dateValues;
         dateValues.forEach(x => {
-          x.startTime = new Date(x.startTime).toDateString();
-          var endTime = new Date(x.endTime);
-          x.endTime = endTime.getUTCHours() + ':' + endTime.getUTCMinutes();
-        })
+          var startTimeNew = new Date(x.startTime);
+          var endTimeNew = new Date(x.endTime);
+          var timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
+          var timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
+          entryAppointments.endTime = timeSlotStart + ' - ' + timeSlotEnd;
+          x.endTime = entryAppointments.endTime
+        });
         return dateValues;
       },
     },

@@ -38,36 +38,21 @@
                  :class="{'today' : day.isToday,
               'not-cur-month' : !day.isCurMonth}" @click.stop="dayClick(day.date, $event)">
               <p class="day-number">{{day.monthDay}}</p>
-              <div class="event-box" v-for="day2 in takeDaysFromAppointments(events)" >
-                <p v-if="CompareDates(day2, day)"> Ingepland: {{takeAppointmentsForDay(day).length + 1}}</p>
+              <div class="event-box"  v-for="day2 in takeDaysFromAppointments(events)" >
+                <p v-if="CompareDates(day2, day)"> Ingepland: {{appointments.length}}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- full events when click show more -->
-        <div class="more-events" v-show="showMore"
-             :style="{left: morePos.left + 'px', top: morePos.top + 'px'}">
-          <div class="more-header">
-            <span class="title">{{ moreTitle(selectDay.date) }}</span>
-            <span class="close" @click.stop="showMore = false">x</span>
-          </div>
-          <div class="more-body">
-            <ul class="body-list">
-              <li v-for="event in selectDay.events"
-                  v-show="event.isShow" class="body-item"
-                  @click="eventClick(event, $event)">
-                {{event.title}}
-              </li>
-            </ul>
-          </div>
-        </div>
         <br>
-        <b-button size="sm" v-on:click="changeComponent('artsswitch')" variant="primary">
-          <i></i> Afwezig melden
-        </b-button>
-        <slot name="body-card">
-        </slot>
+        <div v-if="user.type === 'doctor'">
+          <b-button size="sm" v-on:click="changeComponent('artsswitch')" variant="primary">
+            <i></i> Afwezig melden
+          </b-button>
+          <slot name="body-card">
+          </slot>
+        </div>
       </div>
     </div>
   </div>
@@ -80,9 +65,10 @@
 
   export default {
     props : {
+      day : ['day'],
       locale : {
         type : String,
-        default : 'en'
+        default : 'en',
       },
       firstDay : {
         type : Number | String,
@@ -107,6 +93,7 @@
         isLismit : true,
         eventLimit : 3,
         user_id: this.$store.getters.user.user_id,
+        user: this.$store.getters.user,
         showMore : false,
         morePos : {
           top: 0,
@@ -114,6 +101,7 @@
         },
         selectDay : {},
         events: [],
+        appointments:[],
         fields: {
           title: {label:'afspraak'},
           startTime: {label: 'Dag', sortable: true},
@@ -130,11 +118,30 @@
       }
     },
     created () {
-      console.log(this.user_id),
-      this.$store.dispatch("getRequest", 'timeslots/approved/?approval=1&doctor_id=' + this.user_id
-      ).then((response) => {
-        this.events = this.ConvertToDatetime(response);
-      });
+      if(this.$store.getters.user.type === 'doctor') {
+        this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
+          this.isBusy = false;
+          this.appointments = response;
+          var result = [];
+          this.appointments.forEach((x) => {
+              result.push(x);
+          });
+          console.log(result)
+          this.events = this.ConvertToDatetime(result)
+        });
+      }
+      else if(this.$store.getters.user.type === 'doctorEmployee') {
+        this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
+          this.isBusy = false;
+          this.appointments = response;
+          var result = [];
+          this.appointments.forEach((x) => {
+              result.push(x);
+          });
+          console.log(result)
+          this.events = this.ConvertToDatetime(result)
+        });
+      }
     },
 
     methods : {
@@ -255,11 +262,12 @@
       getMonthViewEndDate(date) {return this.getMonthViewStartDate().add(6, 'weeks');
       },
       takeAppointmentsForDay(day) {
-        var index = this.events.map(function(x) {return x.id; }).indexOf(day.id);
+        var index = this.events(function(x) {return x.id; }).indexOf(day.id);
         var dailyAppointments = [];
         for (var i = index; i < index + dailyAppointments.length; i++) {
           dailyAppointments.push(this.events[i]);
         }
+        console.log(dailyAppointments)
         return dailyAppointments;
       },
       takeDaysFromAppointments(dataValues) {

@@ -23,6 +23,12 @@
           <li><a v-on:click="changeComponent('checker')" style="cursor:pointer"><i class="ion-ios-bookmarks"></i>Planning goedkeuren</a></li>
         </div>
 
+          <div v-if="user.type === 'doctorEmployee'">
+            <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
+            <li><a v-on:click=" changeComponent('planner')" style="cursor:pointer"><i class="ion-ios-calendar"></i>Kalender</a></li>
+            <li><a v-on:click="changeComponent('checker')" style="cursor:pointer"><i class="ion-ios-bookmarks"></i>Planning goedkeuren</a></li>
+          </div>
+
         <div v-if="user.type === 'patient'">
           <li><a v-on:click="changeComponent('personalDossier')" style="cursor:pointer"><i class="ion-document"></i>Mijn dossier</a>
           <li><a v-on:click="changeComponent('calendar')" style="cursor:pointer"><i class="ion-document"></i>Afspraak inplannen</a></li>
