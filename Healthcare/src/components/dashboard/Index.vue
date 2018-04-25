@@ -13,7 +13,6 @@
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
-      <calender v-if="openComponent === 'calendar'"></calender>
       <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
       <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
@@ -42,7 +41,7 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
-import Calendar from './Calendar.vue'
+import Calendar2 from './Calendar2.vue'
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
@@ -63,7 +62,7 @@ export default {
     }
   },
   components: {
-    'calender': Calendar,
+    'calendar': Calendar2,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -74,7 +73,6 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
-    'calendar' : Calendar,
     'planner' : Planner,
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
