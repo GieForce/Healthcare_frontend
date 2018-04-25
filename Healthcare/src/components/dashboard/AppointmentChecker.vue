@@ -105,12 +105,17 @@
             var dateA = new Date(a.startTime), dateB = new Date(b.startTime);
             return dateA - dateB;
           });
+          console.log(entryAppointments.length);
           for (var i = 0; i < entryAppointments.length; ++i){
             console.log(entryAppointments[i]);
+            console.log(entryAppointments[i].approval)
             if (entryAppointments[i].approval === true) {
+              console.log("hoi ik kom hier");
               entryAppointments.splice(i,1)
+              i--;
             }
           }
+          console.log(entryAppointments);
           return entryAppointments;
         },
       }

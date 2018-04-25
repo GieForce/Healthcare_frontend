@@ -50,7 +50,7 @@
           lastname: {label: 'Achternaam', sortable: true},
           type: {label: 'Type', sortable: true},
           username: {label: 'Email', sortable: true},
-          // actions: {label: 'Acties'}
+          actions: {label: 'Acties'}
         },
         isBusy: false,
         totalRows: 0,
