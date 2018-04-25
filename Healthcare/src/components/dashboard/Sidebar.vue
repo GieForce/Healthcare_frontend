@@ -31,7 +31,7 @@
 
         <div v-if="user.type === 'patient'">
           <li><a v-on:click="changeComponent('personalDossier')" style="cursor:pointer"><i class="ion-document"></i>Mijn dossier</a>
-          <li><a v-on:click="changeComponent('calendar')" style="cursor:pointer"><i class="ion-document"></i>Afspraak inplannen</a></li>
+          <li><a v-on:click="changeComponent('calendar')" style="cursor:pointer"><i class="ion-android-create"></i>Afspraak inplannen</a></li>
 
         </div>
         <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Logout</a></li>
