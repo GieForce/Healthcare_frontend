@@ -65,7 +65,7 @@
             </b-card>
           </template>
         </b-table>
-        <div v-if="user === 'doctor'">
+        <div v-if="user.type === 'doctor'">
           <b-button @click.stop="showModal($event.target)" class="btn btn-primary" variant="primary">
             Voeg diagnose toe
           </b-button>
@@ -170,6 +170,7 @@
       },
       created () {
         this.isBusy = true;
+        console.log("hoi");
         console.log(this.$store.getters.user)
         if(this.$store.getters.user.type == 'patient'){
           console.log('user is patient')
@@ -177,7 +178,7 @@
         }
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);
-          this.user = response;
+          // this.user = response;
           this.patient = response;
           this.isLoading = false;
         });
@@ -187,6 +188,8 @@
           this.isLoading = true
         });
         this.loadDiagnosis();
+        console.log("hai");
+        console.log(this.user);
       },
     }
 </script>

@@ -9,7 +9,7 @@
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
-      <updatep :patientId="userId" v-if="openComponent === 'updatePatient'"></updatep>
+      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
