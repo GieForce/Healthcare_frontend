@@ -14,6 +14,7 @@ const REQUEST_SUCCES = 'REQUEST_SUCCES';
 const REQUEST_FAIL = 'REQUEST_FAIL';
 const USER_CHANGED = 'USER_CHANGED';
 const SOCKET_SETUP = 'SOCKET_SETUP';
+const CHATSESSION_CHANGED = 'CHATSESSION_CHANGED';
 const API_URL = 'http://167.99.221.199:8081/api/';
 
 import createPersistedState from 'vuex-persistedstate'
@@ -57,6 +58,9 @@ const Store = new Vuex.Store({
     },
     [SOCKET_SETUP] (state, socket){
       state.chatSession = socket;
+    },
+    [CHATSESSION_CHANGED] (state, chatSession){
+      state.chatSession = chatSession;
     }
   },
   actions: {
@@ -195,6 +199,7 @@ const Store = new Vuex.Store({
       let chatSession = {
         socket: null,
         status: 'disconnected',
+        users: [],
         chats: [],
       }
 
@@ -209,9 +214,22 @@ const Store = new Vuex.Store({
           chatSession.status = 'disconnected';
         });
 
-        socket.on('new_chat', (chat) => { 
-          console.log(chat)
-          chatSession.chats.push(chat); 
+        socket.on('recent_chats', (data) => {
+          chatSession.chats = data; 
+        });
+
+        socket.on('user_status_changed', (user) => { 
+          let usr = chatSession.users.find(x => x.user_id === user.user_id);
+          if(usr != undefined){
+            var i = chatSession.users.indexOf(usr);
+            if(i != -1){
+              console.log('replacing user')
+              chatSession.users.splice(i, 1, user);
+            }
+          } else{
+            chatSession.users.push(user);
+          }
+          commit(CHATSESSION_CHANGED, chatSession);
         });
 
         socket.on('end_chat', (chatId) => { 

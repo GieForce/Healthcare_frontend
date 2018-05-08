@@ -1,17 +1,14 @@
 <template>
-  <b-card style="height: 100%">
-    <ul id="example-1">
-      <div v-if="chat != undefined">
-        <div v-for="message in chat.messages">
-          {{ message.sender.firstname + ': ' + message.message }}
-        </div>
-      </div>
+  <div>
+    <ul style="">
+      {{ partner.status }}
     </ul>
-    <b-form-input style="margin-top: 100%; postion: sticky" v-model="message"
+    <b-form-input v-model="message" style="position: absolute; bottom: 15px; width: 96%;"
                   type="text"
                   placeholder="Stuur een bericht"
                   @keydown.native="sendMessage"></b-form-input>
-  </b-card>
+    </b-card-body>
+  </div>
 </template>
 
 <script>
@@ -23,13 +20,16 @@ export default {
       user: this.$store.getters.user,
       message: '',
       socket: null,
-      chatId: this.pChatId
     }
   },
 
   computed: {
-    chat: function () {
-      return this.$store.getters.chatSession.chats.find(x => x.id === this.chatId)
+    partner: function () {
+      return this.$store.getters.chatSession.users.find(x => x.user_id === this.chatId);
+    },
+
+    chatId: function() {
+      return this.pChatId;
     }
   },
 
@@ -50,20 +50,19 @@ export default {
 
   created() {
     if(this.user.type === 'patient'){
-      console.log(this.$store.getters.chatSession)
       if(this.$store.getters.chatSession == undefined){
         this.$store.dispatch('setupSockets', this.user)
       }
-      this.chatId = this.user.user_id
+      this.pChatId = this.user.user_id
     }
 
     this.socket = this.$store.getters.chatSession.socket
 
-    if(this.chat != undefined && this.chat.messages.length != 0){
-      this.chat.messages.foreach(message => {
-        message.read = true
-      });
-    }
+    // if(this.chat != undefined && this.chat.messages.length != 0){
+    //   this.chat.messages.foreach(message => {
+    //     message.read = true
+    //   });
+    // }
   },
 
   beforeCreate(){

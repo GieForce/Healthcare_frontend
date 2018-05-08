@@ -1,7 +1,7 @@
 <template>
   <div id="parent">
     <patientchat v-if="getActiveUser.type === 'patient'"></patientchat>
-    <chatwindow :chatId="userId" v-if="openChat && getActiveUser.type === 'patient'" class="chatFloat"></chatwindow>
+    <patientchatwindow v-if="openChat && getActiveUser.type === 'patient'" class="chatFloat"></patientchatwindow>
     <router-view/>
     <navbar></navbar>
     <sidebar></sidebar>
@@ -33,7 +33,7 @@ import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
 import DoctorChat from '../chat/DoctorChat.vue'
 import PatientChat from '../chat/PatientChat.vue'
-import ChatWindow from '../chat/ChatWindow.vue'
+import PatientChatWindow from '../chat/PatientChatWindow.vue'
 
 export default {
 
@@ -59,7 +59,7 @@ export default {
     'viewpat' : ViewPat,
     'doctorchat' : DoctorChat,
     'patientchat' : PatientChat,
-    'chatwindow' : ChatWindow,
+    'patientchatwindow' : PatientChatWindow,
   },
   computed: {
     getUser(){
