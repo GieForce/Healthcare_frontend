@@ -123,6 +123,7 @@
         },
         newDiagnose () {
           this.isBusy = true
+          console.log(this.patient.user_id)
           this.$store.dispatch('postRequest' ,{
             url: 'patients/dossier/' + this.patient.user_id,
             body: {
