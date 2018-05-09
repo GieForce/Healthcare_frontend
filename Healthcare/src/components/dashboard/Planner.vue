@@ -122,11 +122,10 @@
         this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
           this.isBusy = false;
           this.appointments = response;
-          var result = [];
+          let result = [];
           this.appointments.forEach((x) => {
               result.push(x);
           });
-          console.log(result)
           this.events = this.ConvertToDatetime(result)
         });
       }
@@ -134,11 +133,11 @@
         this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
           this.isBusy = false;
           this.appointments = response;
-          var result = [];
+          let result = [];
           this.appointments.forEach((x) => {
               result.push(x);
           });
-          console.log(result)
+
           this.events = this.ConvertToDatetime(result)
         });
       }
@@ -183,9 +182,7 @@
         return calendar
       },
       slotEvents (date) {
-
         // find all events start from this date
-        let cellIndexArr = [];
         let thisDayEvents = this.events.filter(day => {
           let st = moment(day.start);
           let ed = moment(day.end ? day.end : st);
@@ -204,7 +201,7 @@
         for (let i = 0;i < thisDayEvents.length;i++) {
           thisDayEvents[i].cellIndex = thisDayEvents[i].cellIndex || (i + 1);
           thisDayEvents[i].isShow = true;
-          if (thisDayEvents[i].cellIndex == i+1 || i>2) continue;
+          if (thisDayEvents[i].cellIndex === i+1 || i>2) continue;
           thisDayEvents.splice(i,0,{
             title : 'holder',
             cellIndex : i+1,
@@ -222,7 +219,7 @@
         this.morePos = this.computePos(event.target);
         this.morePos.top -= 100;
         let events = day.events.filter(item =>{
-          return item.isShow == true
+          return item.isShow === true
         });
         this.$emit('moreClick', day.date, events, jsEvent)
       },
@@ -259,24 +256,23 @@
 
         return start;
       },
-      getMonthViewEndDate(date) {return this.getMonthViewStartDate().add(6, 'weeks');
-      },
+
       takeAppointmentsForDay(day) {
-        var index = this.events(function(x) {return x.id; }).indexOf(day.id);
-        var dailyAppointments = [];
-        for (var i = index; i < index + dailyAppointments.length; i++) {
+        let index = this.events(function(x) {return x.id; }).indexOf(day.id);
+        let dailyAppointments = [];
+        for (let i = index; i < index + dailyAppointments.length; i++) {
           dailyAppointments.push(this.events[i]);
         }
-        console.log(dailyAppointments)
+        console.log(dailyAppointments);
         return dailyAppointments;
       },
       takeDaysFromAppointments(dataValues) {
-        var days = [];
-        var currentTimeSlot = "";
-        var newTimeSlot = "";
-        for (var i = 0; i < dataValues.length; i++){
+        let days = [];
+        let currentTimeSlot = "";
+        let newTimeSlot = "";
+        for (let i = 0; i < dataValues.length; i++){
           newTimeSlot = dataValues[i].startTime.toString().substring(5,7);
-          if(currentTimeSlot != newTimeSlot){
+          if(currentTimeSlot !== newTimeSlot){
             days.push(dataValues[i]);
             currentTimeSlot = newTimeSlot;
           }
@@ -284,24 +280,19 @@
         return days;
       },
       CompareDates(day,calendarDay){
-        var comparer = day.startTime.toString().substring(5,7);
-        var comparerm = day.startTime.toString().substring(8,11);
-        var calenderm = calendarDay.date.toString().substring(4,7);
-        if(calendarDay.monthDay.toString() === comparer && comparerm == calenderm){
-          return true;
-        }else {
-          return false;
-        }
+        let comparer = day.startTime.toString().substring(5,7);
+        let comparerm = day.startTime.toString().substring(8,11);
+        let calenderm = calendarDay.date.toString().substring(4,7);
+        if(calendarDay.monthDay.toString() === comparer && comparerm === calenderm){}
       },
       ConvertToDatetime(dateValues) {
-        var regex = /-?\d+/;
-        var entryAppointments = dateValues;
-        for (var index = 0; index < entryAppointments.length; ++index) {
+        let entryAppointments = dateValues;
+        for (let index = 0; index < entryAppointments.length; ++index) {
           entryAppointments[index].startTime = new Date( parseFloat( entryAppointments[index].startTime)).toUTCString();
           entryAppointments[index].endTime = new Date( parseFloat( entryAppointments[index].endTime)).toUTCString();
         }
         entryAppointments.sort(function(a,b){
-          var dateA = new Date(a.startTime), dateB = new Date(b.startTime);
+          let dateA = new Date(a.startTime), dateB = new Date(b.startTime);
           return dateA - dateB;
         });
         return entryAppointments;

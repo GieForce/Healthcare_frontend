@@ -25,7 +25,7 @@
             <div class="line"></div>
             <div class="form-group row">
               <label class="col-sm-2 form-control-label">Geboortedatum</label>
-              <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm"></datepicker>
+              <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm">NOTHING</datepicker>
             </div>
             <div class="line"></div>
             <div class="form-group row">
@@ -58,10 +58,10 @@
           </form>
           <p v-if="errors.length">
             <b>De volgende fouten traden op:</b>
+          </p>
           <ul>
             <li v-for="error in errors">{{ error }}</li>
           </ul>
-          </p>
           <div class="form-group row">
           <button class="btn btn-secondary" v-on:click="changeComponent('viewWerknemers')" style="cursor:pointer"><span>Cancel</span></button>
           <div v-if="!errors.length">
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-    import Home from './Home.vue'
+
     import Datepicker from "../Datepicker"
 
     export default {
@@ -129,7 +129,7 @@
 
         },
         validEmail:function(email) {
-          var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return re.test(email);
         }
       },

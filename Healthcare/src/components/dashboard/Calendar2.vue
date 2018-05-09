@@ -57,10 +57,10 @@
           <div class="row justify-content-md-center">
           <p v-if="errors.length">
             <b>De volgende fouten traden op:</b>
+          </p>
           <ul>
             <li v-for="error in errors">{{ error }}</li>
           </ul>
-          </p>
           </div>
           <div class="row justify-content-md-center" style="margin-top: 10px;margin-bottom: 10px;">
           <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update()" :disabled="note === ''"><span>Bevestig</span></button>
@@ -101,9 +101,7 @@
     created () {
       this.getAllDoctors();
       this.$store.dispatch("getRequest", "patients/" + this.patient.user_id).then(response => {
-        console.log(response);
         this.patient = response;
-        console.log(this.patient)
       });
     },
     methods: {
@@ -113,7 +111,6 @@
           this.errors.push("Selecteer één gespreksmoment")
         }
         if(this.selectedTime !== "") {
-          console.log("hoi");
           this.$store.dispatch('postRequest', {
             url: 'timeslots/' + this.selectedTime.id + '?user_id=' + this.patient.user_id + '&note=' + this.note,
           }).then(() => {
@@ -124,13 +121,13 @@
       takeAppointmentsForDay(day) {
         this.selectedDay = day;
         this.selectedTime = "";
-        var index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
-        var date = day.startTime.toString().substring(0,12);
-        var compareDate;
-        var dailyAppointments = [];
-        for (var i = index; i < this.appointments.length; i++) {
+        let index = this.appointments.map(function(x) {return x.id; }).indexOf(day.id);
+        let date = day.startTime.toString().substring(0,12);
+        let compareDate;
+        let dailyAppointments = [];
+        for (let i = index; i < this.appointments.length; i++) {
           compareDate = this.appointments[i].startTime.toString().substring(0,12);
-          if(compareDate == date){
+          if(compareDate === date){
             dailyAppointments.push(this.appointments[i]);
           }
         }
@@ -138,7 +135,7 @@
         this.appointmentsOfDay = dailyAppointments;
       },
       spliceTime(day) {
-        var dateTime = new Date(day);
+        let dateTime = new Date(day);
         return dateTime.getUTCHours() + ':' + dateTime.getUTCMinutes();
       },
       takeDaysFromAppointments(doctor) {
@@ -147,16 +144,15 @@
         this.selectedDoctor = doctor;
         this.$store.dispatch("getRequest", 'timeslots/available/?availability=1&doctor_id=' + doctor.user_id).then((response) => {
           this.appointments = this.ConvertToDatetime(response);
-          var days = [];
-          var currentTimeSlot = "";
-          var newTimeSlot = "";
-          for (var i = 0; i < this.appointments.length; i++) {
+          let days = [];
+          let currentTimeSlot = "";
+          let newTimeSlot = "";
+          for (let i = 0; i < this.appointments.length; i++) {
             newTimeSlot = this.appointments[i].startTime.toString().substring(0, 12);
-            if (currentTimeSlot != newTimeSlot) {
+            if (currentTimeSlot !== newTimeSlot) {
               days.push(this.appointments[i]);
               currentTimeSlot = newTimeSlot;
               this.daysOfAppointments = days;
-              console.log(this.daysOfAppointments)
             }
           }
         });
@@ -165,14 +161,14 @@
         this.$parent.changeComponent(component);
       },
       ConvertToDatetime(dateValues) {
-        var regex = /-?\d+/;
-        var entryAppointments = dateValues;
-        for (var index = 0; index < entryAppointments.length; ++index) {
+
+        let entryAppointments = dateValues;
+        for (let index = 0; index < entryAppointments.length; ++index) {
           entryAppointments[index].startTime = new Date( parseFloat( entryAppointments[index].startTime)).toUTCString();
           entryAppointments[index].endTime = new Date( parseFloat( entryAppointments[index].endTime)).toUTCString();
         }
         entryAppointments.sort(function(a,b){
-          var dateA = new Date(a.startTime), dateB = new Date(b.startTime);
+          let dateA = new Date(a.startTime), dateB = new Date(b.startTime);
           return dateA - dateB;
         });
         return entryAppointments;
@@ -180,13 +176,12 @@
       selectAppointment(appointment) {
         this.note = "";
         this.selectedTime = appointment;
-        console.log(appointment);
         if(appointment.poep) {
           this.selectedAppointment.push(appointment);
         }
         if(!appointment.poep){
-          var index = this.selectedAppointment.map(function(x) {return x.id; }).indexOf(appointment.id);
-          if(index != -1) {
+          let index = this.selectedAppointment.map(function(x) {return x.id; }).indexOf(appointment.id);
+          if(index !== -1) {
             this.selectedAppointment.splice(index, 1);
           }
         }
@@ -198,9 +193,6 @@
           this.isBusy = false;
         });
       },
-      getId(element) {
-        return element == element.id;
-      }
     }
   }
 </script>
@@ -209,7 +201,6 @@
 
 
   @import"../../assets/style/landing.css";
-  @import"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css";
   @import"../../assets/icons-reference/ionicons.css";
 
 </style>

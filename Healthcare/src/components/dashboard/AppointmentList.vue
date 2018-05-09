@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div class="dashboardContentForms">
     <b-button size="sm" v-on:click="changeComponent('planner')" variant="primary">
@@ -88,29 +89,26 @@
         this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
           this.isBusy = false;
           this.appointments = response;
-          var result = [];
+          let result = [];
           this.appointments.forEach((x) => {
-            var appointmentDate = new Date(x.startTime);
-            if (this.day.toDateString() == appointmentDate.toDateString()) {
-              console.log(this.appointments.length)
+            let appointmentDate = new Date(x.startTime);
+            if (this.day.toDateString() === appointmentDate.toDateString()) {
               result.push(x);
             }
           });
-          console.log(result)
           this.items = this.ConvertToDatetime(result)
         });
       }else if(this.$store.getters.user.type === 'doctorEmployee'){
         this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
           this.isBusy = false;
           this.appointments = response;
-          var result = [];
+          let result = [];
           this.appointments.forEach((x) => {
-            var appointmentDate = new Date(x.startTime);
-            if (this.day.toDateString() == appointmentDate.toDateString()) {
+            let appointmentDate = new Date(x.startTime);
+            if (this.day.toDateString() === appointmentDate.toDateString()) {
               result.push(x);
             }
           });
-          console.log(result)
           this.items = this.ConvertToDatetime(result)
         });
       }
@@ -128,22 +126,22 @@
         this.$parent.changeComponent(component);
       },
       CompareDates(day,calendarDay){
-        var comparer = day.dayClick();
-        var comparerm = day.startTime.toString().substring(8,11);
-        var calenderm = calendarDay.date.toString().substring(4,7);
-        if(calendarDay.monthDay.toString() === comparer && comparerm == calenderm){
+        let comparer = day.dayClick();
+        let comparerm = day.startTime.toString().substring(8,11);
+        let calenderm = calendarDay.date.toString().substring(4,7);
+        if(calendarDay.monthDay.toString() === comparer && comparerm === calenderm){
           return true;
         }else {
           return false;
         }
       },
       ConvertToDatetime(dateValues) {
-        var entryAppointments = dateValues;
+        let entryAppointments = dateValues;
         dateValues.forEach(x => {
-          var startTimeNew = new Date(x.startTime);
-          var endTimeNew = new Date(x.endTime);
-          var timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
-          var timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
+          let startTimeNew = new Date(x.startTime);
+          let endTimeNew = new Date(x.endTime);
+          let timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
+          let timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
           entryAppointments.endTime = timeSlotStart + ' - ' + timeSlotEnd;
           x.endTime = entryAppointments.endTime
         });
