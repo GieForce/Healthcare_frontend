@@ -1,13 +1,17 @@
 <template>
   <div>
-    <ul style="">
-      {{ partner.status }}
-    </ul>
-    <b-form-input v-model="message" style="position: absolute; bottom: 15px; width: 96%;"
-                  type="text"
-                  placeholder="Stuur een bericht"
-                  @keydown.native="sendMessage"></b-form-input>
-    </b-card-body>
+    {{ chatSession.status }}
+    <div v-if="chat != undefined">
+      {{ chat.patient.status }}
+      <ul>
+        <li v-for="message in chat.messages">{{ message.sender.firstname }}: {{ message.message }}</li>
+      </ul>
+      <b-form-input v-model="message" style="position: absolute; bottom: 15px; width: 96%;"
+                    type="text"
+                    placeholder="Stuur een bericht"
+                    @keydown.native="sendMessage"></b-form-input>
+      </b-card-body>
+    </div>
   </div>
 </template>
 
@@ -19,18 +23,16 @@ export default {
     return {
       user: this.$store.getters.user,
       message: '',
-      socket: null,
     }
   },
 
   computed: {
-    partner: function () {
-      return this.$store.getters.chatSession.users.find(x => x.user_id === this.chatId);
+    chatSession: function () {
+      return this.$store.getters.chatSession;
     },
-
-    chatId: function() {
-      return this.pChatId;
-    }
+    chat: function () {
+      return this.$store.getters.chatSession.chats.find(x => x.id == this.pChatId);
+    },
   },
 
   methods: {
@@ -38,9 +40,9 @@ export default {
     sendMessage(event){
       if(event.keyCode == 13 && (!this.message.length === 0 || this.message.trim())){
         console.log(this.chatId);
-        this.socket.emit('sent_message', {
+        this.chatSession.socket.emit('sent_message', {
           sender: this.user,
-          chatId: this.chatId,
+          chatId: this.chat.id,
           message: this.message
         })
         this.message = ''
@@ -49,14 +51,6 @@ export default {
   },
 
   created() {
-    if(this.user.type === 'patient'){
-      if(this.$store.getters.chatSession == undefined){
-        this.$store.dispatch('setupSockets', this.user)
-      }
-      this.pChatId = this.user.user_id
-    }
-
-    this.socket = this.$store.getters.chatSession.socket
 
     // if(this.chat != undefined && this.chat.messages.length != 0){
     //   this.chat.messages.foreach(message => {

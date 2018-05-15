@@ -15,6 +15,9 @@ const REQUEST_FAIL = 'REQUEST_FAIL';
 const USER_CHANGED = 'USER_CHANGED';
 const SOCKET_SETUP = 'SOCKET_SETUP';
 const CHATSESSION_CHANGED = 'CHATSESSION_CHANGED';
+const CHAT_UPDATE = 'CHAT_UPDATE';
+const NEW_MESSAGE = 'NEW_MESSAGE';
+
 const API_URL = 'http://167.99.221.199:8081/api/';
 
 import createPersistedState from 'vuex-persistedstate'
@@ -27,7 +30,8 @@ const Store = new Vuex.Store({
     isLoggedIn: !!localStorage.getItem("healthcare"),
     pending: false,
     user: null,
-    chatSession: null
+    chatSession: null,
+    chats: null,
   },
   mutations: {
     [PENDING] (state){
@@ -61,6 +65,19 @@ const Store = new Vuex.Store({
     },
     [CHATSESSION_CHANGED] (state, chatSession){
       state.chatSession = chatSession;
+    },
+    [CHAT_UPDATE] (state, chat){
+      var chatIndex = state.chatSession.chats.find(x => x.id == chat.id);
+      var i = state.chatSession.chats.indexOf(chatIndex);
+      if(i == -1){
+        i = state.chatSession.chats.length;
+      }
+      Vue.set(state.chatSession.chats, i, chat);
+    },
+    [NEW_MESSAGE] (state, message){
+      var chat = state.chatSession.chats.find(x => x.id === message.chatId);
+      var i = state.chatSession.chats.indexOf(chat);
+      Vue.set(state.chatSession.chats[i].messages, state.chatSession.chats[i].messages.length, message);
     }
   },
   actions: {
@@ -95,6 +112,7 @@ const Store = new Vuex.Store({
           localStorage.setItem("healthcare", response.data.access_token);
           console.log(response);
           commit(LOGIN_SUCCES);
+          response.data.user.mappedDoctor = response.data.mappedDoctor;
           commit(USER_CHANGED, response.data.user);
           resolve();
          }).catch(function (error) {
@@ -199,58 +217,41 @@ const Store = new Vuex.Store({
       let chatSession = {
         socket: null,
         status: 'disconnected',
-        users: [],
         chats: [],
       }
 
       let socket = io('http://localhost:3000')
-      socket.emit('authenticate', user);
       chatSession.socket = socket;
 
       socket.on('connect', function() {
+        socket.emit('authenticate', user);
+        console.log('user connected');
         chatSession.status = 'connected';
 
         socket.on('disconnect', function() { 
+          console.log('user disconnected');
           chatSession.status = 'disconnected';
         });
 
-        socket.on('recent_chats', (data) => {
-          chatSession.chats = data; 
+        socket.on('user_joined', (data) => {
+          console.log(data);
+          console.log('user joined id ' + data.user.user_id + ' on room ' + data.room.id); 
+          commit(CHAT_UPDATE, data.room);
         });
 
-        socket.on('user_status_changed', (user) => { 
-          let usr = chatSession.users.find(x => x.user_id === user.user_id);
-          if(usr != undefined){
-            var i = chatSession.users.indexOf(usr);
-            if(i != -1){
-              console.log('replacing user')
-              chatSession.users.splice(i, 1, user);
-            }
-          } else{
-            chatSession.users.push(user);
-          }
-          commit(CHATSESSION_CHANGED, chatSession);
+        socket.on('user_left', (data) => {
+          console.log('user left id ' + data.user.user_id + ' from room ' + data.room.id); 
+          console.log(data.room);
+          commit(CHAT_UPDATE, data.room);
         });
 
-        socket.on('end_chat', (chatId) => { 
-          chatSession.chats.forEach(chat => {
-            if(chat.id == chatId){
-              var i = chatSession.chats.indexOf(chat);
-              if(i != -1) {
-                chatSession.chats.splice(i, 1);
-              }
-            }
-          });
+        socket.on('new_message', (message) => {
+          message.date = new Date(message.date);
+          console.log('new message ' + message.message + ' from ' + message.sender.user_id + ' on ' + message.chatId)
+          commit(NEW_MESSAGE, message);
         });
 
-        // socket.on('partner_left', this.partnerLeft)
 
-        socket.on('received_message', (message) => {
-          let chat = chatSession.chats.find(x => x.id == message.chatId);
-          // console.log(chatSession.chats)
-          console.log(message)
-          chat.messages.push(message.data)
-        });
 
       });
 
@@ -270,6 +271,9 @@ const Store = new Vuex.Store({
     },
     chatSession: state => {
       return state.chatSession
+    },
+    chats: state => {
+      return state.chats
     }
   }
 });

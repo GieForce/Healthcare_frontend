@@ -8,7 +8,7 @@
                    v-bind:key="chat.id"
                    @click="changeChat(chat.id)">
              <template slot="title">
-                <b-img slot="aside" blank-color="#ccc" width="25px" height="25px" alt="placeholder" class="rounded-circle" src="https://studiomango.nl/wp-content/uploads/2014/10/team-profile-picture_minko.jpg"></b-img> {{ chat.partner.firstname + ' ' + chat.partner.lastname }}
+                <b-img slot="aside" blank-color="#ccc" width="25px" height="25px" alt="placeholder" class="rounded-circle" src="https://studiomango.nl/wp-content/uploads/2014/10/team-profile-picture_minko.jpg"></b-img> {{ chat.patient.firstname }} {{ chat.patient.lastname }}
              </template>
             </b-tab>
           </b-tabs>
@@ -17,7 +17,7 @@
 
       <b-col cols="12" md="9">
         <b-card style="height: 82vh;">
-          <doctorchatwindow :pChatId="getChatId"></doctorchatwindow>
+          <doctorchatwindow v-if="chatId != 0" :pChatId="getChatId"></doctorchatwindow>
         </b-card>
       </b-col>
     </b-row>  
@@ -52,7 +52,6 @@ export default {
   methods: {
     changeChat(chatId) {
       this.chatId = chatId
-      
     },
   },
   created() {
