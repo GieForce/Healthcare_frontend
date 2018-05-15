@@ -1,5 +1,53 @@
 <template>
   <div  style="width: 100%;">
+    <b-modal id="medicijnVoorschrijven"
+             size="lg"
+             title="Schrijf hier medicijnen voor"
+             @ok="changeComponent('home')"
+             ok-only=true
+             ok-title="OK">
+      <div class="col-md-10 col-md-offset-1">
+
+        <div class="panel panel-default panel-table">
+          <div class="panel-body">
+            <table class="table table-striped table-bordered table-list">
+              <thead>
+              <tr>
+                <th>Naam</th>
+                <th>Voorraad</th>
+                <th>checkbox column</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Paracetamol 15mg</td>
+                <td>15</td>
+                <td><input type="checkbox" v-model="test"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal">
+          <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Recept:</label>
+            <div class="col-sm-10">
+              <div class="row">
+                <div class="col-md-4">
+                  <input type="text" placeholder="Medicijn" v-model="testnaam" class="form-control">
+                </div>
+                <div class="col-md-3">
+                  <input type="number" placeholder="Hoeveelheid" v-model="testhoeveelheid" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p>Klik op ok om te bevestigen</p>
+    </b-modal>
     <div class="loader" v-if="isBusy" ><loader></loader></div>
     <div v-if="!isBusy">
       <b-modal id="addDiagnoseModal"
@@ -74,6 +122,10 @@
         <b-button @click="downloadDiagnosis">
           <i class="ion-ios-cloud-download"></i> Download dossier
         </b-button>
+        <b-button @click="showTestModal">
+          <i class="ion-ios-cloud-download"></i> Download dossier
+        </b-button>
+
       </div>
     </div>
   </div>
@@ -90,6 +142,9 @@
       },
       data () {
         return {
+          test: 'false',
+          testnaam: '',
+          testhoeveelheid: '',
           sortBy: 'date',
           sortDesc: false,
           fields: {
@@ -120,6 +175,9 @@
         },
         showModal (button) {
           this.$root.$emit('bv::show::modal', 'addDiagnoseModal', button)
+        },
+        showTestModal (button) {
+          this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven', button)
         },
         newDiagnose () {
           this.isBusy = true
