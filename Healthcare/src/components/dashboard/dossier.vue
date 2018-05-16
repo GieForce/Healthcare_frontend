@@ -3,32 +3,48 @@
     <b-modal id="medicijnVoorschrijven"
              size="lg"
              title="Schrijf hier medicijnen voor"
-             @ok="changeComponent('home')"
+             @ok="createPrescription"
              ok-only=true
              ok-title="OK">
-      <div class="col-md-10 col-md-offset-1">
-
-        <div class="panel panel-default panel-table">
-          <div class="panel-body">
-            <table class="table table-striped table-bordered table-list">
-              <thead>
-              <tr>
-                <th>Naam</th>
-                <th>Voorraad</th>
-                <th>checkbox column</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>Paracetamol 15mg</td>
-                <td>15</td>
-                <td><input type="checkbox" v-model="test"></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <form id="form-list-client">
+        <b-row>
+          <b-col md="6" class="my-1">
+            <b-form-group horizontal label="Filter" class="mb-0">
+              <b-input-group>
+                <b-form-input v-model="filter" placeholder="Typ om te zoeken" />
+                <b-input-group-append>
+                  <b-btn :disabled="!filter" @click="filter = ''" variant="primary">Clear</b-btn>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-table :sort-by.sync="sortBy"
+                 :sort-desc.sync="sortDesc"
+                 :items="testMedicijnen"
+                 :busy.sync="isBusy"
+                 :fields="testFields"
+                 :filter="filter"
+                 style="width: 100%;"
+        >
+          <template slot="show_details" slot-scope="row">
+            <a size="sm" @click.stop="row.toggleDetails" class="mr-2">
+              <i v-if="!row.detailsShowing" class="ion-ios-arrow-down"></i>
+              <i v-if="row.detailsShowing" class="ion-ios-arrow-up"></i>
+            </a>
+          </template>
+          <template slot="row-details" slot-scope="row">
+            <b-card>
+              <b-row class="mb-2">
+                <b-col>{{ row.item.report }}</b-col>
+              </b-row>
+            </b-card>
+          </template>
+          <template slot="actions" slot-scope="row">
+            <b-form-checkbox :value="row.item" :id="row.item.id" v-model="testSelected" v-on:change="selectMedicine(row.item)"></b-form-checkbox>
+          </template>
+        </b-table>
+      </form>
       <div class="card-body">
         <form class="form-horizontal">
           <div class="form-group row">
@@ -36,11 +52,17 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-md-4">
-                  <input type="text" placeholder="Medicijn" v-model="testnaam" class="form-control">
+                  <label>{{testnaam}}</label>
                 </div>
                 <div class="col-md-3">
                   <input type="number" placeholder="Hoeveelheid" v-model="testhoeveelheid" class="form-control">
                 </div>
+              </div>
+              <div class="row" style="margin-left: auto; margin-top: 10px;">
+                <h2 class="lead">Extra instructies</h2>
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <textarea class="textarea" placeholder="" v-model="testNote" style="width: 500px; height: 200px;"></textarea>
               </div>
             </div>
           </div>
@@ -143,8 +165,12 @@
       data () {
         return {
           test: 'false',
-          testnaam: '',
+          testMedicijnen: [],
           testhoeveelheid: '',
+          testnaam: 'Medicijn',
+          testNote: '',
+          testSelected: '',
+          filter: null,
           sortBy: 'date',
           sortDesc: false,
           fields: {
@@ -152,6 +178,13 @@
             summary: {label: 'Diagnose', sortable: true},
             date: {label: 'Datum', sortable: true},
             show_details: {label: ''},
+            id: {label: 'Id', sortable: true},
+          },
+          testFields: {
+            id: {label: 'ID', sortable: true},
+            name: {label: 'Naam', sortable: true},
+            stock: {label: "Op voorraad", sortable: true},
+            actions: {label: ''},
           },
           isBusy: false,
           items: [],
@@ -164,7 +197,24 @@
           user: this.$store.getters.user
         }
       },
+      computed: {
+        sortOptions () {
+          // Create an options list from our fields
+          return this.testFields
+            .filter(f => f.sortable)
+            .map(f => { return { text: f.label, value: f.key } })
+        }
+      },
       methods: {
+        selectMedicine(object){
+          console.log(this.testSelected);
+          this.testnaam = object.name;
+        },
+        createPrescription(){
+          this.$store.dispatch('postRequest', {
+            url:'medicines/order/1?quantity=1' + this.testhoeveelheid + '&patient_id=' + this.patient.user_id + '&instructions=' + this.testNote,
+          })
+        },
         getAge(age){
           var d = new Date(age); // The 0 there is the key, which sets the date to the epoch
           console.log(d)
@@ -177,7 +227,15 @@
           this.$root.$emit('bv::show::modal', 'addDiagnoseModal', button)
         },
         showTestModal (button) {
-          this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven', button)
+          this.isBusy = true;
+          this.$store.dispatch("getRequest", "medicines").then(response => {
+            this.isBusy = false;
+            console.log(response);
+            // this.user = response;
+            this.testMedicijnen = response;
+            this.isLoading = false;
+            this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven', button)
+          });
         },
         newDiagnose () {
           this.isBusy = true
