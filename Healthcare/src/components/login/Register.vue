@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="row py-3">
-              <img src="../../assets/img/lock2.0.jpg" alt="lock" width="25" height="25">
+              <img src="../../assets/img/lock2.0.jpg" alt="lock" width="38" height="41">
                 <div class="col">
                   <label class="field field_type2" v-on:keyup="formCheck">
                     <input type="password" class="field__input" id="wachtwoord" v-model="wachtwoord" placeholder="wachtwoord">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="row py-3">
-              <img src="../../assets/img/lock2.0.jpg" alt="lock" width="25" height="25">
+              <img src="../../assets/img/lock2.0.jpg" alt="lock" width="38" height="41">
                 <div class="col">
                   <label class="field field_type2" v-on:keyup="formCheck">
                     <input type="password" class="field__input" id="wachtwoordCheck" v-model="wachtwoordCheck" placeholder="wachtwoord">
@@ -46,7 +46,6 @@
               <ul>
                 <li v-for="error in errors">{{ error }}</li>
               </ul>
-              </p>
             <div class="row" style="padding-top: 1rem">
               <!--<div class="col-md-3"></div>-->
               <div class="col">
@@ -68,7 +67,7 @@
 <script>
 
   import Loader from '../loader.vue'
-  import axios from 'axios'
+
 
   export default{
     name: 'register',
@@ -81,7 +80,7 @@
       }
     },
     created (){
-    console.log(this.$route.query.token)
+
       this.$store.dispatch("putRequest", {
         url: 'patients/validate/' + this.$route.query.token,
         body: {
@@ -94,18 +93,18 @@
     methods: {
     formCheck:function(e) {
       this.errors = [];
-      var password = this.wachtwoord;
-      var passwordCheck = this.wachtwoordCheck;
+      let password = this.wachtwoord;
+      let passwordCheck = this.wachtwoordCheck;
       if(!this.wachtwoord) this.errors.push("Voer een wachtwoord in.");
-      if(password != passwordCheck) {
+      if(password !== passwordCheck) {
         this.errors.push("De twee ingevoerde wachtwoorden moeten overeen komen.");
       }
       if(!this.errors.length) return true;
       e.preventDefault();
       },
       register: function() {
-        console.log('sending request with password: ' + this.wachtwoord)
-        var link = "patients/activate/" + this.$route.query.token;
+        console.log('sending request with password: ' + this.wachtwoord);
+        let link = "patients/activate/" + this.$route.query.token;
         this.$store.dispatch("putRequest", {
           url: link,
           body: {
