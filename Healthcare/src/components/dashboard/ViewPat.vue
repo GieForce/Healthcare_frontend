@@ -1,14 +1,12 @@
 <template>
   <div class="dashboardContentForms">
-    <div class="loader" v-if="isBusy" ><loader></loader></div>
-    <div v-if="!isBusy">
     <b-modal id="medicijnVoorschrijven"
              size="lg"
              title="Schrijf hier medicijnen voor"
              @ok="createPrescription"
-             ok-only
+             ok-only=true
              ok-title="OK">
-      <form id="form-list-medicines">
+      <form id="form-list-client">
         <b-row>
           <b-col md="6" class="my-1">
             <b-form-group horizontal label="Filter" class="mb-0">
@@ -23,7 +21,7 @@
         </b-row>
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
-                 :items="Medicijnen"
+                 :items="testMedicijnen"
                  :busy.sync="isBusy"
                  :fields="testFields"
                  :filter="filter"
@@ -42,9 +40,9 @@
               </b-row>
             </b-card>
           </template>
-          <!--<template slot="actions" slot-scope="row">-->
-            <!--<b-form-checkbox :value="row.item" :id="row.item.id" v-model="Selected" v-on:change="selectMedicine(row.item)"></b-form-checkbox>-->
-          <!--</template>-->
+          <template slot="actions" slot-scope="row">
+            <b-form-checkbox :value="row.item" :id="row.item.id" v-model="testSelected" v-on:change="selectMedicine(row.item)"></b-form-checkbox>
+          </template>
         </b-table>
       </form>
       <div class="card-body">
@@ -54,17 +52,17 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-md-4">
-                  <label>{{naam}}</label>
+                  <label>{{testnaam}}</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="number" placeholder="Hoeveelheid" v-model="hoeveelheid" class="form-control">
+                  <input type="number" placeholder="Hoeveelheid" v-model="testhoeveelheid" class="form-control">
                 </div>
               </div>
               <div class="row" style="margin-left: auto; margin-top: 10px;">
                 <h2 class="lead">Extra instructies</h2>
               </div>
               <div class="row" style="margin-top: 10px;">
-                <textarea class="textarea" placeholder="" v-model="Note" style="width: 500px; height: 200px;"></textarea>
+                <textarea class="textarea" placeholder="" v-model="testNote" style="width: 500px; height: 200px;"></textarea>
               </div>
             </div>
           </div>
@@ -72,7 +70,7 @@
       </div>
       <p>Klik op ok om te bevestigen</p>
     </b-modal>
-  <form id="form-list-client">
+  <form id="form-list-client2">
     <b-row>
       <b-col md="6" class="my-1">
         <b-form-group horizontal label="Filter" class="mb-0">
@@ -106,7 +104,7 @@
         <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="changeComponent('personalDossier', row.item.user_id)" variant="primary">
           <i style="font-size:24px" class="fa">&#xf06e;</i>
         </b-button>
-        <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="showModal(row.item)" variant="primary">
+        <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="showTestModal(row.item)" variant="primary">
           <i style="font-size:24px" class="fa">&#xf0f9;</i>
         </b-button>
         <b-button size="sm" v-on:click="changeComponent('updatePatient', row.item)" variant="primary">
@@ -119,7 +117,6 @@
     </b-table>
   </form>
  </div>
-  </div>
 </template>
 
 <script>
@@ -127,16 +124,16 @@
   export default {
     name: 'patientoverview',
     components: {
-      'loader' : Loader,
+      'loader': Loader,
     },
     data() {
       return {
         test: 'false',
-        Medicijnen: [],
-        hoeveelheid: '',
-        naam: 'Medicijn',
-        Note: '',
-        Selected: '',
+        testMedicijnen: [],
+        testhoeveelheid: '',
+        testnaam: 'Medicijn',
+        testNote: '',
+        testSelected: '',
         fields: {
           firstname: {label: 'Voornaam', sortable: true},
           lastname: {label: 'Achternaam', sortable: true},
@@ -154,13 +151,14 @@
         isBusy: false,
         patients: [],
         totalRows: 0,
+        patient: this.patientid,
         sortBy: null,
         sortDesc: false,
         filter: null,
         activePatient: null,
       }
     },
-    created () {
+    created() {
       console.log(this.userId);
       this.isBusy = true;
       this.$store.dispatch("getRequest", 'patients').then((response) => {
@@ -172,53 +170,132 @@
       });
     },
     computed: {
-      sortOptions () {
+      sortOptions() {
         // Create an options list from our fields
-        return this.fields
+        return this.testFields
           .filter(f => f.sortable)
-          .map(f => { return { text: f.label, value: f.key } })
+          .map(f => {
+            return {text: f.label, value: f.key}
+          })
       }
     },
     methods: {
-      selectMedicine(object){
-        this.naam = object.name;
+      selectMedicine(object) {
+        console.log(this.testSelected);
+        this.testnaam = object.name;
       },
-      createPrescription(){
+      createPrescription() {
         this.$store.dispatch('postRequest', {
-          url:'medicines/order/1?quantity=1' + this.hoeveelheid + '&patient_id=' + this.activePatient.user_id + '&instructions=' + this.Note,
+          url: 'medicines/order/1?quantity=1' + this.testhoeveelheid + '&patient_id=' + this.patient.user_id + '&instructions=' + this.testNote,
         })
       },
-      showModal (patient) {
-        this.activePatient = patient;
+      getAge(age) {
+        var d = new Date(age); // The 0 there is the key, which sets the date to the epoch
+        console.log(d)
+        return d.toLocaleDateString()
+      },
+      getItems() {
+        return this.items;
+      },
+      showTestModal(button) {
         this.isBusy = true;
         this.$store.dispatch("getRequest", "medicines").then(response => {
           this.isBusy = false;
           console.log(response);
           // this.user = response;
-          this.Medicijnen = response;
-          this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven')
+          this.testMedicijnen = response;
+          this.isLoading = false;
+          this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven', button)
         });
       },
-      changeComponent (component) {
+      newDiagnose() {
+        this.isBusy = true
+        console.log(this.patient.user_id)
+        this.$store.dispatch('postRequest', {
+          url: 'patients/dossier/' + this.patient.user_id,
+          body: {
+            category: this.form.category,
+            report: this.form.diagnose,
+            date: new Date().toJSON().slice(0, 10).replace(/-/g, '-')
+          }
+        }).then(response => {
+          this.loadDiagnosis();
+        })
+      },
+      loadDiagnosis() {
+        this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
+          this.isBusy = false;
+          response.forEach(function (item) {
+            item.summary = item.report.substring(0, 150)
+            if (item.summary.length > 150) {
+              item.summary = item.summary.concat('...')
+            }
+          });
+          this.items = response
+        });
+      },
+      downloadDiagnosis() {
+        var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0, 10).replace(/-/g, '-') + '.csv';
+
+        var csvItems = this.items.slice();
+        csvItems.forEach(function (v) {
+          delete v.id;
+          delete v._showDetails;
+        });
+
+
+        jsonexport(this.items, function (err, csv) {
+          if (err)
+            return console.log(err);
+          const url = window.URL.createObjectURL(new Blob([csv]));
+          var link = document.createElement("a");
+          link.setAttribute("href", url);
+          link.setAttribute("download", fileName);
+          document.body.appendChild(link);
+          link.click();
+        });
+      },
+      selectMedicine(object) {
+        this.naam = object.name;
+      },
+      createPrescription() {
+        this.$store.dispatch('postRequest', {
+          url: 'medicines/order/1?quantity=1' + this.hoeveelheid + '&patient_id=' + this.activePatient.user_id + '&instructions=' + this.Note,
+        })
+      },
+      showModal(button) {
+        this.$root.$emit('bv::show::modal', 'addDiagnoseModal', button)
+      },
+      showTestModal(button) {
+        this.isBusy = true;
+        this.$store.dispatch("getRequest", "medicines").then(response => {
+          this.isBusy = false;
+          console.log(response);
+          // this.user = response;
+          this.testMedicijnen = response;
+          this.isLoading = false;
+          this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven', button)
+        });
+      },
+      changeComponent(component) {
         this.$parent.changeComponent(component);
       },
-      onFiltered (filteredItems) {
+      onFiltered(filteredItems) {
         this.totalRows = filteredItems.length
       },
-      changeComponent (component, patient) {
+      changeComponent(component, patient) {
         this.$parent.changeComponent(component, patient);
       },
-      dateConverter(values){
+      dateConverter(values) {
         var regex = /-?\d+/;
         var entries = values;
         for (var index = 0; index < entries.length; ++index) {
-          entries[index].age = new Date( parseFloat( entries[index].age)).toLocaleDateString();
+          entries[index].age = new Date(parseFloat(entries[index].age)).toLocaleDateString();
         }
         return entries;
       }
-    }
+    },
   }
-
 </script>
 
 <style>
