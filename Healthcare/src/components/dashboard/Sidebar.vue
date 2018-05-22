@@ -15,6 +15,7 @@
 
         <div v-if="user.type === 'admin'">
           <li><a v-on:click=" changeComponent('viewWerknemers')" style="cursor:pointer"><i class="ion-ios-people"></i>Werknemers</a></li>
+          <li><a v-on:click=" changeComponent('storage')" style="cursor:pointer"><i class="ion-android-cart"></i>Voorraad</a></li>
         </div>
 
         <div v-if="user.type === 'doctor'">
