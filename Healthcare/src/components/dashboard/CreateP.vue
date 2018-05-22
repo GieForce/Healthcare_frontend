@@ -77,7 +77,7 @@
         <div class="form-group row">
           <button class="btn btn-secondary" v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
           <div v-if="!errors.length">
-            <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({name,lname,email,password})" ><span>Create</span></button>
+            <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create()" ><span>Create</span></button>
           </div>
         </div>
       </div>
@@ -93,6 +93,7 @@
 
     data(){
       return{
+        errors:[],
         name:'',
         lname:'',
         email:'',

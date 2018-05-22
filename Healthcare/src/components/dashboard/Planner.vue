@@ -39,7 +39,7 @@
               'not-cur-month' : !day.isCurMonth}" @click.stop="dayClick(day.date, $event)">
               <p class="day-number">{{day.monthDay}}</p>
               <div class="event-box"  v-for="day2 in takeDaysFromAppointments(events)" >
-                <p v-if="CompareDates(day2, day)"> Ingepland: {{appointments.length}}</p>
+                <p v-if="CompareDates(day2, day)">Ingepland</p>
               </div>
             </div>
           </div>
@@ -263,7 +263,6 @@
         for (let i = index; i < index + dailyAppointments.length; i++) {
           dailyAppointments.push(this.events[i]);
         }
-        console.log(dailyAppointments);
         return dailyAppointments;
       },
       takeDaysFromAppointments(dataValues) {
@@ -283,7 +282,12 @@
         let comparer = day.startTime.toString().substring(5,7);
         let comparerm = day.startTime.toString().substring(8,11);
         let calenderm = calendarDay.date.toString().substring(4,7);
-        if(calendarDay.monthDay.toString() === comparer && comparerm === calenderm){}
+        if(calendarDay.monthDay.toString() === comparer && comparerm === calenderm){
+          return true;
+        }else{
+          return false;
+        }
+
       },
       ConvertToDatetime(dateValues) {
         let entryAppointments = dateValues;

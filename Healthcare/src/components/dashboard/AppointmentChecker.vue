@@ -77,8 +77,8 @@
             },
         disapprove(appointment){
             this.isBusy = true;
-            this.$store.dispatch('deleteRequest' , {
-              url: 'timeslots/' + appointment.id,
+            this.$store.dispatch('postRequest' , {
+              url: 'timeslots/reset/' + appointment.id,
             }).then(response => {
               this.loadAppointments();
             })

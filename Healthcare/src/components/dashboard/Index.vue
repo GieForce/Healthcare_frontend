@@ -41,7 +41,7 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
-import Calendar2 from './Calendar2.vue'
+import Calendar from './Calendar.vue'
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
@@ -62,7 +62,7 @@ export default {
     }
   },
   components: {
-    'calendar': Calendar2,
+    'calendar': Calendar,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,

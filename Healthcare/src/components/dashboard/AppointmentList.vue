@@ -114,13 +114,20 @@
       }
     },
     methods: {
-      delete(appointment){
+      disapprove(appointment){
         this.isBusy = true;
-        this.$store.dispatch('deleteRequest' , {
-          url: 'timeslots/' + appointment.id,
+        this.$store.dispatch('postRequest' , {
+          url: 'timeslots/reset/' + appointment.id,
         }).then(response => {
           this.loadAppointments();
         })
+      },
+      loadAppointments() {
+        this.isBusy = true;
+        this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
+          this.isBusy = false;
+          this.appointments = this.ConvertToDatetime(response);
+        });
       },
       changeComponent (component) {
         this.$parent.changeComponent(component);

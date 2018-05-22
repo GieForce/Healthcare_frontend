@@ -96,8 +96,10 @@
           fields: {
             category: {label: 'Categorie', sortable: true},
             summary: {label: 'Diagnose', sortable: true},
-            date: {label: 'Datum', sortable: true},
-            show_details: {label: ''},
+          date:() => {
+          return (new Date()).toLocaleDateString();
+            },
+            show_details: {label: 'Details'},
           },
           isBusy: false,
           items: [],
@@ -111,9 +113,13 @@
         }
       },
       methods: {
+        getDate(date){
+          let d = new Date(date);
+          return d.toLocaleDateString();
+        },
         getAge(age){
           let d = new Date(age); // The 0 there is the key, which sets the date to the epoch
-          return d.toLocaleDateString()
+          return d.toLocaleDateString();
         },
         getItems () {
           return this.items;

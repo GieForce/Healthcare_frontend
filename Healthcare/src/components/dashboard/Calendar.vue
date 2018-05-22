@@ -131,7 +131,7 @@
             dailyAppointments.push(this.appointments[i]);
           }
         }
-        dailyAppointments.forEach(function(obj) { obj.poep = false; });
+        dailyAppointments.forEach(function(obj) { obj.selected = false; });
         this.appointmentsOfDay = dailyAppointments;
       },
       spliceTime(day) {
@@ -176,10 +176,10 @@
       selectAppointment(appointment) {
         this.note = "";
         this.selectedTime = appointment;
-        if(appointment.poep) {
+        if(appointment.selected) {
           this.selectedAppointment.push(appointment);
         }
-        if(!appointment.poep){
+        if(!appointment.selected){
           let index = this.selectedAppointment.map(function(x) {return x.id; }).indexOf(appointment.id);
           if(index !== -1) {
             this.selectedAppointment.splice(index, 1);

@@ -1,59 +1,25 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="myValues">
-        <value>
-          <list size="3">
-            <item index="0" class="java.lang.String" itemvalue="slot-scope" />
-            <item index="1" class="java.lang.String" itemvalue="size" />
-            <item index="2" class="java.lang.String" itemvalue="scope" />
-          </list>
-        </value>
-      </option>
-      <option name="myCustomValuesEnabled" value="true" />
-    </inspection_tool>
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="32">
+          <list size="11">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
             <item index="3" class="java.lang.String" itemvalue="noscript" />
             <item index="4" class="java.lang.String" itemvalue="embed" />
             <item index="5" class="java.lang.String" itemvalue="script" />
-            <item index="6" class="java.lang.String" itemvalue="b-button" />
-            <item index="7" class="java.lang.String" itemvalue="b-table" />
-            <item index="8" class="java.lang.String" itemvalue="b-card" />
-            <item index="9" class="java.lang.String" itemvalue="b-col" />
-            <item index="10" class="java.lang.String" itemvalue="b-row" />
-            <item index="11" class="java.lang.String" itemvalue="b-modal" />
-            <item index="12" class="java.lang.String" itemvalue="b-form" />
-            <item index="13" class="java.lang.String" itemvalue="b-form-textarea" />
-            <item index="14" class="java.lang.String" itemvalue="b-form-input" />
-            <item index="15" class="java.lang.String" itemvalue="b-container" />
-            <item index="16" class="java.lang.String" itemvalue="b-img" />
-            <item index="17" class="java.lang.String" itemvalue="li" />
-            <item index="18" class="java.lang.String" itemvalue="div" />
-            <item index="19" class="java.lang.String" itemvalue="b-input-group" />
-            <item index="20" class="java.lang.String" itemvalue="b-form-group" />
-            <item index="21" class="java.lang.String" itemvalue="b-input-group-append" />
-            <item index="22" class="java.lang.String" itemvalue="b-btn" />
-            <item index="23" class="java.lang.String" itemvalue="b-carousel-slide" />
-            <item index="24" class="java.lang.String" itemvalue="b-carousel" />
-            <item index="25" class="java.lang.String" itemvalue="b-navbar-toggle" />
-            <item index="26" class="java.lang.String" itemvalue="b-navbar-brand" />
-            <item index="27" class="java.lang.String" itemvalue="b-navbar" />
-            <item index="28" class="java.lang.String" itemvalue="b-collapse" />
-            <item index="29" class="java.lang.String" itemvalue="b-navbar-nav" />
-            <item index="30" class="java.lang.String" itemvalue="b-nav-item" />
-            <item index="31" class="java.lang.String" itemvalue="head" />
+            <item index="6" class="java.lang.String" itemvalue="b-container" />
+            <item index="7" class="java.lang.String" itemvalue="b-row" />
+            <item index="8" class="java.lang.String" itemvalue="b-col" />
+            <item index="9" class="java.lang.String" itemvalue="b-form-input" />
+            <item index="10" class="java.lang.String" itemvalue="b-button" />
           </list>
         </value>
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
-    <inspection_tool class="XmlInvalidId" enabled="false" level="ERROR" enabled_by_default="false" />
   </profile>
 </component>
