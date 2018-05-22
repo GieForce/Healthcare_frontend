@@ -1,50 +1,76 @@
 <template>
   <div class="dashboardContentForms">
+    <div class="loader" v-if="isBusy" ><loader></loader></div>
+    <div v-if="!isBusy">
     <b-modal id="medicijnVoorschrijven"
+             size="lg"
              title="Schrijf hier medicijnen voor"
-             @ok="changeComponent('home')"
-             ok-only=true
+             @ok="createPrescription"
+             ok-only
              ok-title="OK">
-      <div class="col-md-10 col-md-offset-1">
-
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <div class="row">
-              <div class="col col-xs-6">
-                <h3 class="panel-title">Panel Heading</h3>
+      <form id="form-list-medicines">
+        <b-row>
+          <b-col md="6" class="my-1">
+            <b-form-group horizontal label="Filter" class="mb-0">
+              <b-input-group>
+                <b-form-input v-model="filter" placeholder="Typ om te zoeken" />
+                <b-input-group-append>
+                  <b-btn :disabled="!filter" @click="filter = ''" variant="primary">Clear</b-btn>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-table :sort-by.sync="sortBy"
+                 :sort-desc.sync="sortDesc"
+                 :items="Medicijnen"
+                 :busy.sync="isBusy"
+                 :fields="testFields"
+                 :filter="filter"
+                 style="width: 100%;"
+        >
+          <template slot="show_details" slot-scope="row">
+            <a size="sm" @click.stop="row.toggleDetails" class="mr-2">
+              <i v-if="!row.detailsShowing" class="ion-ios-arrow-down"></i>
+              <i v-if="row.detailsShowing" class="ion-ios-arrow-up"></i>
+            </a>
+          </template>
+          <template slot="row-details" slot-scope="row">
+            <b-card>
+              <b-row class="mb-2">
+                <b-col>{{ row.item.report }}</b-col>
+              </b-row>
+            </b-card>
+          </template>
+          <!--<template slot="actions" slot-scope="row">-->
+            <!--<b-form-checkbox :value="row.item" :id="row.item.id" v-model="Selected" v-on:change="selectMedicine(row.item)"></b-form-checkbox>-->
+          <!--</template>-->
+        </b-table>
+      </form>
+      <div class="card-body">
+        <form class="form-horizontal">
+          <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Recept:</label>
+            <div class="col-sm-10">
+              <div class="row">
+                <div class="col-md-4">
+                  <label>{{naam}}</label>
+                </div>
+                <div class="col-md-3">
+                  <input type="number" placeholder="Hoeveelheid" v-model="hoeveelheid" class="form-control">
+                </div>
               </div>
-              <div class="col col-xs-6 text-right">
-                <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+              <div class="row" style="margin-left: auto; margin-top: 10px;">
+                <h2 class="lead">Extra instructies</h2>
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <textarea class="textarea" placeholder="" v-model="Note" style="width: 500px; height: 200px;"></textarea>
               </div>
             </div>
           </div>
-          <div class="panel-body">
-            <table class="table table-striped table-bordered table-list">
-              <thead>
-              <tr>
-                <th><em class="fa fa-cog"></em></th>
-                <th class="hidden-xs">ID</th>
-                <th>Name</th>
-                <th>Email</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td align="center">
-                  <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                  <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                </td>
-                <td class="hidden-xs">1</td>
-                <td>John Doe</td>
-                <td>johndoe@example.com</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        </form>
       </div>
-
-      <p>Medicijnen zijn voorgeschreven</p>
+      <p>Klik op ok om te bevestigen</p>
     </b-modal>
   <form id="form-list-client">
     <b-row>
@@ -80,6 +106,9 @@
         <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="changeComponent('personalDossier', row.item.user_id)" variant="primary">
           <i style="font-size:24px" class="fa">&#xf06e;</i>
         </b-button>
+        <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="showModal(row.item)" variant="primary">
+          <i style="font-size:24px" class="fa">&#xf0f9;</i>
+        </b-button>
         <b-button size="sm" v-on:click="changeComponent('updatePatient', row.item)" variant="primary">
             <i style="font-size:24px" class="fa">&#xf044;</i>
         </b-button>
@@ -90,14 +119,24 @@
     </b-table>
   </form>
  </div>
+  </div>
 </template>
 
 <script>
-
+  import Loader from '../loader.vue'
   export default {
     name: 'patientoverview',
+    components: {
+      'loader' : Loader,
+    },
     data() {
       return {
+        test: 'false',
+        Medicijnen: [],
+        hoeveelheid: '',
+        naam: 'Medicijn',
+        Note: '',
+        Selected: '',
         fields: {
           firstname: {label: 'Voornaam', sortable: true},
           lastname: {label: 'Achternaam', sortable: true},
@@ -105,13 +144,20 @@
           sex: {label: 'Geslacht', sortable: true},
           actions: {label: 'Acties'}
         },
+        testFields: {
+          id: {label: 'ID', sortable: true},
+          name: {label: 'Naam', sortable: true},
+          stock: {label: "Op voorraad", sortable: true},
+          actions: {label: ''},
+        },
         user: this.$store.getters.user,
         isBusy: false,
         patients: [],
         totalRows: 0,
         sortBy: null,
         sortDesc: false,
-        filter: null
+        filter: null,
+        activePatient: null,
       }
     },
     created () {
@@ -134,6 +180,25 @@
       }
     },
     methods: {
+      selectMedicine(object){
+        this.naam = object.name;
+      },
+      createPrescription(){
+        this.$store.dispatch('postRequest', {
+          url:'medicines/order/1?quantity=1' + this.hoeveelheid + '&patient_id=' + this.activePatient.user_id + '&instructions=' + this.Note,
+        })
+      },
+      showModal (patient) {
+        this.activePatient = patient;
+        this.isBusy = true;
+        this.$store.dispatch("getRequest", "medicines").then(response => {
+          this.isBusy = false;
+          console.log(response);
+          // this.user = response;
+          this.Medicijnen = response;
+          this.$root.$emit('bv::show::modal', 'medicijnVoorschrijven')
+        });
+      },
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },

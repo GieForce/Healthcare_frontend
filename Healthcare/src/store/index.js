@@ -12,7 +12,7 @@ const PENDING = 'PENDING';
 const REQUEST_SUCCES = 'REQUEST_SUCCES';
 const REQUEST_FAIL = 'REQUEST_FAIL';
 const USER_CHANGED = 'USER_CHANGED';
-const API_URL = 'http://35.233.79.27:8081/api/';
+const API_URL = 'http://130.211.53.35:8081/api/';
 
 import createPersistedState from 'vuex-persistedstate'
 
