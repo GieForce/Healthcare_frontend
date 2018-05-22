@@ -7,15 +7,29 @@
     <sidebar></sidebar>
     <div class="dashboardContent">
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
+      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
-      <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
+      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
-      <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
       <doctorchat v-if="openComponent === 'doctorChat'"></doctorchat>
+      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
+      <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
+      <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
+               first-day='1' locale="nl"
+               @changeMonth="changeMonth"
+               @eventClick="eventClick"
+               @dayClick="dayClick"
+               @moreClick="moreClick">
+        <template slot="fc-event-card" scope="p">
+          <p>{{ p.event.title }}</p>
+        </template>
+      </planner>
+      <checker v-if="openComponent === 'checker'"></checker>
+      <storage v-if="openComponent === 'storage'"></storage>
     </div>
   </div>
 </template>
@@ -34,6 +48,12 @@ import ViewPat from './ViewPat.vue'
 import DoctorChat from '../chat/DoctorChat.vue'
 import PatientChat from '../chat/PatientChat.vue'
 import PatientChatWindow from '../chat/PatientChatWindow.vue'
+import Calendar2 from './Calendar2.vue'
+import Planner from './Planner.vue';
+import AppointmentChecker from "./AppointmentChecker";
+import AppointmentList from "./AppointmentList.vue";
+import ArtsSwitch from "./ArtsSwitch.vue";
+import Storage from "./MedicineStorage.vue";
 
 export default {
 
@@ -42,11 +62,14 @@ export default {
     return {
       openComponent: 'home',
       openChat: false,
-      userId: this.$store.getters.user.userId,
+      userId: this.$store.getters.user.user_id,
       user: '',
+      fcEvents: Planner.events,
+      day: ''
     }
   },
   components: {
+    'calendar': Calendar2,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -60,14 +83,26 @@ export default {
     'doctorchat' : DoctorChat,
     'patientchat' : PatientChat,
     'patientchatwindow' : PatientChatWindow,
+    'planner' : Planner,
+    'checker' : AppointmentChecker,
+    'appointmentlist' : AppointmentList,
+    'artsswitch' : ArtsSwitch,
+    'storage' : Storage,
   },
   computed: {
     getUser(){
       return this.user;
     },
+
     getActiveUser(){
       return this.$store.getters.user
+
+    getDate(){
+      return this.day;
     }
+  },
+  created(){
+
   },
   methods: {
     changeComponent (component, user) {
@@ -80,6 +115,32 @@ export default {
     },
     setupSockets(){
       this.$store.dispatch('setupSockets', this.$store.getters.user)
+      if(user === undefined)
+      {
+        this.user = this.$store.getters.user
+      }
+      else {
+        this.user = user;
+      }
+    },
+    changeComponent2(component) {
+      this.openComponent = component;
+    },
+    changeMonth(start, end, current) {
+      console.log('changeMonth', start.format(), end.format(), current.format())
+    },
+    eventClick(event, jsEvent, pos) {
+      console.log('eventClick', event, jsEvent, pos)
+    },
+    dayClick(day, jsEvent) {
+      this.day = day._d;
+      console.log('Meegegeven datum:');
+      console.log(this.day);
+      this.changeComponent2('appointmentlist');
+      console.log('dayClick', day, jsEvent)
+    },
+    moreClick(day, events, jsEvent) {
+      console.log('moreCLick', day, events, jsEvent)
     }
 
   },
