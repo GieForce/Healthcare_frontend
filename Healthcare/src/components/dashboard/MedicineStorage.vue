@@ -2,7 +2,8 @@
   <div class="dashboardContentForms">
     <b-modal id="prescriptionDetails"
              title="Details"
-             ok-title="Afhandelen">
+             ok-title="Afhandelen"
+             @ok="giveMedicine(chosenOrder)">
       <div v-if="chosenOrder" class="row" style="height: 500px;">
         <div class="col-md-6" style="border-right: 1px solid #c4bdb8">
           <h5>Patiënt</h5><br>
@@ -41,14 +42,14 @@
     </b-modal>
     <b-modal id="addMedicineModal"
              title="Medicijn toevoegen"
-             @ok=""
+             @ok="addMedicine()"
              ok-title="Bestellen">
           <b-form-group id="exampleInputGroup1"
                         label="Naam:"
                         label-for="exampleInput1">
             <b-form-input id="exampleInput1"
                           type="text"
-                          v-model="form.nameMedicine"
+                          v-model="form.name"
                           placeholder="bv. Paracetamol 500g">
             </b-form-input>
           </b-form-group>
@@ -78,7 +79,7 @@
           :min="0"
           :max="99"
           :integerOnly="true"
-          v-model="form.weight"
+          v-model="form.stock"
         />
       </b-form-group>
       <b-form-group id="exampleInputGroup2"
@@ -86,7 +87,7 @@
                     label-for="exampleInput2">
         <b-form-input id="exampleInput2"
                       type=""
-                      v-model="form.prijs"
+                      v-model="form.price"
                       placeholder="bv. 2.45">
         </b-form-input>
       </b-form-group>
@@ -160,7 +161,7 @@
       <b-row>
         <b-col md="6">
           <h2>Voorraad</h2>
-            <div class="pull-right" style="padding-top: 10px">
+            <div class="" style="padding-top: 10px">
               <b-button size="sm" v-on:click="addMedicineModal()" variant="primary">
                 <i class="ion-ios-plus"></i> Medicijn toevoegen
               </b-button>
@@ -204,23 +205,13 @@
         return {
           form: {
             name: '',
-            name: '',
-
+            barcode: '',
+            weight: 0,
+            stock: 0,
+            price: 0
           },
-          medicine: [
-            // {name: "Paracetamol 500g",producer: "Panadol",amount: "50 pcs.",price: "5.00",stock: 50,info: "Maximaal 3x per dag in nemen. Voor oraal gebruik"},
-            // {name: "Paracetamol 150g",producer: "Panadol",amount: "50 pcs.",price: "5.00",stock: 50,info: "Maximaal 3x per dag in nemen. Voor oraal gebruik"}
-          ],
-          orders: [
-            // {firstname: "Davey", lastname: "van den Bogaard",doctor: "S.H.H Klijsen" ,presciption: {date: new Date(),instructions: "instructions unclear dick stuck in ventilator",quantity: 50,unit_of_measure: 50,}},
-            // {firstname: "Otto", lastname: "Naus",doctor: "S.H.H Klijsen",presciption: {}},
-            // {firstname: "Davey", lastname: "van den Bogaard",doctor: "S.H.H Klijsen",presciption: {}},
-            // {firstname: "Otto", lastname: "Naus",doctor: "S.H.H Klijsen",presciption: {}},
-            // {firstname: "Davey", lastname: "van den Bogaard",doctor: "S.H.H Klijsen",presciption: {}},
-            // {firstname: "Otto", lastname: "Naus",doctor: "S.H.H Klijsen",presciption: {}},
-            // {firstname: "Davey", lastname: "van den Bogaard",doctor: "S.H.H Klijsen",presciption: {}},
-            // {firstname: "Otto", lastname: "Naus",doctor: "S.H.H Klijsen",presciption: {}},
-          ],
+          medicine: [],
+          orders: [],
           waitingline: [
             {name: "Davetsdf",doctor: "S.H.H Klijsen", nr: 1},
             {name: "Davetsdf",doctor: "S.H.H Klijsen", nr: 2},
@@ -290,6 +281,37 @@
         },
         addMedicineModal(){
           this.$root.$emit('bv::show::modal','addMedicineModal')
+        },
+        addMedicine(){
+          this.$store.dispatch('postRequest', {
+            url:'medicines/1',
+            body:{
+              name: this.form.name,
+              barcode: this.form.barcode,
+              weight: this.form.weight,
+              stock: this.form.stock,
+              price: this.form.price,
+            }
+          }).then(() => {
+          this.$store.dispatch(("getRequest", 'medicines').then((response) => {
+            this.isBusy = false;
+                this.medicine = response;
+                this.totalRows = this.medicine.length
+          }))})
+        },
+        giveMedicine(order){
+          console.log(order);
+          this.$store.dispatch("postRequest", {
+            url: 'prescriptions/' + order.id,
+            body:{
+
+            }
+          }).then(() => {
+            this.$store.dispatch("getRequest", 'prescriptions').then((response) => {
+              this.orders = response;
+              console.log(response);
+            });
+          })
         }
       },
       components: {
