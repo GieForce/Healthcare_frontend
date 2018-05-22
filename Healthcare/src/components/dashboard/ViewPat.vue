@@ -222,39 +222,6 @@
           this.loadDiagnosis();
         })
       },
-      loadDiagnosis() {
-        this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
-          this.isBusy = false;
-          response.forEach(function (item) {
-            item.summary = item.report.substring(0, 150)
-            if (item.summary.length > 150) {
-              item.summary = item.summary.concat('...')
-            }
-          });
-          this.items = response
-        });
-      },
-      downloadDiagnosis() {
-        var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0, 10).replace(/-/g, '-') + '.csv';
-
-        var csvItems = this.items.slice();
-        csvItems.forEach(function (v) {
-          delete v.id;
-          delete v._showDetails;
-        });
-
-
-        jsonexport(this.items, function (err, csv) {
-          if (err)
-            return console.log(err);
-          const url = window.URL.createObjectURL(new Blob([csv]));
-          var link = document.createElement("a");
-          link.setAttribute("href", url);
-          link.setAttribute("download", fileName);
-          document.body.appendChild(link);
-          link.click();
-        });
-      },
       selectMedicine(object) {
         this.naam = object.name;
       },

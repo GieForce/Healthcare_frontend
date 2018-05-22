@@ -4,7 +4,7 @@
              size="lg"
              title="Schrijf hier medicijnen voor"
              @ok="createPrescription"
-             ok-only=true
+             ok-only
              ok-title="OK">
       <form id="form-list-client">
         <b-row>
