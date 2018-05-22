@@ -199,8 +199,4 @@
 
 <style>
 
-
-  @import"../../assets/style/landing.css";
-  @import"../../assets/icons-reference/ionicons.css";
-
 </style>

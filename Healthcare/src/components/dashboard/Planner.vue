@@ -39,7 +39,7 @@
               'not-cur-month' : !day.isCurMonth}" @click.stop="dayClick(day.date, $event)">
               <p class="day-number">{{day.monthDay}}</p>
               <div class="event-box"  v-for="day2 in takeDaysFromAppointments(events)" >
-                <p v-if="CompareDates(day2, day)">Ingepland</p>
+                <p v-if="CompareDates(day2, day)">	&nbsp;	&nbsp;Ingepland</p>
               </div>
             </div>
           </div>
