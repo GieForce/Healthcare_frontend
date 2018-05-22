@@ -26,6 +26,7 @@
         </template>
       </planner>
       <checker v-if="openComponent === 'checker'"></checker>
+      <storage v-if="openComponent === 'storage'"></storage>
     </div>
   </div>
 </template>
@@ -46,6 +47,7 @@ import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
 import ArtsSwitch from "./ArtsSwitch.vue";
+import Storage from "./MedicineStorage.vue";
 
 
 export default {
@@ -77,7 +79,7 @@ export default {
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
     'artsswitch' : ArtsSwitch,
-
+    'storage' : Storage,
   },
   computed: {
     getUser(){
