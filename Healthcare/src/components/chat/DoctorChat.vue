@@ -3,7 +3,7 @@
       <b-col cols="12" md="3">
         <b-card style="height: 82vh" title="Live chat">
           <b-tabs pills vertical nav-wrapper-class="w-100">
-            <b-tab active v-for="chat in chatSession.chats" 
+            <b-tab v-for="chat in chatSession.chats" 
                    v-bind:data="chat"
                    v-bind:key="chat.id"
                    @click="changeChat(chat.id)">
@@ -16,7 +16,7 @@
       </b-col>
 
       <b-col cols="12" md="9">
-        <b-card style="height: 82vh;">
+        <b-card style="height: 82vh;" id="chatCard">
           <doctorchatwindow v-if="chatId != 0" :pChatId="getChatId"></doctorchatwindow>
         </b-card>
       </b-col>

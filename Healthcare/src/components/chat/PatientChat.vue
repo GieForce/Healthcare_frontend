@@ -1,5 +1,5 @@
 <template>
-   <div v-on:click="this.$parent.toggleChat" class="chat chatbar">
+   <div v-on:click="this.$parent.toggleChat" class="chatbar">
     Livechat
    </div>
 </template>

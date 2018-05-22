@@ -1,18 +1,34 @@
 <template>
-  <b-card style="width: 50vw; top: 5vh; height: 60vh; margin-right: 35px">
-    {{ chatSession.status }}
-    <div v-if="chat != undefined">
-      <ul>
-        <li v-for="message in chat.messages">{{ message.sender.firstname }}: {{ message.message }} | {{ message.date.toTimeString().split(':')[0]}}:{{message.date.toTimeString().split(':')[1]}}</li>
-      </ul>
-      <b-form-input v-model="message" style="position: absolute; bottom: 15px; width: 95%;"
-                    type="text"bericht
-                    placeholder="Stuur een "
-                    @keydown.native="sendMessage"></b-form-input>
-      </b-card-body>
+  <div class="patientChat chat" v-if="chat != undefined">
+    <div class="bar">
+      <div class="status">
+        <div v-if="chat.patient.status=='online'" id="online"> </div>
+        <div v-else id="offline"> </div>
+      </div>
+      <div class="name">
+        {{ chat.doctor.firstname }} {{ chat.doctor.lastname }} 
+      </div>
+      <br>
     </div>
-  </b-card>
+
+    <div class="messagesWrapper">
+      <div class="messages" ref="mess">
+        <div v-for="message in chat.messages">
+          <div class="bubbleme" v-if="message.sender.user_id==user.user_id"> {{ message.message }}</div>
+          <div class="bubbleyou" v-else> {{ message.message }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="messageBox">
+      <b-form-input v-model="message" style="position: absolute; bottom: 15px; width: 96%;"
+        type="text"
+        placeholder="Stuur een bericht"
+        @keydown.native="sendMessage"></b-form-input>
+    </div>
+  </div>
 </template>
+
 
 <script>
 
@@ -44,6 +60,10 @@ export default {
           message: this.message
         })
         this.message = ''
+        setTimeout(() => { 
+          var elem = this.$refs.mess;
+          elem.scrollTop = elem.scrollHeight; 
+        }, 200);
       }
     },
   },

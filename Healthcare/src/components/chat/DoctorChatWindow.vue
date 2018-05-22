@@ -1,21 +1,39 @@
 <template>
-  <div>
-    {{ chatSession.status }}
-    <div v-if="chat != undefined">
-      {{ chat.patient.status }}
-      <ul>
-        <li v-for="message in chat.messages">{{ message.sender.firstname }}: {{ message.message }}</li>
-      </ul>
-      <b-form-input v-model="message" style="position: absolute; bottom: 15px; width: 96%;"
-                    type="text"
-                    placeholder="Stuur een bericht"
-                    @keydown.native="sendMessage"></b-form-input>
-      </b-card-body>
+  <div class="chat" v-if="chat != undefined">
+    <div class="bar">
+      <div class="status">
+        <div v-if="chat.patient.status=='online'" id="online"> </div>
+        <div v-else id="offline"> </div>
+      </div>
+      <div class="name">
+        {{ chat.patient.firstname }} {{ chat.patient.lastname }} 
+      </div>
+      <br>
+<!--       <div id="fileButton">
+        <input type="file" id="inputFile" value>
+        <i id="input_img" class="ion-images"></i>
+      </div> -->
+    </div>
+
+    <div class="messagesWrapper">
+      <div class="messages" ref="mess">
+        <div v-for="message in chat.messages">
+          <div class="bubbleme" v-if="message.sender.user_id==user.user_id"> {{ message.message }} <div class="timeStamp">{{ message.date.toTimeString().split(':')[0]}}:{{message.date.toTimeString().split(':')[1] }}</div></div>
+          <div class="bubbleyou" v-else> {{ message.message }} <div class="timeStamp">{{ message.date.toTimeString().split(':')[0]}}:{{message.date.toTimeString().split(':')[1] }}</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="messageBox">
+      <b-form-input class="message" v-model="message"
+        type="text"
+        placeholder="Stuur een bericht"
+        @keydown.native="sendMessage"></b-form-input>
     </div>
   </div>
 </template>
 
 <script>
+import jQuery from 'jQuery'
 
 export default {
   props: ['pChatId'],
@@ -23,6 +41,7 @@ export default {
     return {
       user: this.$store.getters.user,
       message: '',
+      prevChatId: 0
     }
   },
 
@@ -39,24 +58,34 @@ export default {
     // Methods
     sendMessage(event){
       if(event.keyCode == 13 && (!this.message.length === 0 || this.message.trim())){
-        console.log(this.chatId);
         this.chatSession.socket.emit('sent_message', {
           sender: this.user,
           chatId: this.chat.id,
           message: this.message
         })
         this.message = ''
+        setTimeout(() => { 
+          var elem = this.$refs.mess;
+          elem.scrollTop = elem.scrollHeight; 
+        }, 200);
       }
     },
   },
 
-  created() {
+  created(){
+    this.prevChatId = this.pChatId;
+    setTimeout(() => { 
+      var elem = this.$refs.mess;
+      elem.scrollTop = elem.scrollHeight; 
+    }, 0);    
 
-    // if(this.chat != undefined && this.chat.messages.length != 0){
-    //   this.chat.messages.foreach(message => {
-    //     message.read = true
-    //   });
-    // }
+    var intervalID = window.setInterval(() => {
+      var elem = this.$refs.mess;
+      if(elem.scrollTop + 330 > elem.scrollHeight || this.pChatId != this.prevChatId){
+        this.prevChatId = this.pChatId;
+        elem.scrollTop = elem.scrollHeight; 
+      }
+    }, 200);
   },
 
   beforeCreate(){
