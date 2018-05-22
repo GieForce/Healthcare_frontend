@@ -3020,3 +3020,222 @@ a > code {
   padding-top: 20%;
   margin: 0 auto;
 }
+
+.chatFloat {
+  background-color: white;
+  position: fixed;
+  z-index: 100;
+  margin-top: 5%;
+  right: 54px; 
+  padding: 8px;
+}
+
+.chatFloat:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 30px 0px 30px 22px;
+  border-color: transparent transparent transparent white;
+  display: block;
+  width: 0;
+  z-index: -1;
+  right: -22px;
+  top: 18px;
+}
+
+#chatCard .card-body{
+  height: 10px;
+}
+
+.chat{
+  height: 100%;
+}
+
+.patientChat{
+  top: 100px;
+  height: 450px;
+  width: 25vw;
+  /*border: 1px solid lightgrey;*/
+  box-shadow: 5px 5px 10px 5px lightgrey;
+  border-radius: 20px;
+}
+
+.chatbar {
+  position: fixed;
+  z-index: 99;
+  right: 0; 
+  background-color: #33B2C0;
+  /*top: 30%;*/
+  padding: 5px 150px 5px 10px;
+  margin-top: 300px;
+  margin-right: -95px;
+  color: white;
+  border: 0px solid transparent !important;
+  cursor: pointer;
+  transform: rotate(90deg);
+}
+
+.messagesWrapper{
+  height: 100%;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow:auto; 
+}
+
+.chat .messages{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+  padding-bottom: 14px;
+}
+
+.chat ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.chat ::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.chat ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #379392; 
+}
+
+.messageBox{
+  position: absolute;
+  bottom: 15px;
+  width: 96%;
+}
+
+.chat .messages .bubbleme {
+  position: relative;
+  width: auto;
+  max-width: 75%;
+  height: auto;
+  padding: 2px;
+  overflow: visible;
+  background: #379392;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-left: 30px;
+  margin-top: 2px;
+  padding: 4px 40px 4px 6px;
+  color: white;
+  display: inline-block;
+}
+
+.chat .messages .bubbleyou {
+  position: relative;
+  width: auto;
+  max-width: 75%;
+  height: auto;
+  padding: 2px;
+  background: grey;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: 30px;
+  margin-top: 2px;
+  padding: 4px 40px 4px 6px;
+  right: 0;
+  color: white;
+/*  width: min-content;
+*/}
+
+.bubbleme .timeStamp{
+  float: right;
+  font-size: 10px;
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+}
+
+.bubbleyou .timeStamp{
+  float: right;
+  font-size: 10px;
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+}
+
+.chat .messages .bubbleme:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 9px 16px 9px 0;
+  border-color: transparent #379392;
+  display: block;
+  width: 0;
+  z-index: 0;
+  left: -12px;
+  top: 2px;
+}
+
+.chat .messages .bubbleyou:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 9px 0px 9px 16px;
+  border-color: transparent grey;
+  display: block;
+  width: 0;
+  z-index: 0;
+  right: -12px;
+  top: 2px;
+}
+
+.chat .bar{
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.chat .bar .name{
+  text-transform: capitalize;
+  float: left;
+}
+
+.chat .bar .status #online{
+  margin-top: 4px;
+  float: left;
+  height: 15px;
+  width: 15px;
+  background-color: #379392;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.chat .bar .status #offline{
+  margin-top: 4px;
+  float: left;
+  height: 15px;
+  width: 15px;
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+#fileButton {
+    float: right;
+    height:30px;
+    width:300px;
+    position:relative;
+}
+
+#input_img {
+    height:15px;
+    position:absolute;
+    right:0;
+    top:5px;
+}
+
+#inputFile {
+    width:100%;
+}

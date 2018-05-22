@@ -1,5 +1,7 @@
 <template>
   <div id="parent">
+    <patientchat v-if="getActiveUser.type === 'patient'"></patientchat>
+    <patientchatwindow v-if="openChat && getActiveUser.type === 'patient'" class="chatFloat"></patientchatwindow>
     <router-view/>
     <navbar></navbar>
     <sidebar></sidebar>
@@ -13,6 +15,7 @@
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <doctorchat v-if="openComponent === 'doctorChat'"></doctorchat>
       <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
       <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
@@ -42,6 +45,9 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import DoctorChat from '../chat/DoctorChat.vue'
+import PatientChat from '../chat/PatientChat.vue'
+import PatientChatWindow from '../chat/PatientChatWindow.vue'
 import Calendar2 from './Calendar2.vue'
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
@@ -49,14 +55,13 @@ import AppointmentList from "./AppointmentList.vue";
 import ArtsSwitch from "./ArtsSwitch.vue";
 import Storage from "./MedicineStorage.vue";
 
-
 export default {
-
 
   name: 'app',
   data() {
     return {
       openComponent: 'home',
+      openChat: false,
       userId: this.$store.getters.user.user_id,
       user: '',
       fcEvents: Planner.events,
@@ -75,6 +80,9 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+    'doctorchat' : DoctorChat,
+    'patientchat' : PatientChat,
+    'patientchatwindow' : PatientChatWindow,
     'planner' : Planner,
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
@@ -85,6 +93,10 @@ export default {
     getUser(){
       return this.user;
     },
+
+    getActiveUser(){
+      return this.$store.getters.user
+
     getDate(){
       return this.day;
     }
@@ -96,6 +108,13 @@ export default {
     changeComponent (component, user) {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
+      this.user = user;
+    },
+    toggleChat (){
+      this.openChat = !this.openChat
+    },
+    setupSockets(){
+      this.$store.dispatch('setupSockets', this.$store.getters.user)
       if(user === undefined)
       {
         this.user = this.$store.getters.user
@@ -123,6 +142,12 @@ export default {
     moreClick(day, events, jsEvent) {
       console.log('moreCLick', day, events, jsEvent)
     }
+
+  },
+  created() {
+    if(this.$store.getters.user.type == 'doctor'){
+      this.setupSockets();
+    }  
   }
 }
 </script>

@@ -164,6 +164,7 @@
             var link = document.createElement("a");
             link.setAttribute("href", url);
             link.setAttribute("download", fileName);
+            document.body.appendChild(link); 
             document.body.appendChild(link);
             link.click();
           });
