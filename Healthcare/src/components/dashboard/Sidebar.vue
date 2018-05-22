@@ -15,14 +15,19 @@
 
         <div v-if="user.type === 'admin'">
           <li><a v-on:click=" changeComponent('viewWerknemers')" style="cursor:pointer"><i class="ion-ios-people"></i>Werknemers</a></li>
+          <li><a v-on:click=" changeComponent('storage')" style="cursor:pointer"><i class="ion-android-cart"></i>Voorraad</a></li>
         </div>
 
         <div v-if="user.type === 'doctor'">
           <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
           <li><a v-on:click=" changeComponent('planner')" style="cursor:pointer"><i class="ion-ios-calendar"></i>Kalender</a></li>
           <li><a v-on:click="changeComponent('checker')" style="cursor:pointer"><i class="ion-ios-bookmarks"></i>Planning goedkeuren</a></li>
+          <li><a v-on:click="changeComponent('doctorChat')" style="cursor:pointer"><i class="ion-chatbubble"></i>Chat</a></li>
         </div>
 
+        <div v-if="user.type === 'doctor'">
+          <li><a v-on:click="changeComponent('doctorChat')" style="cursor:pointer"><i class="ion-chatbubble"></i>Chat</a></li>
+        </div>
           <div v-if="user.type === 'doctorEmployee'">
             <li><a v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><i class="ion-person"></i>Patienten</a></li>
             <li><a v-on:click=" changeComponent('planner')" style="cursor:pointer"><i class="ion-ios-calendar"></i>Kalender</a></li>
@@ -34,7 +39,7 @@
           <li><a v-on:click="changeComponent('calendar')" style="cursor:pointer"><i class="ion-android-create"></i>Afspraak inplannen</a></li>
 
         </div>
-        <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Logout</a></li>
+        <li><a v-on:click="logout" style="cursor:pointer"><i class="ion-android-exit"></i>Uitloggen</a></li>
 
         </ul>
         <div class="sidenav-header d-flex align-items-center justify-content-center sidebar-footer">

@@ -32,10 +32,10 @@ const router = new Router({
       beforeEnter: guardRoute
     },
     {
-      path: '/dossier',
-      name: 'dossier',
+      path: '/voorraad',
+      name: 'voorraad',
       component: function (resolve) {
-        require(['@/components/dashboard/Dossier.vue'], resolve)
+        require(['@/components/dashboard/MedicineStorage.vue'], resolve)
       }
     },
     {
@@ -44,6 +44,22 @@ const router = new Router({
       component: function (resolve) {
         require(['@/components/login/Register.vue'], resolve)
       }
+    },
+    {
+      path: '/doctorchat',
+      name: 'doctorchat',
+      component: function (resolve) {
+        require(['@/components/chat/DoctorChat.vue'], resolve)
+      },
+      beforeEnter: guardRoute
+    },
+    {
+      path: '/patientchat',
+      name: 'patientchat',
+      component: function (resolve) {
+        require(['@/components/chat/PatientChat.vue'], resolve)
+      },
+      beforeEnter: guardRoute
     },
   ]
 });
