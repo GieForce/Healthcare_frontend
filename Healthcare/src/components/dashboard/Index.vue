@@ -94,9 +94,9 @@ export default {
       return this.user;
     },
 
-    getActiveUser(){
+    getActiveUser() {
       return this.$store.getters.user
-
+    },
     getDate(){
       return this.day;
     }
@@ -147,7 +147,7 @@ export default {
   created() {
     if(this.$store.getters.user.type == 'doctor'){
       this.setupSockets();
-    }  
+    }
   }
 }
 </script>
