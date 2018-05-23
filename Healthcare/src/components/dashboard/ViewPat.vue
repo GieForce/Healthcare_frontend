@@ -4,7 +4,7 @@
              size="lg"
              title="Schrijf hier medicijnen voor"
              @ok="createPrescription"
-             ok-only=true
+             ok-only
              ok-title="OK">
       <form id="form-list-client">
         <b-row>
@@ -52,10 +52,10 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-md-4">
-                  <label>{{testnaam}}</label>
+                  <label>{{testSelected.name}}</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="number" placeholder="Hoeveelheid" v-model="testhoeveelheid" class="form-control">
+                  <input type="number" placeholder="Hoeveelheid" v-model="testhoeveelheid" class="form-control" @click.prevent="checkMedicineAmount">
                 </div>
               </div>
               <div class="row" style="margin-left: auto; margin-top: 10px;">
@@ -253,6 +253,15 @@
       },
       changeComponent(component, patient) {
         this.$parent.changeComponent(component, patient);
+      },
+      checkMedicineAmount(){
+       if(this.testhoeveelheid > this.testSelected.stock){
+        this.testhoeveelheid = this.testSelected.stock
+       }
+       if(this.testhoeveelheid < 0){
+         this.testhoeveelheid = 0
+       }
+       return true;
       },
       dateConverter(values) {
         var regex = /-?\d+/;

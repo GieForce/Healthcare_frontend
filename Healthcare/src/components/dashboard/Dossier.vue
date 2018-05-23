@@ -207,7 +207,7 @@
       },
       methods: {
         selectMedicine(object){
-          console.log(this.testSelected);
+          console.log("hoi");
           this.testnaam = object.name;
         },
         createPrescription(){
