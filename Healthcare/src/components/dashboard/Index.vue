@@ -18,14 +18,15 @@
       <artsswitch v-if="openComponent === 'artsswitch'"/>
 =======
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
-      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
       <createm v-if="openComponent === 'createWerknemer'"></createm>
       <createp v-if="openComponent === 'createPatients'"></createp>
       <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
-      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"></updatep>
+      <updatep :userId="userId" v-if="openComponent === 'updatePatient'"></updatep>
       <news v-if="openComponent === 'home'"></news>
       <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
+      <news v-if="openComponent === 'home'"></news>
       <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+<<<<<<< HEAD
       <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
       <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
 >>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
@@ -40,6 +41,9 @@
         </template>
       </planner>
       <checker v-if="openComponent === 'checker'"/>
+=======
+      <doctorchat v-if="openComponent === 'doctorChat'"></doctorchat>
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
     </div>
   </div>
 </template>
@@ -60,6 +64,7 @@ import ViewPat from './ViewPat.vue'
 import DoctorChat from '../chat/DoctorChat.vue'
 import PatientChat from '../chat/PatientChat.vue'
 import PatientChatWindow from '../chat/PatientChatWindow.vue'
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
 import Calendar2 from './Calendar2.vue'
@@ -72,6 +77,8 @@ import AppointmentList from "./AppointmentList.vue";
 import ArtsSwitch from "./ArtsSwitch.vue";
 
 
+=======
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
 
 export default {
 
@@ -80,14 +87,16 @@ export default {
   data() {
     return {
       openComponent: 'home',
+<<<<<<< HEAD
       userId: this.$store.getters.user.user_id,
+=======
+      openChat: false,
+      userId: this.$store.getters.user.userId,
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
       user: '',
-      fcEvents: Planner.events,
-      day: ''
     }
   },
   components: {
-    'calendar': Calendar2,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -98,27 +107,36 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
+<<<<<<< HEAD
     'planner' : Planner,
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
     'artsswitch' : ArtsSwitch,
 
+=======
+    'doctorchat' : DoctorChat,
+    'patientchat' : PatientChat,
+    'patientchatwindow' : PatientChatWindow,
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
   },
   computed: {
     getUser(){
       return this.user;
     },
+<<<<<<< HEAD
     getDate(){
       return this.day;
+=======
+    getActiveUser(){
+      return this.$store.getters.user
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
     }
-  },
-  created(){
-
   },
   methods: {
     changeComponent (component, user) {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
+<<<<<<< HEAD
       if(user === undefined)
       {
         this.user = this.$store.getters.user
@@ -145,6 +163,15 @@ export default {
     },
     moreClick(day, events, jsEvent) {
       console.log('moreCLick', day, events, jsEvent)
+=======
+      this.user = user;
+    },
+    toggleChat (){
+      this.openChat = !this.openChat
+    },
+    setupSockets(){
+      this.$store.dispatch('setupSockets', this.$store.getters.user)
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
     }
   }
 }

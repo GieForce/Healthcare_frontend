@@ -2,7 +2,7 @@
   <div  style="width: 100%;">
     <div class="loader" v-if="isBusy" ><loader></loader></div>
     <div v-if="!isBusy">
-      <b-modal id="addDiagnoseModal"
+      <b-modal id="addDiagnoseModal" 
                title="Voeg een diagnose toe"
                @ok="newDiagnose"
                ok-title="Toevoegen">
@@ -31,19 +31,18 @@
               <h4>Mail:</h4>
               <p>{{ patient.username }}</p>
               <hr>
-              <h4>Geboortedatum:</h4>
-              <p>{{ getAge(patient.age) }}</p>
+              <h4>Leeftijd:</h4>
+              <p>{{ patient.age }}</p>
               <hr>
-              <h4>Dokter:</h4>
-              <p v-if="patient.doctor !== null">{{patient.doctor.firstname + ' ' + patient.doctor.lastname}}</p>
-              <p v-else>~</p>
+              <h4>Arts:</h4>
+              <p>Bartje Jansen</p>
             </div>
           </div>
         </div>
       <div class="col-md-6">
       </div>
       </div>
-      <div class="row">
+      <div class="row">    
         <b-table :sort-by.sync="sortBy"
                  :sort-desc.sync="sortDesc"
                  :items="items"
@@ -65,8 +64,8 @@
             </b-card>
           </template>
         </b-table>
-        <div v-if="user.type === 'doctor'">
-          <b-button @click.stop="showModal($event.target)" class="btn btn-primary" variant="primary">
+        <div v:if="this.$store.getters.user.type === 'doctor'">
+          <b-button @click.stop="showModal($event.target)" class="btn btn-primary">
             Voeg diagnose toe
           </b-button>
         </div>
@@ -80,8 +79,10 @@
 </template>
 
 <script>
+
     import Loader from '../loader.vue'
     var jsonexport = require('jsonexport');
+
     export default {
       name: "dossier",
       props: ['patientid'],
@@ -105,16 +106,10 @@
             category: '',
             diagnose: ''
           },
-          isLoading: false,
-          user: this.$store.getters.user
+          isLoading: false
         }
       },
       methods: {
-        getAge(age){
-          var d = new Date(age); // The 0 there is the key, which sets the date to the epoch
-          console.log(d)
-          return d.toLocaleDateString()
-        },
         getItems () {
           return this.items;
         },
@@ -123,9 +118,8 @@
         },
         newDiagnose () {
           this.isBusy = true
-          console.log(this.patient.user_id)
           this.$store.dispatch('postRequest' ,{
-            url: 'patients/dossier/' + this.patient.user_id,
+            url: 'patients/dossier/2',
             body: {
               category: this.form.category,
               report: this.form.diagnose,
@@ -136,50 +130,43 @@
           })
         },
         loadDiagnosis() {
-          this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
+          this.$store.dispatch("getRequest", "patients/dossier/" + this.patientid).then(response => {
             this.isBusy = false;
             response.forEach(function(item) {
-              item.summary = item.report.substring(0, 150)
-              if(item.summary.length > 150){
-                item.summary = item.summary.concat('...')
-              }
+              item.summary = item.report.substring(0, 100).concat('...')
             });
             this.items = response
           });
         },
         downloadDiagnosis() {
           var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
-
-          var csvItems = this.items.slice();
-          csvItems.forEach(function(v){
-            delete v.id;
-            delete v._showDetails;
-          });
-
-
           jsonexport(this.items, function(err, csv){
-            if(err)
+            if(err) 
               return console.log(err);
             const url = window.URL.createObjectURL(new Blob([csv]));
             var link = document.createElement("a");
             link.setAttribute("href", url);
             link.setAttribute("download", fileName);
+<<<<<<< HEAD
             document.body.appendChild(link);
+=======
+            document.body.appendChild(link); 
+
+>>>>>>> parent of 5685637... Merge branch 'master' into Chat
             link.click();
           });
         }
       },
       created () {
         this.isBusy = true;
-        console.log("hoi");
         console.log(this.$store.getters.user)
         if(this.$store.getters.user.type == 'patient'){
           console.log('user is patient')
-          this.patientid = this.$store.getters.user.user_id
+          this.patientid = this.$store.getters.user.userId
         }
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
           console.log(response);
-          // this.user = response;
+          this.user = response;
           this.patient = response;
           this.isLoading = false;
         });
@@ -189,11 +176,10 @@
           this.isLoading = true
         });
         this.loadDiagnosis();
-        console.log("hai");
-        console.log(this.user);
       },
     }
 </script>
 
 <style scoped>
+
 </style>

@@ -14,9 +14,7 @@
       </b-col>
       <b-col md="6" class="my-1">
         <div class="pull-right" style="padding-top: 10px">
-          <b-button size="sm" v-on:click="changeComponent('createPatients')" variant="primary">
-            <i class="ion-ios-plus"></i> Patient Aanmaken
-          </b-button>
+          <a v-on:click="changeComponent('createPatients')" style="cursor:pointer"> <i class="ion-ios-plus"></i> Patient Aanmaken</a>
         </div>
       </b-col>
     </b-row>
@@ -31,10 +29,10 @@
     >
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="changeComponent('personalDossier', row.item.user_id)" variant="primary">
+        <b-button size="sm" v-on:click="changeComponent('personalDossier', row.item.user_id)" variant="primary">
           <i style="font-size:24px" class="fa">&#xf06e;</i>
         </b-button>
-        <b-button size="sm" v-on:click="changeComponent('updatePatient', row.item)" variant="primary">
+        <b-button size="sm" v-on:click="changeComponent('updateWerknemer', row.item)" variant="primary">
             <i style="font-size:24px" class="fa">&#xf044;</i>
         </b-button>
         <b-button size="sm" variant="primary">
@@ -59,7 +57,6 @@
           sex: {label: 'Geslacht', sortable: true},
           actions: {label: 'Acties'}
         },
-        user: this.$store.getters.user,
         isBusy: false,
         patients: [],
         totalRows: 0,
@@ -73,9 +70,9 @@
       this.isBusy = true;
       this.$store.dispatch("getRequest", 'patients').then((response) => {
         this.isBusy = false;
-        this.patients = this.dateConverter(response);
+        this.patients = response;
         console.log(this.patients);
-        this.totalRows = this.patients.length;
+        this.totalRows = this.patients.length
         this.patients = response
       });
     },
@@ -96,14 +93,6 @@
       },
       changeComponent (component, patient) {
         this.$parent.changeComponent(component, patient);
-      },
-      dateConverter(values){
-        var regex = /-?\d+/;
-        var entries = values;
-        for (var index = 0; index < entries.length; ++index) {
-          entries[index].age = new Date( parseFloat( entries[index].age)).toLocaleDateString();
-        }
-        return entries;
       }
     }
   }
