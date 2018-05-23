@@ -6,13 +6,13 @@ import store from './store'
  * @var{string} LOGIN_URL The endpoint for logging in. This endpoint should be proxied by Webpack dev server
  *    and maybe nginx in production (cleaner calls and avoids CORS issues).
  */
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/auth'
 
 /**
  * @var{string} REFRESH_TOKEN_URL The endpoint for refreshing an access_token. This endpoint should be proxied
  *    by Webpack dev server and maybe nginx in production (cleaner calls and avoids CORS issues).
  */
-const REFRESH_TOKEN_URL = '/auth';
+const REFRESH_TOKEN_URL = '/auth'
 
 /**
  * TODO: This is here to demonstrate what an OAuth server will want. Ultimately you don't want to
@@ -30,7 +30,7 @@ const AUTH_BASIC_HEADERS = {
     'Authorization': 'Basic ZGVtb2FwcDpkZW1vcGFzcw==' // Base64(client_id:client_secret) "demoapp:demopass"
   },
   emulateJSON: true
-};
+}
 
 /**
 * Auth Plugin
@@ -53,8 +53,8 @@ export default {
    */
   install (Vue, options) {
     Vue.http.interceptors.push((request, next) => {
-      const token = store.state.auth.accessToken;
-      const hasAuthHeader = request.headers.has('Authorization');
+      const token = store.state.auth.accessToken
+      const hasAuthHeader = request.headers.has('Authorization')
 
       if (token && !hasAuthHeader) {
         this.setAuthHeader(request)
@@ -65,7 +65,7 @@ export default {
           return this._refreshToken(request)
         }
       })
-    });
+    })
 
     Vue.prototype.$auth = Vue.auth = this
   },
@@ -78,11 +78,11 @@ export default {
    * @return {Promise}
    */
   login (creds, redirect) {
-    const params = { 'grant_type': 'password', 'username': creds.username, 'password': creds.password };
+    const params = { 'grant_type': 'password', 'username': creds.username, 'password': creds.password }
 
     return Vue.http.post(LOGIN_URL, params, AUTH_BASIC_HEADERS)
       .then((response) => {
-        this._storeToken(response);
+        this._storeToken(response)
 
         if (redirect) {
           router.push({ name: redirect })
@@ -104,7 +104,7 @@ export default {
    * @return {void}
    */
   logout () {
-    store.commit('CLEAR_ALL_DATA');
+    store.commit('CLEAR_ALL_DATA')
     router.push({ name: 'login' })
   },
 
@@ -115,7 +115,7 @@ export default {
    * @return {void}
    */
   setAuthHeader (request) {
-    request.headers.set('Authorization', 'Bearer ' + store.state.auth.accessToken);
+    request.headers.set('Authorization', 'Bearer ' + store.state.auth.accessToken)
     // The demo Oauth2 server we are using requires this param, but normally you only set the header.
     /* eslint-disable camelcase */
     request.params.access_token = store.state.auth.accessToken
@@ -131,7 +131,7 @@ export default {
    * @return {Promise}
    */
   _retry (request) {
-    this.setAuthHeader(request);
+    this.setAuthHeader(request)
 
     return Vue.http(request)
       .then((response) => {
@@ -152,11 +152,11 @@ export default {
    * @return {Promise}
    */
   _refreshToken (request) {
-    const params = { 'grant_type': 'refresh_token', 'refresh_token': store.state.auth.refreshToken };
+    const params = { 'grant_type': 'refresh_token', 'refresh_token': store.state.auth.refreshToken }
 
     return Vue.http.post(REFRESH_TOKEN_URL, params, AUTH_BASIC_HEADERS)
       .then((result) => {
-        this._storeToken(result);
+        this._storeToken(result)
         return this._retry(request)
       })
       .catch((errorResponse) => {
@@ -179,16 +179,16 @@ export default {
    * @return {void}
    */
   _storeToken (response) {
-    const auth = store.state.auth;
-    const user = store.state.user;
+    const auth = store.state.auth
+    const user = store.state.user
 
-    auth.isLoggedIn = true;
-    auth.accessToken = response.body.access_token;
-    auth.refreshToken = response.body.refresh_token;
+    auth.isLoggedIn = true
+    auth.accessToken = response.body.access_token
+    auth.refreshToken = response.body.refresh_token
     // TODO: get user's name from response from Oauth server.
-    user.name = 'John Smith';
+    user.name = 'John Smith'
 
-    store.commit('UPDATE_AUTH', auth);
+    store.commit('UPDATE_AUTH', auth)
     store.commit('UPDATE_USER', user)
   },
 
@@ -200,8 +200,8 @@ export default {
    * @return {boolean}
    */
   _isInvalidToken (response) {
-    const status = response.status;
-    const error = response.data.error;
+    const status = response.status
+    const error = response.data.error
 
     return (status === 401 && (error === 'invalid_token' || error === 'expired_token'))
   }

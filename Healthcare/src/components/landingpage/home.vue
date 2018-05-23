@@ -1,11 +1,11 @@
-<template>
+<template> 
 <div>
   <div>
       <b-carousel id="carousel1"
                   style="text-shadow: 1px 1px 2px #333;"
                   controls
                   indicators
-                  background="#"
+                  background="#ababab"
                   :interval="4000"
                   img-width="1024"
                   img-height="480"
@@ -67,8 +67,16 @@ export default {
       sliding: null,
     }
   },
+  methods: {
+    onSlideStart (slide) {
+      this.sliding = true
+    },
+    onSlideEnd (slide) {
+      this.sliding = false
+    }
+  },
   components: {
-
+    
   }
 }
 </script>

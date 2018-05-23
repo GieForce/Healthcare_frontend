@@ -1,16 +1,17 @@
 /* Vue */
 import Vue from 'vue'
+import Router from 'vue-router'
 import router from './router'
 import VueResource from 'vue-resource'
-Vue.use(VueResource);
+Vue.use(VueResource)
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 
 import Vuex from 'vuex'
-Vue.use(Vuex);
+Vue.use(Vuex)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 import store from './store'
 
@@ -22,7 +23,7 @@ import App from './components/App.vue'
 
 /* Auth plugin */
 import Auth from './auth'
-Vue.use(Auth);
+Vue.use(Auth)
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
@@ -33,7 +34,7 @@ Vue.use(VueGoogleMaps, {
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)
   }
-});
+})
 
 /* eslint-disable no-new */
 new Vue({
@@ -46,6 +47,6 @@ new Vue({
   router,
   store,
   render: h => h(App)
-});
-
+})
+    
 
