@@ -17,10 +17,10 @@
                     <br>
                     <div class="footerLinks">
                         <ul>
-                            <li><a  v-on:click="setHome" href="">Home</a></li>
-                            <li><a v-on:click="setMedewerkers" href="">Medewerkers</a></li>
-                            <li><a v-on:click="setContact" href="">Contact</a></li>
-                            <li><a v-on:click="setContact" href="">Contact</a></li>
+                            <li><a>Home</a></li>
+                            <li><a>Medewerkers</a></li>
+                            <li><a>Contact</a></li>
+                            <li><a>Contact</a></li>
                         </ul></div>
                 </div>
                 <div class="col-md-3">
