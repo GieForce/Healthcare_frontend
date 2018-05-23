@@ -12,7 +12,7 @@
       <h2 class="text-center lead">Stap 1: Kies een dokter</h2>
     </div>
       <div class="text-center row justify-content-md-center" v-for="doctor in doctors">
-          <div v-bind:class="{ 'doctor-slot': doctor !== selectedDoctor, 'doctor-slotselected': doctor === selectedDoctor}" style="width: 500px; cursor: pointer;" v-model="selectedDoctor" :value="doctor" v-bind:id="doctor.id" @click="takeDaysFromAppointments(doctor)" >
+          <div v-if="doctor.type === 'doctor'" v-bind:class="{ 'doctor-slot': doctor !== selectedDoctor, 'doctor-slotselected': doctor === selectedDoctor}" style="width: 500px; cursor: pointer;" v-model="selectedDoctor" :value="doctor" v-bind:id="doctor.id" @click="takeDaysFromAppointments(doctor)" >
             <img src="https://studiomango.nl/wp-content/uploads/2014/10/team-profile-picture_minko.jpg" class="rounded-circle img-responsive" alt="" style="height: 50px;">
             <label style="width: 250px; cursor: pointer;">
               {{doctor.firstname + " " + doctor.lastname}}
@@ -139,6 +139,7 @@
         return dateTime.getUTCHours() + ':' + dateTime.getUTCMinutes();
       },
       takeDaysFromAppointments(doctor) {
+        this.daysOfAppointments = null;
         this.selectedTime = "";
         this.selectedDay = "";
         this.selectedDoctor = doctor;
