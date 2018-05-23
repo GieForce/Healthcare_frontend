@@ -40,10 +40,14 @@
           <p>{{ p.event.title }}</p>
         </template>
       </planner>
+<<<<<<< HEAD
       <checker v-if="openComponent === 'checker'"/>
 =======
       <doctorchat v-if="openComponent === 'doctorChat'"></doctorchat>
 >>>>>>> parent of 5685637... Merge branch 'master' into Chat
+=======
+      <checker v-if="openComponent === 'checker'"></checker>
+>>>>>>> parent of 1a50850... Merge pull request #16 from JeroenAndCo/VoorraadBeheer
     </div>
   </div>
 </template>
@@ -113,11 +117,14 @@ export default {
     'appointmentlist' : AppointmentList,
     'artsswitch' : ArtsSwitch,
 
+<<<<<<< HEAD
 =======
     'doctorchat' : DoctorChat,
     'patientchat' : PatientChat,
     'patientchatwindow' : PatientChatWindow,
 >>>>>>> parent of 5685637... Merge branch 'master' into Chat
+=======
+>>>>>>> parent of 1a50850... Merge pull request #16 from JeroenAndCo/VoorraadBeheer
   },
   computed: {
     getUser(){

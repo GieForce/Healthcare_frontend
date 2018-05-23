@@ -26,9 +26,12 @@
 <<<<<<< HEAD
     "vue": "^2.5.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "vue-number-input-spinner": "^2.0.5",
 >>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
+=======
+>>>>>>> parent of 1a50850... Merge pull request #16 from JeroenAndCo/VoorraadBeheer
     "vue-resource": "^1.4.0",
 =======
     "utf-8-validate": "^4.0.0",
