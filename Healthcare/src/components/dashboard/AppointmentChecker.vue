@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
 <div class="dashboardContentForms">
   <div class="row">
@@ -62,7 +63,6 @@
         this.isBusy = true;
         this.$store.dispatch("getRequest", 'timeslots/available?availability=2').then((response) => {
           this.isBusy = false;
-          console.log(response);
           this.appointments = this.ConvertToDatetime(response);
         });
       },
@@ -77,8 +77,8 @@
             },
         disapprove(appointment){
             this.isBusy = true;
-            this.$store.dispatch('deleteRequest' , {
-              url: 'timeslots/' + appointment.id,
+            this.$store.dispatch('postRequest' , {
+              url: 'timeslots/reset/' + appointment.id,
             }).then(response => {
               this.loadAppointments();
             })
@@ -91,31 +91,25 @@
             });
           },
         ConvertToDatetime(dateValues) {
-          var regex = /-?\d+/;
-          var entryAppointments = dateValues;
-          for (var index = 0; index < entryAppointments.length; ++index) {
-            var startTimeNew = new Date( parseFloat( entryAppointments[index].startTime));
-            var endTimeNew = new Date( parseFloat( entryAppointments[index].endTime));
-            var timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
-            var timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
+          let entryAppointments = dateValues;
+          for (let index = 0; index < entryAppointments.length; ++index) {
+            let startTimeNew = new Date( parseFloat( entryAppointments[index].startTime));
+            let endTimeNew = new Date( parseFloat( entryAppointments[index].endTime));
+            let timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
+            let timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
             entryAppointments[index].startTime = new Date( parseFloat( entryAppointments[index].startTime)).toDateString();
             entryAppointments[index].endTime = timeSlotStart + ' - ' + timeSlotEnd;
           }
           entryAppointments.sort(function(a,b){
-            var dateA = new Date(a.startTime), dateB = new Date(b.startTime);
+            let dateA = new Date(a.startTime), dateB = new Date(b.startTime);
             return dateA - dateB;
           });
-          console.log(entryAppointments.length);
-          for (var i = 0; i < entryAppointments.length; ++i){
-            console.log(entryAppointments[i]);
-            console.log(entryAppointments[i].approval)
+          for (let i = 0; i < entryAppointments.length; ++i){
             if (entryAppointments[i].approval === true) {
-              console.log("hoi ik kom hier");
-              entryAppointments.splice(i,1)
+              entryAppointments.splice(i,1);
               i--;
             }
           }
-          console.log(entryAppointments);
           return entryAppointments;
         },
       }
