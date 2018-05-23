@@ -170,7 +170,7 @@
         <b-col md="6" class="my-1 pull-right">
           <b-form-group horizontal label="Filter" class="mb-0">
             <b-input-group>
-              <b-form-input v-model="filter" placeholder="Typ om te zoeken" ></b-form-input>
+              <b-form-input v-model="filter" placeholder="Typ om te zoeken" />
               <b-input-group-append>
                 <b-btn :disabled="!filter" @click="filter = ''" variant="primary">Clear</b-btn>
               </b-input-group-append>
@@ -293,7 +293,7 @@
               price: this.form.price,
             }
           }).then(() => {
-          this.$store.dispatch(("getRequest" , 'medicines').then((response) => {
+          this.$store.dispatch(("getRequest", 'medicines').then((response) => {
             this.isBusy = false;
                 this.medicine = response;
                 this.totalRows = this.medicine.length
