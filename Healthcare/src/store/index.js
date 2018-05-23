@@ -18,7 +18,7 @@ const CHATSESSION_CHANGED = 'CHATSESSION_CHANGED';
 const CHAT_UPDATE = 'CHAT_UPDATE';
 const NEW_MESSAGE = 'NEW_MESSAGE';
 
-const API_URL = 'http://130.211.53.35:8081/api/';
+const API_URL = 'http://35.205.25.53:8081/api/';
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -228,14 +228,14 @@ const Store = new Vuex.Store({
         console.log('user connected');
         chatSession.status = 'connected';
 
-        socket.on('disconnect', function() { 
+        socket.on('disconnect', function() {
           console.log('user disconnected');
           chatSession.status = 'disconnected';
         });
 
         socket.on('user_joined', (data) => {
           console.log(data);
-          console.log('user joined id ' + data.user.user_id + ' on room ' + data.room.id); 
+          console.log('user joined id ' + data.user.user_id + ' on room ' + data.room.id);
           data.room.messages.forEach((message) => {
             message.date = new Date(message.date);
           });
@@ -243,7 +243,7 @@ const Store = new Vuex.Store({
         });
 
         socket.on('user_left', (data) => {
-          console.log('user left id ' + data.user.user_id + ' from room ' + data.room.id); 
+          console.log('user left id ' + data.user.user_id + ' from room ' + data.room.id);
           console.log(data.room);
           commit(CHAT_UPDATE, data.room);
         });
