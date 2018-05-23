@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import io from 'socket.io-client';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const LOGIN = "LOGIN";
 const LOGIN_SUCCES = "LOGIN_SUCCES";
@@ -151,15 +151,15 @@ const Store = new Vuex.Store({
       commit(PENDING);
       return new Promise(resolve => {
         setTimeout(() => {
-          console.log(info.url)
-          console.log(info.body)
-         axios({
-          method: 'put',
-          url: API_URL + info.url,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          params: info.body,
+          console.log(info.url);
+          console.log(info.body);
+          axios({
+            method: 'put',
+            url: API_URL + info.url,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            params: info.body,
           }).then(function (response) {
            resolve(response.data);
           }).catch(function (error){
@@ -172,8 +172,8 @@ const Store = new Vuex.Store({
       commit(PENDING);
       return new Promise(resolve => {
         setTimeout(() => {
-          console.log(info.url)
-          console.log(info.body)
+          console.log(info.url);
+          console.log(info.body);
           axios({
             method: 'post',
             url: API_URL + info.url,
@@ -194,8 +194,8 @@ const Store = new Vuex.Store({
       commit(PENDING);
       return new Promise(resolve => {
         setTimeout(() => {
-          console.log(info.url)
-          console.log(info.body)
+          console.log(info.url);
+          console.log(info.body);
           axios({
             method: 'update',
             url: API_URL + info.url,

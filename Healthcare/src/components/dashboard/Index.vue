@@ -3,8 +3,8 @@
     <patientchat v-if="getActiveUser.type === 'patient'"></patientchat>
     <patientchatwindow v-if="openChat && getActiveUser.type === 'patient'" class="chatFloat"></patientchatwindow>
     <router-view/>
-    <navbar></navbar>
-    <sidebar></sidebar>
+    <navbar>NOTHING</navbar>
+    <sidebar>NOTHING</sidebar>
     <div class="dashboardContent">
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
       <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
@@ -45,10 +45,10 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+import Calendar from './Calendar.vue'
 import DoctorChat from '../chat/DoctorChat.vue'
 import PatientChat from '../chat/PatientChat.vue'
 import PatientChatWindow from '../chat/PatientChatWindow.vue'
-import Calendar2 from './Calendar2.vue'
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
@@ -69,7 +69,7 @@ export default {
     }
   },
   components: {
-    'calendar': Calendar2,
+    'calendar': Calendar,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     changeComponent (component, user) {
-      console.log('Changing component to: ' + component)
+      console.log('Changing component to: ' + component);
       this.openComponent = component;
       this.user = user;
     },
@@ -159,5 +159,4 @@ export default {
 <style>@import"../../assets/style/style.sea.css";</style>
 <style>@import"../../assets/icons-reference/ionicons.css";</style>
 <style>@import"../../assets/style/landing.css";</style>
-<style>@import"http://fontawesome.io/assets/font-awesome/css/font-awesome.css";</style>
-<style>@import"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";</style>
+

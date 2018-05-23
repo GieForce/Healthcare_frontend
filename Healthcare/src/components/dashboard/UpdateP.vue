@@ -1,6 +1,6 @@
 <template>
   <section class="forms">
-    <div class="loader" v-if="isBusy" ><loader></loader></div>
+    <div class="loader" v-if="isBusy" ></div>
     <div v-if="!isBusy">
     <div class="dashboardContentForms">
       <div class="container">
@@ -28,16 +28,18 @@
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geboortedatum</label>
-            <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:change="checkForm"></datepicker>
+            <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:change="checkForm">NOTHING</datepicker>
           </div>
           <div class="line"></div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geslacht</label>
-            <select v-model="geslacht">
-              <option v-for="option in options" v-bind:value="option.value">
-                {{ option.text }}
-              </option>
-            </select>
+            <label>
+              <select v-model="geslacht">
+                <option v-for="option in options" v-bind:value="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
+            </label>
           </div>
           <div class="line"></div>
           <div class="form-group row">
@@ -73,11 +75,10 @@
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
-    </p>
     <div class="form-group row">
       <button class="btn btn-secondary" v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
       <div v-if="!errors.length">
-        <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update()"><span>Create</span></button>
+        <button class="btn btn-primary" style="vertical-align:middle" v-on:click="update()"><span>Edit</span></button>
       </div>
     </div>
     </div>
@@ -151,21 +152,13 @@
             gender: this.geslacht
           }
         }).then(() => {
-          this.changeComponent("viewpat")
+          this.changeComponent("viewPatients")
         });
       },
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },
       checkForm:function(e) {
-        console.log(this.name);
-        console.log(this.lname);
-        console.log(this.birthdate);
-        console.log(this.street);
-        console.log(this.housenumber);
-        console.log(this.geslacht);
-        console.log(this.zipcode);
-        console.log(this.city);
         this.errors = [];
         if(!this.email || !this.name || !this.lname || !this.birthdate || !this.street || !this.housenumber || !this.geslacht || !this.zipcode || !this.city) {
           this.errors.push("Alle velden moeten ingevoerd worden");
@@ -177,7 +170,7 @@
 
       },
       validEmail:function(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       }
     },

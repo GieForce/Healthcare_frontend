@@ -16,8 +16,5 @@ let dateFunc = {
 
     return start;
   },
-  getMonthViewEndDate (date) {
-    return this.getMonthViewStartDate().add(6, 'weeks');
-  }
 };
 module.exports = dateFunc;
