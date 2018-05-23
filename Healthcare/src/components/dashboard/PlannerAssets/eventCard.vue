@@ -38,7 +38,7 @@
             return cssClasses.join(' ');
           },
           showTitle() {
-            return (this.date.day() === this.firstDay || this.start.isSame(this.date, 'day'));
+            return (this.date.day() == this.firstDay || this.start.isSame(this.date, 'day'));
           },
           start() {
             return moment(this.event.start);
@@ -64,6 +64,8 @@
 
             return start;
             },
+            getMonthViewEndDate(date) {return this.getMonthViewStartDate().add(6, 'weeks');
+            }
           },
     }
 </script>

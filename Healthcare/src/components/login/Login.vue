@@ -18,7 +18,7 @@
                   <div class="col-md-1" align="center"><i class="ion-android-mail" style="font-size:22px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type3">
-                      <input class="field__input" id="email" v-on:keyup.enter="login()" v-on:keyup="checkForm" v-model="email" placeholder="mail@provider.nl">
+                      <input class="field__input" id="email" v-on:keyup.enter="login({ email, password })" v-on:keyup="checkForm" v-model="email" placeholder="mail@provider.nl">
                         <span class="field__label-wrap">
                           <span class="field__label">Email</span>
                         </span>
@@ -29,7 +29,7 @@
                   <div class="col-md-1" align="center" style="text-align:center;"><i class="ion-android-lock" style="font-size:22px; color:#B5B5B5; text-align:center"></i></div>
                   <div class="col">
                     <label class="field field_type2">
-                      <input type="password" class="field__input" id="password" v-on:keyup.enter="login()" v-on:keyup="checkForm" v-model="password" placeholder="****************">
+                      <input type="password" class="field__input" id="password" v-on:keyup.enter="login({ email, password })" v-on:keyup="checkForm" v-model="password" placeholder="****************">
                       <span class="field__label-wrap">
                         <span class="field__label">Wachtwoord</span>
                       </span>
@@ -41,10 +41,11 @@
                   <ul>
                     <li v-for="error in errors">{{ error }}</li>
                   </ul>
+                  </p>
               <div class="row" style="padding-top: 1rem">
                 <div class="col">
                   <div style="text-align:center">
-                    <button class="button" style="vertical-align:middle" v-on:click="login()"><span>Inloggen</span></button>
+                    <button class="button" style="vertical-align:middle" v-on:click="login({ email, password })"><span>Inloggen</span></button>
                   </div>
                 </div>
               </div>
@@ -61,7 +62,7 @@
 <script>
 
   import Loader from '../loader.vue'
-
+  import axios from 'axios'
 
   export default{
     name: 'login',
@@ -91,14 +92,16 @@
             email: this.email,
             password: this.password,
           }).then(response => {
-            this.$router.push('dashboard');
+            this.$router.push('dashboard')
             this.errors.push("Incorrect wachtwoord of E-mail adres")
           }).catch(error => {
             this.errors.push("Incorrect wachtwoord of E-mail adres");
+            console.log(this.errors)
           });
       },
       checkForm:function(e) {
         this.errors = [];
+        console.log(this.errors);
         if(!this.password) this.errors.push("Voer een wachtwoord in");
         if(!this.email) {
           this.errors.push("Voer een E-mail adres in");
@@ -110,7 +113,7 @@
 
       },
       validEmail:function(email) {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       }
     },

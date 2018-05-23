@@ -10,4 +10,4 @@ module.exports = {
       ? response.body.error_description
       : response.statusText
   }
-};
+}

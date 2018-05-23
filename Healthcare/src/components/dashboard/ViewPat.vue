@@ -5,7 +5,7 @@
       <b-col md="6" class="my-1">
         <b-form-group horizontal label="Filter" class="mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Typ om te zoeken" ></b-form-input>
+            <b-form-input v-model="filter" placeholder="Typ om te zoeken" />
             <b-input-group-append>
               <b-btn :disabled="!filter" @click="filter = ''" variant="primary">Clear</b-btn>
             </b-input-group-append>
@@ -31,10 +31,10 @@
     >
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="changeComponentUpdate('personalDossier', row.item.user_id)" variant="primary">
+        <b-button size="sm" v-if="user.type === 'doctor'" v-on:click="changeComponent('personalDossier', row.item.user_id)" variant="primary">
           <i style="font-size:24px" class="fa">&#xf06e;</i>
         </b-button>
-        <b-button size="sm" v-on:click="changeComponentUpdate('updatePatient', row.item)" variant="primary">
+        <b-button size="sm" v-on:click="changeComponent('updatePatient', row.item)" variant="primary">
             <i style="font-size:24px" class="fa">&#xf044;</i>
         </b-button>
         <b-button size="sm" variant="primary">
@@ -56,7 +56,7 @@
           firstname: {label: 'Voornaam', sortable: true},
           lastname: {label: 'Achternaam', sortable: true},
           age: {label: 'Geboortedatum', sortable: true},
-          gender: {label: 'Geslacht', sortable: true},
+          sex: {label: 'Geslacht', sortable: true},
           actions: {label: 'Acties'}
         },
         user: this.$store.getters.user,
@@ -69,10 +69,12 @@
       }
     },
     created () {
+      console.log(this.userId);
       this.isBusy = true;
       this.$store.dispatch("getRequest", 'patients').then((response) => {
         this.isBusy = false;
         this.patients = this.dateConverter(response);
+        console.log(this.patients);
         this.totalRows = this.patients.length;
         this.patients = response
       });
@@ -92,12 +94,13 @@
       onFiltered (filteredItems) {
         this.totalRows = filteredItems.length
       },
-      changeComponentUpdate(component, patient) {
+      changeComponent (component, patient) {
         this.$parent.changeComponent(component, patient);
       },
       dateConverter(values){
-        let entries = values;
-        for (let index = 0; index < entries.length; ++index) {
+        var regex = /-?\d+/;
+        var entries = values;
+        for (var index = 0; index < entries.length; ++index) {
           entries[index].age = new Date( parseFloat( entries[index].age)).toLocaleDateString();
         }
         return entries;
