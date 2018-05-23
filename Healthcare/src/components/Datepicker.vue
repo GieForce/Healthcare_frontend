@@ -9,20 +9,22 @@
         </i>
       </span>
       <!-- Input -->
-      <input
-        :type="inline ? 'hidden' : 'text'"
-        :class="[ inputClass, { 'form-control' : bootstrapStyling } ]"
-        :name="name"
-        :ref="refName"
-        :id="id"
-        @click="showCalendar"
-        :value="formattedValue"
-        :open-date="openDate"
-        :placeholder="placeholder"
-        :clear-button="clearButton"
-        :disabled="disabledPicker"
-        :required="required"
-        readonly>
+      <label>
+        <input
+          :type="inline ? 'hidden' : 'text'"
+          :class="[ inputClass, { 'form-control' : bootstrapStyling } ]"
+          :name="name"
+          :ref="refName"
+          :id="id"
+          @click="showCalendar"
+          :value="formattedValue"
+          :open-date="openDate"
+          :placeholder="placeholder"
+          :clear-button="clearButton"
+          :disabled="disabledPicker"
+          :required="required"
+          readonly>
+      </label>
       <!-- Clear Button -->
       <span v-if="clearButton && selectedDate" class="vdp-datepicker__clear-button" :class="{'input-group-addon' : bootstrapStyling}" @click="clearDate()">
         <i :class="clearButtonIcon">
@@ -38,12 +40,12 @@
               <span
                   @click="isRtl ? nextMonth() : previousMonth()"
                   class="prev"
-                  v-bind:class="{ 'disabled' : isRtl ? nextMonthDisabled(pageTimestamp) : previousMonthDisabled(pageTimestamp) }">&lt;</span>
+                  v-bind:class="{ 'disabled' : isRtl ? nextMonthDisabled() : previousMonthDisabled() }">&lt;</span>
               <span @click="showMonthCalendar" :class="allowedToShowView('month') ? 'up' : ''">{{ isYmd ? currYear : currMonthName }} {{ isYmd ? currMonthName : currYear }}</span>
               <span
                   @click="isRtl ? previousMonth() : nextMonth()"
                   class="next"
-                  v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
+                  v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled() : nextMonthDisabled() }">&gt;</span>
           </header>
           <div :class="isRtl ? 'flex-rtl' : ''">
             <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
@@ -67,12 +69,12 @@
               <span
                   @click="previousYear"
                   class="prev"
-                  v-bind:class="{ 'disabled' : previousYearDisabled(pageTimestamp) }">&lt;</span>
+                  v-bind:class="{ 'disabled' : previousYearDisabled() }">&lt;</span>
               <span @click="showYearCalendar" :class="allowedToShowView('year') ? 'up' : ''">{{ getPageYear() }}</span>
               <span
                   @click="nextYear"
                   class="next"
-                  v-bind:class="{ 'disabled' : nextYearDisabled(pageTimestamp) }">&gt;</span>
+                  v-bind:class="{ 'disabled' : nextYearDisabled() }">&gt;</span>
           </header>
           <span class="cell month"
               v-for="month in months"
@@ -88,10 +90,10 @@
       <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
           <header>
               <span @click="previousDecade" class="prev"
-                  v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
+                  v-bind:class="{ 'disabled' : previousDecadeDisabled() }">&lt;</span>
               <span>{{ getPageDecade() }}</span>
               <span @click="nextDecade" class="next"
-                  v-bind:class="{ 'disabled' : nextMonthDisabled(pageTimestamp) }">&gt;</span>
+                  v-bind:class="{ 'disabled' : nextMonthDisabled() }">&gt;</span>
           </header>
           <span
               class="cell year"
