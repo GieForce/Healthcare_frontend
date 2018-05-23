@@ -1,23 +1,20 @@
 <template>
   <div id="parent">
-    <patientchat v-if="getActiveUser.type === 'patient'"></patientchat>
-    <patientchatwindow v-if="openChat && getActiveUser.type === 'patient'" class="chatFloat"></patientchatwindow>
     <router-view/>
     <navbar></navbar>
     <sidebar></sidebar>
     <div class="dashboardContent">
-      <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
-      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
-      <createm v-if="openComponent === 'createWerknemer'"></createm>
-      <createp v-if="openComponent === 'createPatients'"></createp>
-      <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
-      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"></updatep>
-      <news v-if="openComponent === 'home'"></news>
-      <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
-      <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
-      <doctorchat v-if="openComponent === 'doctorChat'"></doctorchat>
-      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
-      <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
+      <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"/>
+      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"/>
+      <createm v-if="openComponent === 'createWerknemer'"/>
+      <createp v-if="openComponent === 'createPatients'"/>
+      <updatem :employeeId="getUser"  v-if="openComponent === 'updateWerknemer'"/>
+      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"/>
+      <news v-if="openComponent === 'home'"/>
+      <viewemp v-if="openComponent === 'viewWerknemers'"/>
+      <viewpat v-if="openComponent === 'viewPatients'"/>
+      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"/>.
+      <artsswitch v-if="openComponent === 'artsswitch'"/>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -28,8 +25,7 @@
           <p>{{ p.event.title }}</p>
         </template>
       </planner>
-      <checker v-if="openComponent === 'checker'"></checker>
-      <storage v-if="openComponent === 'storage'"></storage>
+      <checker v-if="openComponent === 'checker'"/>
     </div>
   </div>
 </template>
@@ -45,23 +41,27 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
+<<<<<<< HEAD
 import DoctorChat from '../chat/DoctorChat.vue'
 import PatientChat from '../chat/PatientChat.vue'
 import PatientChatWindow from '../chat/PatientChatWindow.vue'
 import Calendar2 from './Calendar2.vue'
+=======
+import Calendar from './Calendar.vue'
+>>>>>>> parent of bdb07fb... Merge branch 'master' into ESLINT
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
 import ArtsSwitch from "./ArtsSwitch.vue";
-import Storage from "./MedicineStorage.vue";
+
 
 export default {
+
 
   name: 'app',
   data() {
     return {
       openComponent: 'home',
-      openChat: false,
       userId: this.$store.getters.user.user_id,
       user: '',
       fcEvents: Planner.events,
@@ -80,23 +80,16 @@ export default {
     'news' : News,
     'viewemp' : ViewEmp,
     'viewpat' : ViewPat,
-    'doctorchat' : DoctorChat,
-    'patientchat' : PatientChat,
-    'patientchatwindow' : PatientChatWindow,
     'planner' : Planner,
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
     'artsswitch' : ArtsSwitch,
-    'storage' : Storage,
+
   },
   computed: {
     getUser(){
       return this.user;
     },
-
-    getActiveUser(){
-      return this.$store.getters.user
-
     getDate(){
       return this.day;
     }
@@ -108,13 +101,6 @@ export default {
     changeComponent (component, user) {
       console.log('Changing component to: ' + component)
       this.openComponent = component;
-      this.user = user;
-    },
-    toggleChat (){
-      this.openChat = !this.openChat
-    },
-    setupSockets(){
-      this.$store.dispatch('setupSockets', this.$store.getters.user)
       if(user === undefined)
       {
         this.user = this.$store.getters.user
@@ -142,12 +128,6 @@ export default {
     moreClick(day, events, jsEvent) {
       console.log('moreCLick', day, events, jsEvent)
     }
-
-  },
-  created() {
-    if(this.$store.getters.user.type == 'doctor'){
-      this.setupSockets();
-    }  
   }
 }
 </script>

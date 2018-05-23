@@ -47,6 +47,10 @@ new Vue({
   router,
   store,
   render: h => h(App)
+<<<<<<< HEAD
 })
     
+=======
+});
+>>>>>>> parent of bdb07fb... Merge branch 'master' into ESLINT
 
