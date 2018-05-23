@@ -1,6 +1,7 @@
+<!--suppress ALL -->
 <template>
   <div  style="width: 100%;">
-    <div class="loader" v-if="isBusy" ><loader></loader></div>
+    <div class="loader" v-if="isBusy" ></div>
     <div v-if="!isBusy">
       <b-modal id="addDiagnoseModal"
                title="Voeg een diagnose toe"
@@ -81,7 +82,7 @@
 
 <script>
     import Loader from '../loader.vue'
-    var jsonexport = require('jsonexport');
+    let jsonexport = require('jsonexport');
     export default {
       name: "dossier",
       props: ['patientid'],
@@ -95,8 +96,10 @@
           fields: {
             category: {label: 'Categorie', sortable: true},
             summary: {label: 'Diagnose', sortable: true},
-            date: {label: 'Datum', sortable: true},
-            show_details: {label: ''},
+          date:() => {
+          return (new Date()).toLocaleDateString();
+            },
+            show_details: {label: 'Details'},
           },
           isBusy: false,
           items: [],
@@ -110,10 +113,13 @@
         }
       },
       methods: {
+        getDate(date){
+          let d = new Date(date);
+          return d.toLocaleDateString();
+        },
         getAge(age){
-          var d = new Date(age); // The 0 there is the key, which sets the date to the epoch
-          console.log(d)
-          return d.toLocaleDateString()
+          let d = new Date(age); // The 0 there is the key, which sets the date to the epoch
+          return d.toLocaleDateString();
         },
         getItems () {
           return this.items;
@@ -122,8 +128,7 @@
           this.$root.$emit('bv::show::modal', 'addDiagnoseModal', button)
         },
         newDiagnose () {
-          this.isBusy = true
-          console.log(this.patient.user_id)
+          this.isBusy = true;
           this.$store.dispatch('postRequest' ,{
             url: 'patients/dossier/' + this.patient.user_id,
             body: {
@@ -139,7 +144,7 @@
           this.$store.dispatch("getRequest", "patients/dossier/" + this.patient.user_id).then(response => {
             this.isBusy = false;
             response.forEach(function(item) {
-              item.summary = item.report.substring(0, 150)
+              item.summary = item.report.substring(0, 150);
               if(item.summary.length > 150){
                 item.summary = item.summary.concat('...')
               }
@@ -148,9 +153,9 @@
           });
         },
         downloadDiagnosis() {
-          var fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
+          let fileName = 'dossier_' + this.patient.firstname + '_' + this.patient.lastname + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'-') + '.csv';
 
-          var csvItems = this.items.slice();
+          let csvItems = this.items.slice();
           csvItems.forEach(function(v){
             delete v.id;
             delete v._showDetails;
@@ -161,7 +166,7 @@
             if(err)
               return console.log(err);
             const url = window.URL.createObjectURL(new Blob([csv]));
-            var link = document.createElement("a");
+            let link = document.createElement("a");
             link.setAttribute("href", url);
             link.setAttribute("download", fileName);
             document.body.appendChild(link);
@@ -171,15 +176,10 @@
       },
       created () {
         this.isBusy = true;
-        console.log("hoi");
-        console.log(this.$store.getters.user)
-        if(this.$store.getters.user.type == 'patient'){
-          console.log('user is patient')
+        if(this.$store.getters.user.type === 'patient'){
           this.patientid = this.$store.getters.user.user_id
         }
         this.$store.dispatch("getRequest", "patients/" + this.patientid).then(response => {
-          console.log(response);
-          // this.user = response;
           this.patient = response;
           this.isLoading = false;
         });
@@ -189,8 +189,6 @@
           this.isLoading = true
         });
         this.loadDiagnosis();
-        console.log("hai");
-        console.log(this.user);
       },
     }
 </script>

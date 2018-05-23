@@ -32,10 +32,10 @@ const router = new Router({
       beforeEnter: guardRoute
     },
     {
-      path: '/voorraad',
-      name: 'voorraad',
+      path: '/dossier',
+      name: 'dossier',
       component: function (resolve) {
-        require(['@/components/dashboard/MedicineStorage.vue'], resolve)
+        require(['@/components/dashboard/Dossier.vue'], resolve)
       }
     },
     {
@@ -46,7 +46,7 @@ const router = new Router({
       }
     },
   ]
-})
+});
 
 function guardRoute (to, from, next) {
 
