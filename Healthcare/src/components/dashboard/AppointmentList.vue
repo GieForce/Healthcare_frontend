@@ -1,4 +1,3 @@
-<!--suppress ALL -->
 <template>
   <div class="dashboardContentForms">
     <b-button size="sm" v-on:click="changeComponent('planner')" variant="primary">
@@ -89,66 +88,62 @@
         this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
           this.isBusy = false;
           this.appointments = response;
-          let result = [];
+          var result = [];
           this.appointments.forEach((x) => {
-            let appointmentDate = new Date(x.startTime);
-            if (this.day.toDateString() === appointmentDate.toDateString()) {
+            var appointmentDate = new Date(x.startTime);
+            if (this.day.toDateString() == appointmentDate.toDateString()) {
+              console.log(this.appointments.length)
               result.push(x);
             }
           });
+          console.log(result)
           this.items = this.ConvertToDatetime(result)
         });
       }else if(this.$store.getters.user.type === 'doctorEmployee'){
         this.$store.dispatch("getRequest", 'timeslots/approved?approval=2&doctor_id0').then((response) => {
           this.isBusy = false;
           this.appointments = response;
-          let result = [];
+          var result = [];
           this.appointments.forEach((x) => {
-            let appointmentDate = new Date(x.startTime);
-            if (this.day.toDateString() === appointmentDate.toDateString()) {
+            var appointmentDate = new Date(x.startTime);
+            if (this.day.toDateString() == appointmentDate.toDateString()) {
               result.push(x);
             }
           });
+          console.log(result)
           this.items = this.ConvertToDatetime(result)
         });
       }
     },
     methods: {
-      disapprove(appointment){
+      delete(appointment){
         this.isBusy = true;
-        this.$store.dispatch('postRequest' , {
-          url: 'timeslots/reset/' + appointment.id,
+        this.$store.dispatch('deleteRequest' , {
+          url: 'timeslots/' + appointment.id,
         }).then(response => {
           this.loadAppointments();
         })
-      },
-      loadAppointments() {
-        this.isBusy = true;
-        this.$store.dispatch("getRequest", 'timeslots/approved?approval=1&doctor_id=' + this.user_id).then((response) => {
-          this.isBusy = false;
-          this.appointments = this.ConvertToDatetime(response);
-        });
       },
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },
       CompareDates(day,calendarDay){
-        let comparer = day.dayClick();
-        let comparerm = day.startTime.toString().substring(8,11);
-        let calenderm = calendarDay.date.toString().substring(4,7);
-        if(calendarDay.monthDay.toString() === comparer && comparerm === calenderm){
+        var comparer = day.dayClick();
+        var comparerm = day.startTime.toString().substring(8,11);
+        var calenderm = calendarDay.date.toString().substring(4,7);
+        if(calendarDay.monthDay.toString() === comparer && comparerm == calenderm){
           return true;
         }else {
           return false;
         }
       },
       ConvertToDatetime(dateValues) {
-        let entryAppointments = dateValues;
+        var entryAppointments = dateValues;
         dateValues.forEach(x => {
-          let startTimeNew = new Date(x.startTime);
-          let endTimeNew = new Date(x.endTime);
-          let timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
-          let timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
+          var startTimeNew = new Date(x.startTime);
+          var endTimeNew = new Date(x.endTime);
+          var timeSlotStart = startTimeNew.getUTCHours() + ':' + startTimeNew.getUTCMinutes();
+          var timeSlotEnd = endTimeNew.getUTCHours() + ':' + endTimeNew.getUTCMinutes();
           entryAppointments.endTime = timeSlotStart + ' - ' + timeSlotEnd;
           x.endTime = entryAppointments.endTime
         });

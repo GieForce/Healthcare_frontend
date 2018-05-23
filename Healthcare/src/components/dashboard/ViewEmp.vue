@@ -5,7 +5,7 @@
         <b-col md="6" class="my-1">
           <b-form-group horizontal label="Filter" class="mb-0">
             <b-input-group>
-              <b-form-input v-model="filter" placeholder="Typ om te zoeken" ></b-form-input>
+              <b-form-input v-model="filter" placeholder="Typ om te zoeken" />
               <b-input-group-append>
                 <b-btn :disabled="!filter" @click="filter = ''" variant="primary">Clear</b-btn>
               </b-input-group-append>
@@ -29,7 +29,7 @@
       >
         <template slot="actions" slot-scope="row">
           <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-          <b-button size="sm" v-on:click="changeComponentUpdate('updateWerknemer', row.item)" variant="primary">
+          <b-button size="sm" v-on:click="changeComponent('updateWerknemer', row.item)" variant="primary">
             <i style="font-size:24px" class="fa">&#xf044;</i>
           </b-button>
         </template>
@@ -44,6 +44,7 @@
     name: 'employeeOverview',
     data() {
       return {
+        employees: [],
         fields: {
           firstname: {label: 'Voornaam', sortable: true},
           lastname: {label: 'Achternaam', sortable: true},
@@ -51,9 +52,7 @@
           username: {label: 'Email', sortable: true},
           actions: {label: 'Acties'}
         },
-        user: this.$store.getters.user,
         isBusy: false,
-        employees:[],
         totalRows: 0,
         sortBy: null,
         sortDesc: false,
@@ -64,8 +63,9 @@
       this.isBusy = true;
       this.$store.dispatch("getRequest", 'employees').then((response) => {
         this.isBusy = false;
-        this.totalRows = this.employees.length;
-        this.employees = response;
+        this.employees = response
+        console.log(this.employees)
+        this.totalRows = this.patients.length
       });
     },
     computed: {
@@ -80,7 +80,7 @@
       changeComponent (component) {
         this.$parent.changeComponent(component);
       },
-      changeComponentUpdate (component, employee) {
+      changeComponent (component, employee) {
         this.$parent.changeComponent(component, employee);
       },
       onFiltered (filteredItems) {

@@ -63,9 +63,9 @@
     border-image: linear-gradient(to right, #56CCF2 , #11998E) 3;
     margin-top: 20px;
     background: white ;
-    -webkit-border-radius: 15px 15px;
-    -moz-border-radius: 15px 15px ;
-    border-radius: 15px 15px;
+    -webkit-border-radius: 15px 15px 0px 0px;
+    -moz-border-radius: 15px 15px 0px 0px;
+    border-radius: 15px 15px 0px 0px;
   }
 
   article h2{color:#333333;}
