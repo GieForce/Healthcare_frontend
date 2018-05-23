@@ -4,6 +4,7 @@
     <navbar></navbar>
     <sidebar></sidebar>
     <div class="dashboardContent">
+<<<<<<< HEAD
       <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"/>
       <calendar :patientid="getUser" v-if="openComponent === 'calendar'"/>
       <createm v-if="openComponent === 'createWerknemer'"/>
@@ -15,6 +16,19 @@
       <viewpat v-if="openComponent === 'viewPatients'"/>
       <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"/>.
       <artsswitch v-if="openComponent === 'artsswitch'"/>
+=======
+      <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
+      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
+      <createm v-if="openComponent === 'createWerknemer'"></createm>
+      <createp v-if="openComponent === 'createPatients'"></createp>
+      <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
+      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"></updatep>
+      <news v-if="openComponent === 'home'"></news>
+      <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
+      <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
+      <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
+>>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -42,9 +56,12 @@ import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import DoctorChat from '../chat/DoctorChat.vue'
 import PatientChat from '../chat/PatientChat.vue'
 import PatientChatWindow from '../chat/PatientChatWindow.vue'
+=======
+>>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
 import Calendar2 from './Calendar2.vue'
 =======
 import Calendar from './Calendar.vue'
@@ -53,6 +70,7 @@ import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
 import ArtsSwitch from "./ArtsSwitch.vue";
+
 
 
 export default {

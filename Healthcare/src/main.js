@@ -49,8 +49,11 @@ new Vue({
   render: h => h(App)
 <<<<<<< HEAD
 })
+<<<<<<< HEAD
     
 =======
 });
 >>>>>>> parent of bdb07fb... Merge branch 'master' into ESLINT
+=======
+>>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
 

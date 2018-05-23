@@ -54,7 +54,11 @@ const Store = new Vuex.Store({
   actions: {
     login({commit}, creds) {
       commit(PENDING);
+<<<<<<< HEAD
 
+=======
+      console.log("asdf");
+>>>>>>> parent of 7958d85... Merge pull request #17 from JeroenAndCo/Chat
       return new Promise(resolve => {
         setTimeout(() => {
           axios({
@@ -92,13 +96,13 @@ const Store = new Vuex.Store({
         setTimeout(() => {
           console.log(info.url)
           console.log(info.body)
-         axios({
-          method: 'put',
-          url: API_URL + info.url,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          params: info.body,
+          axios({
+            method: 'put',
+            url: API_URL + info.url,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            params: info.body,
           }).then(function (response) {
             resolve(response.data);
           }).catch(function (error) {
