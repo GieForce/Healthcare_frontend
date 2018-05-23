@@ -1,20 +1,20 @@
 <template>
   <div id="parent">
     <router-view/>
-    <navbar>NOTHING</navbar>
-    <sidebar>NOTHING</sidebar>
+    <navbar></navbar>
+    <sidebar></sidebar>
     <div class="dashboardContent">
-      <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"/>
-      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"/>
-      <createm v-if="openComponent === 'createWerknemer'"/>
-      <createp v-if="openComponent === 'createPatients'"/>
-      <updatem :employeeId="getUser"  v-if="openComponent === 'updateWerknemer'"/>
-      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"/>
-      <news v-if="openComponent === 'home'"/>
-      <viewemp v-if="openComponent === 'viewWerknemers'"/>
-      <viewpat v-if="openComponent === 'viewPatients'"/>
-      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"/>.
-      <artsswitch v-if="openComponent === 'artsswitch'"/>
+      <dossier :patientid="getUser" v-if="openComponent === 'personalDossier'"></dossier>
+      <calendar :patientid="getUser" v-if="openComponent === 'calendar'"></calendar>
+      <createm v-if="openComponent === 'createWerknemer'"></createm>
+      <createp v-if="openComponent === 'createPatients'"></createp>
+      <updatem :userId="userId" :user="getUser" v-if="openComponent === 'updateWerknemer'"></updatem>
+      <updatep :patientId="getUser" v-if="openComponent === 'updatePatient'"></updatep>
+      <news v-if="openComponent === 'home'"></news>
+      <viewemp v-if="openComponent === 'viewWerknemers'"></viewemp>
+      <viewpat v-if="openComponent === 'viewPatients'"></viewpat>
+      <appointmentlist :day="getDate" v-if="openComponent === 'appointmentlist'"></appointmentlist>
+      <artsswitch v-if="openComponent === 'artsswitch'"></artsswitch>
       <planner v-if="openComponent === 'planner'" class="test-fc" :events="fcEvents"
                first-day='1' locale="nl"
                @changeMonth="changeMonth"
@@ -25,7 +25,8 @@
           <p>{{ p.event.title }}</p>
         </template>
       </planner>
-      <checker v-if="openComponent === 'checker'"/>
+      <checker v-if="openComponent === 'checker'"></checker>
+      <storage v-if="openComponent === 'storage'"></storage>
     </div>
   </div>
 </template>
@@ -41,11 +42,12 @@ import CreateP from "./CreateP";
 import News from './News.vue'
 import ViewEmp from './ViewEmp.vue'
 import ViewPat from './ViewPat.vue'
-import Calendar from './Calendar.vue'
+import Calendar2 from './Calendar2.vue'
 import Planner from './Planner.vue';
 import AppointmentChecker from "./AppointmentChecker";
 import AppointmentList from "./AppointmentList.vue";
 import ArtsSwitch from "./ArtsSwitch.vue";
+import Storage from "./MedicineStorage.vue";
 
 
 export default {
@@ -62,7 +64,7 @@ export default {
     }
   },
   components: {
-    'calendar': Calendar,
+    'calendar': Calendar2,
     'navbar' : Navbar,
     'sidebar' : Sidebar,
     'dossier' : Dossier,
@@ -77,7 +79,7 @@ export default {
     'checker' : AppointmentChecker,
     'appointmentlist' : AppointmentList,
     'artsswitch' : ArtsSwitch,
-
+    'storage' : Storage,
   },
   computed: {
     getUser(){
@@ -92,7 +94,7 @@ export default {
   },
   methods: {
     changeComponent (component, user) {
-      console.log('Changing component to: ' + component);
+      console.log('Changing component to: ' + component)
       this.openComponent = component;
       if(user === undefined)
       {
@@ -132,4 +134,5 @@ export default {
 <style>@import"../../assets/style/style.sea.css";</style>
 <style>@import"../../assets/icons-reference/ionicons.css";</style>
 <style>@import"../../assets/style/landing.css";</style>
-
+<style>@import"http://fontawesome.io/assets/font-awesome/css/font-awesome.css";</style>
+<style>@import"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";</style>

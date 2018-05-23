@@ -29,17 +29,15 @@
           </div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geboortedatum</label>
-            <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm">NOTHING</datepicker>
+            <datepicker placeholder="Selecteer een Datum"  v-model="birthdate" v-on:click.capture="checkForm"></datepicker>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 form-control-label">Geslacht</label>
-            <label>
-              <select v-model="geslacht">
-                <option v-for="option in options" v-bind:value="option.value">
-                  {{ option.text }}
-                </option>
-              </select>
-            </label>
+            <select v-model="geslacht">
+              <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
           </div>
           <div class="line"></div>
           <div class="line"></div>
@@ -74,10 +72,11 @@
         <ul>
           <li v-for="error in errors">{{ error }}</li>
         </ul>
+        </p>
         <div class="form-group row">
           <button class="btn btn-secondary" v-on:click="changeComponent('viewPatients')" style="cursor:pointer"><span>Cancel</span></button>
           <div v-if="!errors.length">
-            <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create()" ><span>Create</span></button>
+            <button class="btn btn-primary" style="vertical-align:middle" v-on:click="create({ name,lname,email,password})"><span>Create</span></button>
           </div>
         </div>
       </div>
@@ -93,7 +92,6 @@
 
     data(){
       return{
-        errors:[],
         name:'',
         lname:'',
         email:'',
@@ -114,6 +112,9 @@
     },
     methods: {
       create() {
+
+        var date = new Date(this.birthdate)
+        console.log(date);
         this.$store.dispatch('postRequest', {
           url:'patients/' + this.$store.getters.user.user_id,
           body:{
@@ -136,6 +137,7 @@
       },
       checkForm:function(e) {
         this.errors = [];
+        console.log(this.firstname);
         if(!this.email || !this.name || !this.lname || !this.birthdate || !this.street || !this.housenumber || !this.city || !this.zipcode || !this.geslacht) {
           this.errors.push("Alle velden moeten ingevoerd worden");
         } else if(!this.validEmail(this.email)) {
@@ -146,7 +148,7 @@
 
       },
       validEmail:function(email) {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       }
     },
