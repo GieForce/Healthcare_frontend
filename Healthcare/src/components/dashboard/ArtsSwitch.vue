@@ -11,13 +11,10 @@
         <div class="form-group row">
           <label  class="col-sm-2 form-control-label">Dokter</label>
           <b-container fluid>
-            <label>
-              <select v-model="selected">
-                <option disabled value="">Selecteer vervangend dokter</option>
-                <option v-for="doctors in employees" v-bind:value="doctors.user_id">{{doctors.firstname + " " + doctors.lastname }}
-                </option>
-              </select>
-            </label>
+          <select  v-model="selected" >
+            <option disabled value="">Selecteer vervangend dokter</option>
+            <option v-for="doctors in employees" v-bind:value="doctors.user_id">{{doctors.firstname + " " + doctors.lastname }}</option>
+          </select>
           </b-container>
           </div>
         </div>
@@ -85,6 +82,9 @@
       create() {
         let date = new Date(this.start);
         let date2 = new Date(this.end);
+        console.log(date.valueOf());
+        console.log(date2.valueOf());
+        console.log(this.selected)
         this.$store.dispatch('postRequest',
           {
             url:'doctors/requestSubtitude/'+ this.user_id + '?subtitudeId=' + this.selected + '&startTime='+ date.valueOf().toString() +'&endTime=' + date2.valueOf().toString(),

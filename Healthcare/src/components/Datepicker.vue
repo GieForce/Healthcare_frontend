@@ -160,7 +160,7 @@ export default {
     }
   },
   data () {
-    const startDate = this.openDate ? new Date(this.openDate) : new Date();
+    const startDate = this.openDate ? new Date(this.openDate) : new Date()
     return {
       /*
        * Vue cannot observe changes to a Date Object so date must be stored as a timestamp
@@ -221,16 +221,20 @@ export default {
       return DateLanguages.translations[this.language]
     },
     currMonthName () {
-      const monthName = this.fullMonthName ? this.translation.months.original : this.translation.months.abbr;
+      const monthName = this.fullMonthName ? this.translation.months.original : this.translation.months.abbr
       return DateUtils.getMonthNameAbbr(this.pageDate.getMonth(), monthName)
     },
     currYear () {
       return this.pageDate.getFullYear()
     },
-
+    /**
+     * Returns the day number of the week less one for the first of the current month
+     * Used to show amount of empty cells before the first in the day calendar layout
+     * @return {Number}
+     */
     blankDays () {
-      const d = this.pageDate;
-      let dObj = new Date(d.getFullYear(), d.getMonth(), 1, d.getHours(), d.getMinutes());
+      const d = this.pageDate
+      let dObj = new Date(d.getFullYear(), d.getMonth(), 1, d.getHours(), d.getMinutes())
       if (this.mondayFirst) {
         return dObj.getDay() > 0 ? dObj.getDay() - 1 : 6
       }
@@ -238,18 +242,18 @@ export default {
     },
     daysOfWeek () {
       if (this.mondayFirst) {
-        const tempDays = this.translation.days.slice();
-        tempDays.push(tempDays.shift());
+        const tempDays = this.translation.days.slice()
+        tempDays.push(tempDays.shift())
         return tempDays
       }
       return this.translation.days
     },
     days () {
-      const d = this.pageDate;
-      let days = [];
+      const d = this.pageDate
+      let days = []
       // set up a new date object to the beginning of the current 'page'
-      let dObj = new Date(d.getFullYear(), d.getMonth(), 1, d.getHours(), d.getMinutes());
-      let daysInMonth = DateUtils.daysInMonth(dObj.getFullYear(), dObj.getMonth());
+      let dObj = new Date(d.getFullYear(), d.getMonth(), 1, d.getHours(), d.getMinutes())
+      let daysInMonth = DateUtils.daysInMonth(dObj.getFullYear(), dObj.getMonth())
       for (let i = 0; i < daysInMonth; i++) {
         days.push({
           date: dObj.getDate(),
@@ -263,39 +267,39 @@ export default {
           isWeekend: dObj.getDay() === 0 || dObj.getDay() === 6,
           isSaturday: dObj.getDay() === 6,
           isSunday: dObj.getDay() === 0
-        });
+        })
         dObj.setDate(dObj.getDate() + 1)
       }
       return days
     },
     months () {
-      const d = this.pageDate;
-      let months = [];
+      const d = this.pageDate
+      let months = []
       // set up a new date object to the beginning of the current 'page'
-      let dObj = new Date(d.getFullYear(), 0, d.getDate(), d.getHours(), d.getMinutes());
+      let dObj = new Date(d.getFullYear(), 0, d.getDate(), d.getHours(), d.getMinutes())
       for (let i = 0; i < 12; i++) {
         months.push({
           month: DateUtils.getMonthName(i, this.translation.months.original),
           timestamp: dObj.getTime(),
           isSelected: this.isSelectedMonth(dObj),
           isDisabled: this.isDisabledMonth(dObj)
-        });
+        })
         dObj.setMonth(dObj.getMonth() + 1)
       }
       return months
     },
     years () {
-      const d = this.pageDate;
-      let years = [];
+      const d = this.pageDate
+      let years = []
       // set up a new date object to the beginning of the current 'page'
-      let dObj = new Date(Math.floor(d.getFullYear() / 10) * 10, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes());
+      let dObj = new Date(Math.floor(d.getFullYear() / 10) * 10, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes())
       for (let i = 0; i < 10; i++) {
         years.push({
           year: dObj.getFullYear(),
           timestamp: dObj.getTime(),
           isSelected: this.isSelectedYear(dObj),
           isDisabled: this.isDisabledYear(dObj)
-        });
+        })
         dObj.setFullYear(dObj.getFullYear() + 1)
       }
       return years
@@ -319,22 +323,27 @@ export default {
     }
   },
   methods: {
-
+    /**
+     * Close all calendar layers
+     */
     close (full) {
-      this.showDayView = this.showMonthView = this.showYearView = false;
+      this.showDayView = this.showMonthView = this.showYearView = false
       if (!this.isInline) {
-        if (full) this.$emit('closed');
+        if (full) this.$emit('closed')
         document.removeEventListener('click', this.clickOutside, false)
       }
     },
     resetDefaultDate () {
       if (this.selectedDate === null) {
-        this.setPageDate();
+        this.setPageDate()
         return
       }
       this.setPageDate(this.selectedDate)
     },
-
+    /**
+     * Effectively a toggle to show/hide the calendar
+     * @return {mixed} [description]
+     */
     showCalendar () {
       if (this.disabledPicker || this.isInline) {
         return false
@@ -342,13 +351,13 @@ export default {
       if (this.isOpen) {
         return this.close(true)
       }
-      this.setInitialView();
+      this.setInitialView()
       if (!this.isInline) {
         this.$emit('opened')
       }
     },
     setInitialView () {
-      const initialView = this.computedInitialView;
+      const initialView = this.computedInitialView
 
       if (!this.allowedToShowView(initialView)) {
         throw new Error(`initialView '${this.initialView}' cannot be rendered based on minimum '${this.minimumView}' and maximum '${this.maximumView}'`)
@@ -356,43 +365,43 @@ export default {
 
       switch (initialView) {
         case 'year':
-          this.showYearCalendar();
-          break;
+          this.showYearCalendar()
+          break
         case 'month':
-          this.showMonthCalendar();
-          break;
+          this.showMonthCalendar()
+          break
         default:
-          this.showDayCalendar();
+          this.showDayCalendar()
           break
       }
     },
     allowedToShowView (view) {
-      const views = ['day', 'month', 'year'];
-      const minimumViewIndex = views.indexOf(this.minimumView);
-      const maximumViewIndex = views.indexOf(this.maximumView);
-      const viewIndex = views.indexOf(view);
+      const views = ['day', 'month', 'year']
+      const minimumViewIndex = views.indexOf(this.minimumView)
+      const maximumViewIndex = views.indexOf(this.maximumView)
+      const viewIndex = views.indexOf(view)
 
       return viewIndex >= minimumViewIndex && viewIndex <= maximumViewIndex
     },
     showDayCalendar () {
-      if (!this.allowedToShowView('day')) return false;
+      if (!this.allowedToShowView('day')) return false
 
-      this.close();
-      this.showDayView = true;
-      this.addOutsideClickListener();
+      this.close()
+      this.showDayView = true
+      this.addOutsideClickListener()
     },
     showMonthCalendar () {
-      if (!this.allowedToShowView('month')) return false;
+      if (!this.allowedToShowView('month')) return false
 
-      this.close();
-      this.showMonthView = true;
+      this.close()
+      this.showMonthView = true
       this.addOutsideClickListener()
     },
     showYearCalendar () {
-      if (!this.allowedToShowView('year')) return false;
+      if (!this.allowedToShowView('year')) return false
 
-      this.close();
-      this.showYearView = true;
+      this.close()
+      this.showYearView = true
       this.addOutsideClickListener()
     },
     addOutsideClickListener () {
@@ -403,87 +412,101 @@ export default {
       }
     },
     setDate (timestamp) {
-      const date = new Date(timestamp);
-      this.selectedDate = new Date(date);
-      this.setPageDate(date);
-      this.$emit('selected', new Date(date));
+      const date = new Date(timestamp)
+      this.selectedDate = new Date(date)
+      this.setPageDate(date)
+      this.$emit('selected', new Date(date))
       this.$emit('input', new Date(date))
     },
     clearDate () {
-      this.selectedDate = null;
-      this.$emit('selected', null);
-      this.$emit('input', null);
+      this.selectedDate = null
+      this.$emit('selected', null)
+      this.$emit('input', null)
       this.$emit('cleared')
     },
-
+    /**
+     * @param {Object} day
+     */
     selectDate (day) {
       if (day.isDisabled) {
-        this.$emit('selectedDisabled', day);
+        this.$emit('selectedDisabled', day)
         return false
       }
-      this.setDate(day.timestamp);
+      this.setDate(day.timestamp)
       if (!this.isInline) {
         this.close(true)
       }
     },
-
+    /**
+     * @param {Object} month
+     */
     selectMonth (month) {
       if (month.isDisabled) {
         return false
       }
 
-      const date = new Date(month.timestamp);
+      const date = new Date(month.timestamp)
       if (this.allowedToShowView('day')) {
-        this.setPageDate(date);
-        this.$emit('changedMonth', month);
+        this.setPageDate(date)
+        this.$emit('changedMonth', month)
         this.showDayCalendar()
       } else {
-        this.setDate(date);
+        this.setDate(date)
         if (!this.isInline) {
           this.close(true)
         }
       }
     },
-
+    /**
+     * @param {Object} year
+     */
     selectYear (year) {
       if (year.isDisabled) {
         return false
       }
 
-      const date = new Date(year.timestamp);
+      const date = new Date(year.timestamp)
       if (this.allowedToShowView('month')) {
-        this.setPageDate(date);
-        this.$emit('changedYear', year);
+        this.setPageDate(date)
+        this.$emit('changedYear', year)
         this.showMonthCalendar()
       } else {
-        this.setDate(date);
+        this.setDate(date)
         if (!this.isInline) {
           this.close(true)
         }
       }
     },
-
+    /**
+     * @return {Number}
+     */
     getPageDate () {
       return this.pageDate.getDate()
     },
-
+    /**
+     * @return {Number}
+     */
     getPageMonth () {
       return this.pageDate.getMonth()
     },
-
+    /**
+     * @return {Number}
+     */
     getPageYear () {
       return this.pageDate.getFullYear()
     },
-
+    /**
+     * @return {String}
+     */
     getPageDecade () {
-      const decadeStart = Math.floor(this.pageDate.getFullYear() / 10) * 10;
-      const decadeEnd = decadeStart + 9;
+      const decadeStart = Math.floor(this.pageDate.getFullYear() / 10) * 10
+      const decadeEnd = decadeStart + 9
       return `${decadeStart} - ${decadeEnd}`
     },
     changeMonth (incrementBy) {
-      let date = this.pageDate;
-      date.setMonth(date.getMonth() + incrementBy);
-      this.setPageDate(date);
+      let date = this.pageDate
+      date.setMonth(date.getMonth() + incrementBy)
+      this.setPageDate(date)
       this.$emit('changedMonth', date)
     },
     previousMonth () {
@@ -495,7 +518,7 @@ export default {
       if (!this.disabled || !this.disabled.to) {
         return false
       }
-      let d = this.pageDate;
+      let d = this.pageDate
       return this.disabled.to.getMonth() >= d.getMonth() &&
         this.disabled.to.getFullYear() >= d.getFullYear()
     },
@@ -508,14 +531,14 @@ export default {
       if (!this.disabled || !this.disabled.from) {
         return false
       }
-      let d = this.pageDate;
+      let d = this.pageDate
       return this.disabled.from.getMonth() <= d.getMonth() &&
         this.disabled.from.getFullYear() <= d.getFullYear()
     },
     changeYear (incrementBy, emit = 'changedYear') {
-      let date = this.pageDate;
-      date.setYear(date.getFullYear() + incrementBy);
-      this.setPageDate(date);
+      let date = this.pageDate
+      date.setYear(date.getFullYear() + incrementBy)
+      this.setPageDate(date)
       this.$emit(emit, date)
     },
     previousYear () {
@@ -562,13 +585,21 @@ export default {
       }
       return Math.ceil(this.disabled.from.getFullYear() / 10) * 10 <= Math.ceil(this.pageDate.getFullYear() / 10) * 10
     },
-
+    /**
+     * Whether a day is selected
+     * @param {Date}
+     * @return {Boolean}
+     */
     isSelectedDate (dObj) {
       return this.selectedDate && this.selectedDate.toDateString() === dObj.toDateString()
     },
-
+    /**
+     * Whether a day is disabled
+     * @param {Date}
+     * @return {Boolean}
+     */
     isDisabledDate (date) {
-      let disabled = false;
+      let disabled = false
 
       if (typeof this.disabled === 'undefined') {
         return false
@@ -577,7 +608,7 @@ export default {
       if (typeof this.disabled.dates !== 'undefined') {
         this.disabled.dates.forEach((d) => {
           if (date.toDateString() === d.toDateString()) {
-            disabled = true;
+            disabled = true
             return true
           }
         })
@@ -592,7 +623,7 @@ export default {
         this.disabled.ranges.forEach((range) => {
           if (typeof range.from !== 'undefined' && range.from && typeof range.to !== 'undefined' && range.to) {
             if (date < range.to && date > range.from) {
-              disabled = true;
+              disabled = true
               return true
             }
           }
@@ -609,13 +640,17 @@ export default {
       }
       return disabled
     },
-
+    /**
+     * Whether a day is highlighted (only if it is not disabled already except when highlighted.includeDisabled is true)
+     * @param {Date}
+     * @return {Boolean}
+     */
     isHighlightedDate (date) {
       if (!(this.highlighted && this.highlighted.includeDisabled) && this.isDisabledDate(date)) {
         return false
       }
 
-      let highlighted = false;
+      let highlighted = false
 
       if (typeof this.highlighted === 'undefined') {
         return false
@@ -624,7 +659,7 @@ export default {
       if (typeof this.highlighted.dates !== 'undefined') {
         this.highlighted.dates.forEach((d) => {
           if (date.toDateString() === d.toDateString()) {
-            highlighted = true;
+            highlighted = true
             return true
           }
         })
@@ -648,7 +683,12 @@ export default {
 
       return highlighted
     },
-
+    /**
+     * Whether a day is highlighted and it is the first date
+     * in the highlighted range of dates
+     * @param {Date}
+     * @return {Boolean}
+     */
     isHighlightStart (date) {
       return this.isHighlightedDate(date) &&
         (this.highlighted.from instanceof Date) &&
@@ -656,7 +696,12 @@ export default {
         (this.highlighted.from.getMonth() === date.getMonth()) &&
         (this.highlighted.from.getDate() === date.getDate())
     },
-
+    /**
+     * Whether a day is highlighted and it is the first date
+     * in the highlighted range of dates
+     * @param {Date}
+     * @return {Boolean}
+     */
     isHighlightEnd (date) {
       return this.isHighlightedDate(date) &&
         (this.highlighted.to instanceof Date) &&
@@ -664,19 +709,31 @@ export default {
         (this.highlighted.to.getMonth() === date.getMonth()) &&
         (this.highlighted.to.getDate() === date.getDate())
     },
-
+    /**
+     * Helper
+     * @param  {mixed}  prop
+     * @return {Boolean}
+     */
     isDefined (prop) {
       return typeof prop !== 'undefined' && prop
     },
-
+    /**
+     * Whether the selected date is in this month
+     * @param {Date}
+     * @return {Boolean}
+     */
     isSelectedMonth (date) {
       return (this.selectedDate &&
         this.selectedDate.getFullYear() === date.getFullYear() &&
         this.selectedDate.getMonth() === date.getMonth())
     },
-
+    /**
+     * Whether a month is disabled
+     * @param {Date}
+     * @return {Boolean}
+     */
     isDisabledMonth (date) {
-      let disabled = false;
+      let disabled = false
 
       if (typeof this.disabled === 'undefined') {
         return false
@@ -701,13 +758,21 @@ export default {
       }
       return disabled
     },
-
+    /**
+     * Whether the selected date is in this year
+     * @param {Date}
+     * @return {Boolean}
+     */
     isSelectedYear (date) {
       return this.selectedDate && this.selectedDate.getFullYear() === date.getFullYear()
     },
-
+    /**
+     * Whether a year is disabled
+     * @param {Date}
+     * @return {Boolean}
+     */
     isDisabledYear (date) {
-      let disabled = false;
+      let disabled = false
       if (typeof this.disabled === 'undefined' || !this.disabled) {
         return false
       }
@@ -731,15 +796,15 @@ export default {
      */
     setValue (date) {
       if (typeof date === 'string' || typeof date === 'number') {
-        let parsed = new Date(date);
+        let parsed = new Date(date)
         date = isNaN(parsed.valueOf()) ? null : parsed
       }
       if (!date) {
-        this.setPageDate();
-        this.selectedDate = null;
+        this.setPageDate()
+        this.selectedDate = null
         return
       }
-      this.selectedDate = date;
+      this.selectedDate = date
       this.setPageDate(date)
     },
     setPageDate (date) {
@@ -761,8 +826,8 @@ export default {
         if (this.isInline) {
           return this.showDayCalendar()
         }
-        this.resetDefaultDate();
-        this.close(true);
+        this.resetDefaultDate()
+        this.close(true)
         document.removeEventListener('click', this.clickOutside, false)
       }
     },

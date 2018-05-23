@@ -42,11 +42,11 @@
     },
     methods : {
       goPrev () {
-        let newMonth = moment(this.currentMonth).subtract(1, 'months').startOf('month');
+        var newMonth = moment(this.currentMonth).subtract(1, 'months').startOf('month');
         this.$emit('change', newMonth);
       },
       goNext () {
-        let newMonth = moment(this.currentMonth).add(1, 'months').startOf('month');
+        var newMonth = moment(this.currentMonth).add(1, 'months').startOf('month');
         this.$emit('change', newMonth);
       }
     }

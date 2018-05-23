@@ -62,7 +62,7 @@ const router = new Router({
       beforeEnter: guardRoute
     },
   ]
-});
+})
 
 function guardRoute (to, from, next) {
 
