@@ -6,7 +6,7 @@
           <div class="col-md-10"><h2 style="margin-top: 10px;">{{item.Title}}</h2></div>
           <div class="col pull-right"><p style="margin-top: 10px;">{{item.date}}</p></div>
         </div>
-        <b-img left rounded :src="item.Photo" alt="left image" class="pull-left img-responsive margin10 img-rounded" width="175px"/>
+        <b-img left rounded :src="item.Photo" alt="left image" class="pull-left img-responsive margin10 img-rounded" width="175px"></b-img>
         <article><p>
           {{item.Message}}
         </p>
