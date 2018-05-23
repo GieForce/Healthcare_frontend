@@ -12,10 +12,10 @@
   map-type-id="terrain"
   style="width: 100%; height: 450px">
   <gmap-marker
-    :position="{lat:52.722306, lng:6.46789}"
-    :clickable="true"
-    :draggable="false"
-  />
+      :position="{lat:52.722306, lng:6.46789}"
+      :clickable="true"
+      :draggable="false"
+    ></gmap-marker>    
   </gmap-map>
 <div class="container-fluid py-5">
     <div class="row">
@@ -43,7 +43,7 @@
 export default {
 
   components: {
-
+    
   }
 }
 </script>
